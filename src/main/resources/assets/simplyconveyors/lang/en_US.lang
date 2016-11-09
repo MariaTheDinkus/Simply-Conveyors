@@ -1,0 +1,24 @@
+itemGroup.simplyconveyors=Simply Conveyors
+
+item.conveyorWrench.name=Wrench
+item.fanBlade.name=Fan Blade
+
+tile.blockSlowMovingPath.name=Slow Conveyor
+tile.blockFastMovingPath.name=Fast Conveyor
+tile.blockFastestMovingPath.name=Fastest Conveyor
+tile.blockDropperMovingPath.name=Hopper Conveyor
+tile.blockHoldingMovingPath.name=Holding Conveyor
+tile.blockSlowMovingVerticalPath.name=Slow Vertical Conveyor
+tile.blockFastMovingVerticalPath.name=Fast Vertical Conveyor
+tile.blockFastestMovingVerticalPath.name=Fastest Vertical Conveyor
+tile.blockSlowMovingBackwardsPath.name=Slow Inverse Conveyor
+tile.blockFastMovingBackwardsPath.name=Fast Inverse Conveyor
+tile.blockFastestMovingBackwardsPath.name=Fastest Inverse Conveyor
+tile.blockHoldingMovingBackwardsPath.name=Holding Inverse Conveyor
+tile.blockSlowMovingStairPath.name=Slow Conveyor Ramp
+tile.blockFastMovingStairPath.name=Fast Conveyor Ramp
+tile.blockFastestMovingStairPath.name=Fastest Conveyor Ramp
+
+tile.blockLowRangeItemPropeller.name=Item Propeller
+tile.blockMidRangeItemPropeller.name=Mid Range Item Propeller
+tile.blockHighRangeItemPropeller.name=High Range Item Propeller
