@@ -34,6 +34,8 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingStairPath);
+		
+		register(SimplyConveyorsBlocks.busStop);
 	}
 
 	public static void register(Block block) {

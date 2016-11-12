@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"textures": {
+		"top": "simplyconveyors:blocks/conveyorPath_topside_off",
+		"top2": "simplyconveyors:blocks/conveyorPath_topinverse_off",
+		"side": "blocks/gold_block",
+		"particle": "blocks/gold_block"
+	},
+	"model": "simplyconveyors:blockFastMovingStairPath"
+  },
+  "variants": {
+    "normal": [{ "model": "simplyconveyors:blockFastMovingStairPath" }],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+	"powered": {
+		"true": {
+			
+		},
+		"false": {
+			"textures": {
+				"top": "simplyconveyors:blocks/conveyorPath_topside_on",
+				"top2": "simplyconveyors:blocks/conveyorPath_topinverse_on"
+			}
+		}
+	}
+  }
+}

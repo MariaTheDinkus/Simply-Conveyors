@@ -1,10 +1,12 @@
 package com.momnop.simplyconveyors.proxies;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.momnop.simplyconveyors.blocks.tiles.TileEntityFastMovingStair;
-import com.momnop.simplyconveyors.blocks.tiles.TileEntityFastestMovingStair;
-import com.momnop.simplyconveyors.blocks.tiles.TileEntitySlowMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastestMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 
 public class CommonProxy
 {    
@@ -28,5 +30,10 @@ public class CommonProxy
     public void initKeybinds()
     {
         
+    }
+    
+    public EntityPlayer getPlayerEntity(MessageContext ctx)
+    {
+      return ctx.getServerHandler().playerEntity;
     }
 }
