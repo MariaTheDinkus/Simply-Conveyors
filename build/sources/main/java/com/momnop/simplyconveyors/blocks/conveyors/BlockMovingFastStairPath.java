@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
 import java.util.List;
 import java.util.Random;
@@ -33,16 +33,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.google.common.collect.Lists;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.blocks.tiles.TileEntityFastestMovingStair;
-import com.momnop.simplyconveyors.blocks.tiles.TileEntitySlowMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class BlockMovingFastestStairPath extends BlockHorizontal implements
+public class BlockMovingFastStairPath extends BlockHorizontal implements
 		ITileEntityProvider {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
-	public BlockMovingFastestStairPath(Material material, String unlocalizedName) {
+	public BlockMovingFastStairPath(Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
@@ -152,9 +152,9 @@ public class BlockMovingFastestStairPath extends BlockHorizontal implements
 					placer.getHorizontalFacing().getOpposite().rotateY());
 		}
 	}
-
+    
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileEntityFastestMovingStair();
+		return new TileEntityFastMovingStair();
 	}
 }

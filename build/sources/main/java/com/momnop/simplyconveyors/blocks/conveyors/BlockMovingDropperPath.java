@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
 public class BlockMovingDropperPath extends BlockHorizontal {

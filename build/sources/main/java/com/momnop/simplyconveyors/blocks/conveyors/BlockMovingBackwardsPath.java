@@ -1,8 +1,10 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,22 +20,30 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingBackwardsHoldingPath extends BlockHorizontal {
+public class BlockMovingBackwardsPath extends BlockHorizontal {
+
+	private final double speed;
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
-	public BlockMovingBackwardsHoldingPath(Material material, String unlocalizedName) {
+	public BlockMovingBackwardsPath(double speed, Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
         setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
-        setHarvestLevel("pickaxe", 0);
 		useNeighborBrightness = true;
+		setHarvestLevel("pickaxe", 0);
 		
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+		this.speed = speed;
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 	@Override
@@ -74,31 +84,34 @@ public class BlockMovingBackwardsHoldingPath extends BlockHorizontal {
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, POWERED);
     }
-    
-    @Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos,
-			IBlockState blockState, Entity entity) {
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState,
+			Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!world.isBlockPowered(pos)) {
-			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.SOUTH);
-			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.WEST);
+		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+			ConveyorHelper.centerBasedOnFacing(false, pos, entity, direction);
 			
-			entity.motionY += 0.4F;
-			if (entity.motionY > 0.4F) {
-				entity.motionY = 0.4F;
+            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+            ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
+			
+			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
+			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
+			
+			entity.motionY += 0.65F;
+			if (entity.motionY > 0.65F) {
+				entity.motionY = 0.65F;
 			}
-			
+
 			if (entity instanceof EntityItem) {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		} else if (world.isBlockPowered(pos)) {
-			
 		}
 	}
-    
-    @Override
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
 			BlockPos pos) {
@@ -110,7 +123,11 @@ public class BlockMovingBackwardsHoldingPath extends BlockHorizontal {
 		}
 	}
 
-    @Override
+	/**
+     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+     * IBlockstate
+     */
+	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
 			EntityLivingBase placer) {

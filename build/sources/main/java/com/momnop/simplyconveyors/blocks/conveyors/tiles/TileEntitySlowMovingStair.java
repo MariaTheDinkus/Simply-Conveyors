@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.blocks.tiles;
+package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 
-import com.momnop.simplyconveyors.blocks.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
 
 public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
 	

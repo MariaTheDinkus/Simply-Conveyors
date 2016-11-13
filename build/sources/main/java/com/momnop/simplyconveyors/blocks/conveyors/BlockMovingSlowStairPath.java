@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
 import java.util.List;
 import java.util.Random;
@@ -33,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.google.common.collect.Lists;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.blocks.tiles.TileEntitySlowMovingStair;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 import com.momnop.simplyconveyors.info.ModInfo;
 
 public class BlockMovingSlowStairPath extends BlockHorizontal implements

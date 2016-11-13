@@ -28,6 +28,8 @@ public class RecipeHandler
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockDropperMovingPath, 6), new Object[] {"RRR", "QHQ", 'R', Blocks.RAIL, 'Q', Blocks.QUARTZ_BLOCK, 'H', Blocks.HOPPER});
     	
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockGrabberMovingPath), new Object[] { "RER", "QrQ", 'R', Blocks.RAIL, 'E', Items.ENDER_PEARL, 'Q', Blocks.QUARTZ_BLOCK, 'r', Items.REDSTONE });
+    	
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath));
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingBackwardsPath));
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath));
@@ -52,6 +54,8 @@ public class RecipeHandler
     	
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath));
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath));
+    	
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.entityFilter), new Object[] { Items.PAPER, Items.EGG });
     }
     
     public static void addInverseRecipe(ItemStack input, ItemStack output) {

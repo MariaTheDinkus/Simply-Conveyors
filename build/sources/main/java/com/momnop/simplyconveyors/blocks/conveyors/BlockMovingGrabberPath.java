@@ -1,36 +1,40 @@
-package com.momnop.simplyconveyors.blocks;
-
-import java.util.Random;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingPath extends BlockHorizontal {
+public class BlockMovingGrabberPath extends BlockHorizontal implements ITileEntityProvider {
 	
 	private final double speed;
-	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
-	public BlockMovingPath(double speed, Material material, String unlocalizedName) {
+	public BlockMovingGrabberPath(double speed, Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
@@ -40,7 +44,7 @@ public class BlockMovingPath extends BlockHorizontal {
 		useNeighborBrightness = true;
 		setHarvestLevel("pickaxe", 0);
 
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.speed = speed;
 	}
 	
@@ -88,7 +92,7 @@ public class BlockMovingPath extends BlockHorizontal {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING, POWERED);
+		return new BlockStateContainer(this, FACING);
 	}
 
 	@Override
@@ -96,7 +100,7 @@ public class BlockMovingPath extends BlockHorizontal {
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+		if (!entity.isSneaking()) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
             entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
@@ -113,14 +117,35 @@ public class BlockMovingPath extends BlockHorizontal {
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
+	public boolean onBlockActivated(World worldIn, BlockPos pos,
+			IBlockState state, EntityPlayer playerIn, EnumHand hand,
+			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
+			float hitZ) {
+		if (playerIn.isSneaking()) {
+			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
+			try {
+				if (!worldIn.isRemote) {
+					playerIn.addChatMessage(new TextComponentString("Currently filtering: " + Class.forName(grabber.getEntityFilter()).getSimpleName()));
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
+			Block blockIn) {
+		TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
+		
+		if (worldIn.isBlockPowered(pos)) {
+			grabber.setPowered(true);
+		}
+		
+		if (!worldIn.isBlockPowered(pos)) {
+			grabber.setPowered(false);
 		}
 	}
 	
@@ -139,5 +164,10 @@ public class BlockMovingPath extends BlockHorizontal {
 			return this.getDefaultState().withProperty(FACING,
 					placer.getHorizontalFacing().getOpposite());
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TileEntityGrabberPath();
 	}
 }

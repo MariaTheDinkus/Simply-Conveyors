@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;

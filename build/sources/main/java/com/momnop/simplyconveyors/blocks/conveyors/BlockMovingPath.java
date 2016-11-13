@@ -1,8 +1,12 @@
-package com.momnop.simplyconveyors.blocks;
+package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,23 +22,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingHoldingPath extends BlockHorizontal {
+public class BlockMovingPath extends BlockHorizontal {
 	
 	private final double speed;
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
-	
-	public BlockMovingHoldingPath(double speed, Material material, String unlocalizedName) {
+
+	public BlockMovingPath(double speed, Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
-        setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
+		setUnlocalizedName(this.getRegistryName().toString()
+				.replace("simplyconveyors:", ""));
 		useNeighborBrightness = true;
 		setHarvestLevel("pickaxe", 0);
-		
+
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		this.speed = speed;
 	}
@@ -42,13 +48,13 @@ public class BlockMovingHoldingPath extends BlockHorizontal {
 	public double getSpeed() {
 		return speed;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
 			BlockPos pos) {
 		return SimplyConveyorsBlocks.CONVEYOR_AABB;
 	}
-	
+
 	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
@@ -59,9 +65,13 @@ public class BlockMovingHoldingPath extends BlockHorizontal {
 		return false;
 	}
 	
-	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
-        return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
-    }
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock,
+			EntityLivingBase entity) {
+		return EnumFacing.getFacingFromVector(
+				(float) (entity.posX - clickedBlock.getX()),
+				(float) (entity.posY - clickedBlock.getY()),
+				(float) (entity.posZ - clickedBlock.getZ()));
+	}
 
 	/**
      * Convert the given metadata into a BlockState for this Block
@@ -72,30 +82,22 @@ public class BlockMovingHoldingPath extends BlockHorizontal {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
     }
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-    
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, POWERED);
-    }
-    
-    @Override
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex();
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING, POWERED);
+	}
+
+	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos,
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
 		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
-			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.SOUTH);
-			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.WEST);
-
-			if (entity instanceof EntityItem) {
-				final EntityItem item = (EntityItem) entity;
-				item.setAgeToCreativeDespawnTime();
-			}
-		} else if (!entity.isSneaking() && world.isBlockPowered(pos)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
             entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
@@ -110,8 +112,8 @@ public class BlockMovingHoldingPath extends BlockHorizontal {
 			}
 		}
 	}
-    
-    @Override
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
 			BlockPos pos) {
@@ -122,12 +124,12 @@ public class BlockMovingHoldingPath extends BlockHorizontal {
 			return state.withProperty(POWERED, false);
 		}
 	}
-
+	
 	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-    @Override
+	 * Called by ItemBlocks just before a block is actually set in the world, to
+	 * allow for adjustments to the IBlockstate
+	 */
+	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
 			EntityLivingBase placer) {

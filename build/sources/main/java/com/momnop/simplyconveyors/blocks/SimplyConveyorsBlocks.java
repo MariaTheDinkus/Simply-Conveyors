@@ -6,6 +6,18 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import com.momnop.simplyconveyors.blocks.bus.BlockBusMachine;
+import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastestStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingGrabberPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingVerticalPath;
 import com.momnop.simplyconveyors.info.BlockInfo;
 
 public class SimplyConveyorsBlocks
@@ -13,14 +25,32 @@ public class SimplyConveyorsBlocks
 	public static Block blockSlowMovingPath, blockSlowMovingVerticalPath, blockFastMovingPath, blockHoldingMovingPath, blockFastMovingVerticalPath, blockFastestMovingPath, blockFastestMovingVerticalPath, blockSlowMovingStairPath, blockFastMovingStairPath, blockFastestMovingStairPath;
 	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath;
 	public static Block blockDropperMovingPath;
+	public static Block blockGrabberMovingPath;
 	
-	protected static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
-	protected static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 1F / 16F, 0F, 1F, 1F, 1F);
+	public static Block busStop;
+	public static Block busMachine;
+	
+	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
+	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 1F / 16F, 0F, 1F, 1F, 1F);
 	
 	private static final double tier1Speed = 0.2F;
 	private static final double tier2Speed = 0.4F;
 	private static final double tier3Speed = 0.65F;
-    public static void load()
+	
+	public static void load() {
+		loadBus();
+		loadConveyors();
+	}
+	
+	public static void loadBus() {
+		busStop = new BlockBusStop("busStop");
+		busMachine = new BlockBusMachine("busMachine");
+		
+		register(busStop);
+		register(busMachine);
+	}
+	
+    public static void loadConveyors()
     {
     	blockSlowMovingPath = new BlockMovingPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_PATH_UNLOCALIZED_NAME);
     	blockFastMovingPath = new BlockMovingPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_PATH_UNLOCALIZED_NAME);
@@ -41,6 +71,8 @@ public class SimplyConveyorsBlocks
         blockFastMovingStairPath = new BlockMovingFastStairPath(Material.ROCK, BlockInfo.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         blockFastestMovingStairPath = new BlockMovingFastestStairPath(Material.ROCK, BlockInfo.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         
+        blockGrabberMovingPath = new BlockMovingGrabberPath(tier2Speed, Material.ROCK, "blockGrabberMovingPath");
+        
         register(blockSlowMovingPath);
         register(blockFastMovingPath);
         register(blockFastestMovingPath);
@@ -59,6 +91,8 @@ public class SimplyConveyorsBlocks
         register(blockSlowMovingStairPath);
         register(blockFastMovingStairPath);
         register(blockFastestMovingStairPath);
+        
+        register(blockGrabberMovingPath);
     }
     
     public static void register(Block b) {
