@@ -174,8 +174,8 @@ public class SimplyConveyorsEventHandler {
 					offsetY2 = 15;
 				}
 				
-				fr.drawStringWithShadow(list.get(minIndex) + ", " + distance + " blocks away.", (resolution.getScaledWidth() / 4) - (fr.getStringWidth(list.get(minIndex) + ", " + distance + " blocks away.") / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
-				fr.drawStringWithShadow("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ(), (resolution.getScaledWidth() / 4) - (fr.getStringWidth("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()) / 2), resolution.getScaledHeight() - 34 - offsetY2, 0xFFFFFF);
+				fr.drawStringWithShadow(list.get(minIndex) + ", " + distance + " blocks away.", (resolution.getScaledWidth() / 2) - (fr.getStringWidth(list.get(minIndex) + ", " + distance + " blocks away.") / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
+				fr.drawStringWithShadow("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()) / 2), resolution.getScaledHeight() - 34 - offsetY2, 0xFFFFFF);
 				
 				GL11.glPopMatrix();
 			}

@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
+import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.client.render.guis.GuiBusMachine;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 
@@ -62,7 +63,7 @@ public class ItemBusStopBook extends Item
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,
     		World worldIn, EntityPlayer playerIn, EnumHand hand) {
     	if (worldIn.isRemote) {
-			Minecraft.getMinecraft().displayGuiScreen(new GuiBusMachine());
+    		playerIn.openGui(SimplyConveyors.INSTANCE, 0, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
 			return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
 		}
     	return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);

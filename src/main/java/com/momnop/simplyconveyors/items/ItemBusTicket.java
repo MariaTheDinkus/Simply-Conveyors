@@ -2,11 +2,6 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
-import com.momnop.simplyconveyors.client.render.guis.GuiBusMachine;
-import com.momnop.simplyconveyors.client.render.guis.GuiSetNameTicket;
-import com.momnop.simplyconveyors.helpers.BusStopManager;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +10,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import com.momnop.simplyconveyors.SimplyConveyors;
+import com.momnop.simplyconveyors.helpers.BusStopManager;
 
 public class ItemBusTicket extends Item
 {
@@ -43,8 +41,8 @@ public class ItemBusTicket extends Item
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,
     		World worldIn, EntityPlayer playerIn, EnumHand hand) {
-    	if (worldIn.isRemote && playerIn.isSneaking()) {
-			Minecraft.getMinecraft().displayGuiScreen(new GuiSetNameTicket(itemStackIn));
+    	if (worldIn.isRemote && playerIn.isSneaking() && hand.equals(EnumHand.MAIN_HAND)) {
+			playerIn.openGui(SimplyConveyors.INSTANCE, 2, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
 			return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
 		}
     	return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);

@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -17,6 +19,7 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.client.render.blocks.BlockRenderRegister;
+import com.momnop.simplyconveyors.client.render.guis.SimplyConveyorsGuiHandler;
 import com.momnop.simplyconveyors.events.SimplyConveyorsEventHandler;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
@@ -48,6 +51,7 @@ public class SimplyConveyors
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	NetworkRegistry.INSTANCE.registerGuiHandler(SimplyConveyors.INSTANCE, (IGuiHandler) new SimplyConveyorsGuiHandler());
     	PacketDispatcher.registerPackets();
     	GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
     	GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");

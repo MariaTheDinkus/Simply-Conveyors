@@ -7,7 +7,8 @@ import java.util.Collections;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.GuiScrollingList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -16,6 +17,7 @@ import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.info.ModInfo;
 
+@SideOnly(Side.CLIENT)
 public class GuiBusMachine extends GuiScreen
 {
     int guiWidth = 256;

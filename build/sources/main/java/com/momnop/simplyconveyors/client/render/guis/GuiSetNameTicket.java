@@ -6,18 +6,17 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
-import com.momnop.simplyconveyors.network.MessageBusStopData;
 import com.momnop.simplyconveyors.network.MessageBusTicketData;
 import com.momnop.simplyconveyors.network.PacketDispatcher;
 
+@SideOnly(Side.CLIENT)
 public class GuiSetNameTicket extends GuiScreen
 {
     int guiWidth = 176;
