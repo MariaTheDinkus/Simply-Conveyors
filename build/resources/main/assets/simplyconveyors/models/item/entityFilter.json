@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "simplyconveyors:items/conveyorWrench"
+        "layer0": "simplyconveyors:items/entityFilter"
     }
 }

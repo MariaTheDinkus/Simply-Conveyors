@@ -129,7 +129,7 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
 			float hitZ) {
-		if (heldItem != null && heldItem.getItem() instanceof ItemWrench && !(heldItem.getItem() instanceof ItemBusTicket)) {
+		if (worldIn.isRemote && heldItem != null && heldItem.getItem() instanceof ItemWrench && !(heldItem.getItem() instanceof ItemBusTicket)) {
 			Minecraft.getMinecraft().displayGuiScreen(new GuiSetNameBusStop(pos, worldIn));
 			return true;
 		} else if (heldItem != null && heldItem.getItem() instanceof ItemBusTicket) {
