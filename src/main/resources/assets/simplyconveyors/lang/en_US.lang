@@ -1,6 +1,7 @@
 itemGroup.simplyconveyors=Simply Conveyors
 
 item.conveyorWrench.name=Wrench
+item.entityFilter.name=Entity Filter
 item.fanBlade.name=Fan Blade
 
 tile.blockSlowMovingPath.name=Slow Conveyor
@@ -18,6 +19,7 @@ tile.blockHoldingMovingBackwardsPath.name=Holding Inverse Conveyor
 tile.blockSlowMovingStairPath.name=Slow Conveyor Ramp
 tile.blockFastMovingStairPath.name=Fast Conveyor Ramp
 tile.blockFastestMovingStairPath.name=Fastest Conveyor Ramp
+tile.blockGrabberMovingPath.name=Grabber Conveyor
 
 tile.blockLowRangeItemPropeller.name=Item Propeller
 tile.blockMidRangeItemPropeller.name=Mid Range Item Propeller

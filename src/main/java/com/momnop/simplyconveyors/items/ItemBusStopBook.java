@@ -33,27 +33,29 @@ public class ItemBusStopBook extends Item
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn,
     		List<String> tooltip, boolean advanced) {
-    	ArrayList<String> list = new ArrayList<String>();
-    	ArrayList<Double> list1 = new ArrayList<Double>();
-    	ArrayList<BlockPos> list2 = new ArrayList<BlockPos>();
-    	for (int i = 0; i < BusStopManager.busStopsNames.size(); i++) {
-    		String name = BusStopManager.busStopsNames.get(i);
-    		BlockPos pos = BusStopManager.busStops.get(i);
-    		
-    		list.add(name);
-    		list1.add(Math.sqrt(Math.pow(pos.getX() - playerIn.posX, 2) + Math.pow(pos.getY() - playerIn.posY, 2) + Math.pow(pos.getZ() - playerIn.posZ, 2)));
-    		list2.add(pos);
+    	if (!BusStopManager.busStops.isEmpty()) {
+    		ArrayList<String> list = new ArrayList<String>();
+        	ArrayList<Double> list1 = new ArrayList<Double>();
+        	ArrayList<BlockPos> list2 = new ArrayList<BlockPos>();
+        	for (int i = 0; i < BusStopManager.busStopsNames.size(); i++) {
+        		String name = BusStopManager.busStopsNames.get(i);
+        		BlockPos pos = BusStopManager.busStops.get(i);
+        		
+        		list.add(name);
+        		list1.add(Math.sqrt(Math.pow(pos.getX() - playerIn.posX, 2) + Math.pow(pos.getY() - playerIn.posY, 2) + Math.pow(pos.getZ() - playerIn.posZ, 2)));
+        		list2.add(pos);
+        	}
+        	
+        	int minIndex = list1.indexOf(Collections.min(list1));
+        	
+        	DecimalFormat df = new DecimalFormat("#.##");
+        	df.setRoundingMode(RoundingMode.CEILING);
+        	
+        	BlockPos pos = list2.get(minIndex);
+        	
+        	tooltip.add("The closest Bus Stop to you is " + TextFormatting.WHITE + list.get(minIndex) + TextFormatting.GRAY + " which is located " + df.format(list1.get(minIndex)) + " blocks away from you.");
+        	tooltip.add("It is located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
     	}
-    	
-    	int minIndex = list1.indexOf(Collections.min(list1));
-    	
-    	DecimalFormat df = new DecimalFormat("#.##");
-    	df.setRoundingMode(RoundingMode.CEILING);
-    	
-    	BlockPos pos = list2.get(minIndex);
-    	
-    	tooltip.add("The closest Bus Stop to you is " + TextFormatting.WHITE + list.get(minIndex) + TextFormatting.GRAY + " which is located " + df.format(list1.get(minIndex)) + " blocks away from you.");
-    	tooltip.add("It is located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
     }
     
     @Override

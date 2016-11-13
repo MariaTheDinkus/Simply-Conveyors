@@ -1,14 +1,5 @@
 package com.momnop.simplyconveyors;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -22,9 +13,9 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-import com.momnop.interdictionpillar.InterdictionPillar;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.client.render.blocks.BlockRenderRegister;
 import com.momnop.simplyconveyors.events.SimplyConveyorsEventHandler;
 import com.momnop.simplyconveyors.info.ModInfo;
@@ -59,6 +50,7 @@ public class SimplyConveyors
     {
     	PacketDispatcher.registerPackets();
     	GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
+    	GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");
         MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
         if (event.getSide() == Side.CLIENT) {
         	BlockRenderRegister.registerBlockRenderer();

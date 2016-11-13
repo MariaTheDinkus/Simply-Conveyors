@@ -15,6 +15,7 @@ public final class BlockRenderRegister {
 	@SideOnly(Side.CLIENT)
 	public static void registerBlockRenderer() {
 		register(SimplyConveyorsItems.wrench);
+		register(SimplyConveyorsItems.entityFilter);
 
 		register(SimplyConveyorsBlocks.blockSlowMovingPath);
 		register(SimplyConveyorsBlocks.blockFastMovingPath);
@@ -34,6 +35,8 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingStairPath);
+		
+		register(SimplyConveyorsBlocks.blockGrabberMovingPath);
 		
 		register(SimplyConveyorsBlocks.busStop);
 	}

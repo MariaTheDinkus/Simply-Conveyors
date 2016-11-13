@@ -13,6 +13,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingDropperPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastStairPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastestStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingGrabberPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
@@ -24,6 +25,7 @@ public class SimplyConveyorsBlocks
 	public static Block blockSlowMovingPath, blockSlowMovingVerticalPath, blockFastMovingPath, blockHoldingMovingPath, blockFastMovingVerticalPath, blockFastestMovingPath, blockFastestMovingVerticalPath, blockSlowMovingStairPath, blockFastMovingStairPath, blockFastestMovingStairPath;
 	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath;
 	public static Block blockDropperMovingPath;
+	public static Block blockGrabberMovingPath;
 	
 	public static Block busStop;
 	public static Block busMachine;
@@ -69,6 +71,8 @@ public class SimplyConveyorsBlocks
         blockFastMovingStairPath = new BlockMovingFastStairPath(Material.ROCK, BlockInfo.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         blockFastestMovingStairPath = new BlockMovingFastestStairPath(Material.ROCK, BlockInfo.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         
+        blockGrabberMovingPath = new BlockMovingGrabberPath(tier2Speed, Material.ROCK, "blockGrabberMovingPath");
+        
         register(blockSlowMovingPath);
         register(blockFastMovingPath);
         register(blockFastestMovingPath);
@@ -87,6 +91,8 @@ public class SimplyConveyorsBlocks
         register(blockSlowMovingStairPath);
         register(blockFastMovingStairPath);
         register(blockFastestMovingStairPath);
+        
+        register(blockGrabberMovingPath);
     }
     
     public static void register(Block b) {
