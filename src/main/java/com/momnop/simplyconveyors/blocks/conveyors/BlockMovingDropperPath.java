@@ -31,7 +31,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingDropperPath extends BlockHorizontal {
+public class BlockMovingDropperPath extends BlockConveyor {
 	
 	private final double speed;
 	private EnumFacing facing = EnumFacing.NORTH;

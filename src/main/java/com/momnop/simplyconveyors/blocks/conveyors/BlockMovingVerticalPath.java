@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingVerticalPath extends BlockHorizontal {
+public class BlockMovingVerticalPath extends BlockConveyor {
 	
 	private final double speed;
 	

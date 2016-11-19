@@ -21,7 +21,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingBackwardsHoldingPath extends BlockHorizontal {
+public class BlockMovingBackwardsHoldingPath extends BlockConveyor {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	

@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.momnop.simplyconveyors.blocks.bus.BlockBusMachine;
 import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
+import com.momnop.simplyconveyors.blocks.conveyors.BlockBlockMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingDropperPath;
@@ -26,6 +27,7 @@ public class SimplyConveyorsBlocks
 	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath;
 	public static Block blockDropperMovingPath;
 	public static Block blockGrabberMovingPath;
+	public static Block blockBlockMovingPath;
 	
 	public static Block busStop;
 	public static Block busMachine;
@@ -57,6 +59,7 @@ public class SimplyConveyorsBlocks
         blockFastestMovingPath = new BlockMovingPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_PATH_UNLOCALIZED_NAME);
         blockDropperMovingPath = new BlockMovingDropperPath(tier2Speed, Material.ROCK, BlockInfo.DROPPER_MOVING_PATH_UNLOCALIZED_NAME);
         blockHoldingMovingPath = new BlockMovingHoldingPath(tier2Speed, Material.ROCK, BlockInfo.HOLDING_MOVING_PATH_UNLOCALIZED_NAME);
+        blockBlockMovingPath = new BlockBlockMovingPath(tier2Speed, Material.ROCK, "blockBlockMovingPath");
 
         blockSlowMovingVerticalPath = new BlockMovingVerticalPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);
         blockFastMovingVerticalPath = new BlockMovingVerticalPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);    	
@@ -93,6 +96,7 @@ public class SimplyConveyorsBlocks
         register(blockFastestMovingStairPath);
         
         register(blockGrabberMovingPath);
+        register(blockBlockMovingPath);
     }
     
     public static void register(Block b) {

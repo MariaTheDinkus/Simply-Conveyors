@@ -25,7 +25,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingPath extends BlockHorizontal {
+public class BlockMovingPath extends BlockConveyor {
 	
 	private final double speed;
 	
@@ -100,10 +100,12 @@ public class BlockMovingPath extends BlockHorizontal {
 		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
-            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+			entity.setVelocity(this.getSpeed() * direction.getFrontOffsetX(), 0, this.getSpeed() * direction.getFrontOffsetZ());
+			
+//            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
             ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
 			
-			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
+//			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 
 			if (entity instanceof EntityItem) {
