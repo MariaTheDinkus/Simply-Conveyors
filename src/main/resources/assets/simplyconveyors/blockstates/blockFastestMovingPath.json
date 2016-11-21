@@ -6,10 +6,10 @@
 		"side": "blocks/diamond_block",
 		"particle": "blocks/diamond_block"
 	},
-	"model": "simplyconveyors:blockFastestMovingPath"
+	"model": "simplyconveyors:blockMovingPath"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:blockFastestMovingPath" }],
+    "normal": [{ "model": "simplyconveyors:blockMovingPath" }],
     "inventory": [{}],
     "facing": {
       "north": {},

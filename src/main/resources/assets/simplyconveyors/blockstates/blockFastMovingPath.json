@@ -6,10 +6,10 @@
 		"side": "blocks/gold_block",
 		"particle": "blocks/gold_block"
 	},
-	"model": "simplyconveyors:blockFastMovingPath"
+	"model": "simplyconveyors:blockMovingPath"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:blockFastMovingPath" }],
+    "normal": [{ "model": "simplyconveyors:blockMovingPath" }],
     "inventory": [{}],
     "facing": {
       "north": {},

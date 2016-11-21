@@ -41,6 +41,8 @@ public class SimplyConveyors
     {
         SimplyConveyorsBlocks.load();
         SimplyConveyorsItems.load();
+        ModEntities.init();
+        proxy.preInitRenders();
         proxy.initRenders();
         proxy.initTiles();
         RecipeHandler.doRecipes();

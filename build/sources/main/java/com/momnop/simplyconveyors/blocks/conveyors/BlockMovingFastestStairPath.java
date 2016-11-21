@@ -37,7 +37,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastestMoving
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class BlockMovingFastestStairPath extends BlockHorizontal implements
+public class BlockMovingFastestStairPath extends BlockConveyor implements
 		ITileEntityProvider {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");

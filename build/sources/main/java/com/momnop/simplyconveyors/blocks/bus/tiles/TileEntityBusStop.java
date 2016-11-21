@@ -28,13 +28,13 @@ public class TileEntityBusStop extends TileEntity implements ITickable {
 		for (int i = 0; i < BusStopManager.busStops.size(); i++) {
 			if (pos.equals(BusStopManager.busStops.get(i))) {
 				BusStopManager.busStopsNames.set(i, name);
-				if (!worldObj.isRemote) {
+//				if (!worldObj.isRemote) {
 					try {
 						BusStopManager.saveData();
 					} catch (IOException e) {
-						e.printStackTrace();
+//						e.printStackTrace();
 					}
-				}
+//				}
 			}
 		}
 	}
@@ -46,6 +46,13 @@ public class TileEntityBusStop extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		markDirty();
+		int i = 0;
+		for (BlockPos pos : BusStopManager.busStops) {
+			if (pos.equals(this.getPos()) && getName() != BusStopManager.busStopsNames.get(i)) {
+				setName(BusStopManager.busStopsNames.get(i));
+			}
+			i++;
+		}
 	}
 	
 	@Override

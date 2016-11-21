@@ -2,6 +2,7 @@ package com.momnop.simplyconveyors.blocks.bus;
 
 import java.io.IOException;
 
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -30,6 +31,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.client.render.guis.GuiBusMachine;
 import com.momnop.simplyconveyors.client.render.guis.GuiSetNameBusStop;
+import com.momnop.simplyconveyors.entity.EntityBus;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusTicket;
 import com.momnop.simplyconveyors.items.ItemWrench;
@@ -82,19 +84,6 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING);
     }
-    
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-    	if (!worldIn.isRemote && this.ticket == null) {
-    		Chunk ch = worldIn.getChunkFromBlockCoords(pos);
-            this.ticket = ForgeChunkManager.requestTicket(SimplyConveyors.INSTANCE, worldIn, ForgeChunkManager.Type.NORMAL);
-
-            if (this.ticket != null) {
-                ForgeChunkManager.forceChunk(this.ticket, ch.getChunkCoordIntPair());
-                FMLLog.info("Forcing chunk ( %d , %d )", 0, 0);
-            }
-        }
-    }
 
 	/**
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
@@ -110,6 +99,7 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 			BusStopManager.busStopsFacing.add(placer.getHorizontalFacing());
 			try {
 				BusStopManager.saveData();
+				BusStopManager.writeData(worldIn);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -138,6 +128,12 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 	    		BlockPos pos1 = BusStopManager.busStops.get(i);
 	    		if (heldItem.getDisplayName().equals(name)) {
 	    			System.out.println("Heads to the bus stop: " + name + ". Found at the location: " + pos1.getX() + ", " + pos1.getY() + ", " + pos1.getZ());
+	    			
+	    			if (worldIn.isRemote == false) {
+	    				EntityBus bus = new EntityBus(worldIn, pos.getX(), pos.getY() + 4, pos.getZ(), state.getValue(FACING));
+	    				//System.out.println("STEVE");
+	    				worldIn.spawnEntityInWorld(bus);
+	    			}
 	    		}
 	    	}
 			System.out.println();
@@ -146,8 +142,7 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 	}
 	
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos,
-			IBlockState state) {
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		for (int i = 0; i < BusStopManager.busStops.size(); i++) {
 			BlockPos pos1 = BusStopManager.busStops.get(i);
 			if (pos1 != null && pos != null && pos.equals(pos1)) {
@@ -159,30 +154,16 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 		if (!worldIn.isRemote) {
 			try {
 				BusStopManager.saveData();
+				BusStopManager.writeData(worldIn);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	@Override
-	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos,
-			Explosion explosionIn) {
-		for (int i = 0; i < BusStopManager.busStops.size(); i++) {
-			BlockPos pos1 = BusStopManager.busStops.get(i);
-			if (pos1 != null && pos != null && pos.equals(pos1)) {
-				BusStopManager.busStops.remove(i);
-				BusStopManager.busStopsNames.remove(i);
-				BusStopManager.busStopsFacing.remove(i);
-			}
-		}
-		if (!worldIn.isRemote) {
-			try {
-				BusStopManager.saveData();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		
+		if (hasTileEntity(state))
+        {
+            worldIn.removeTileEntity(pos);
+        }
 	}
 
 	@Override

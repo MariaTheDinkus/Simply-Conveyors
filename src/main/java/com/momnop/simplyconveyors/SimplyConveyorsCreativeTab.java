@@ -37,8 +37,8 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 		
 		addItem(SimplyConveyorsItems.wrench);
 		addItem(SimplyConveyorsItems.entityFilter);
-		//addItem(SimplyConveyorsItems.busStopBook);
-		//addItem(SimplyConveyorsItems.busTicket);
+		addItem(SimplyConveyorsItems.busStopBook);
+		addItem(SimplyConveyorsItems.busTicket);
 		
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
@@ -46,7 +46,7 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 		addBlock(SimplyConveyorsBlocks.blockDropperMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockHoldingMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockGrabberMovingPath);
-		//addBlock(SimplyConveyorsBlocks.blockBlockMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockBlockMovingPath);
 		
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
@@ -62,7 +62,7 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingStairPath);
 		
 		//addBlock(SimplyConveyorsBlocks.busMachine);
-		//addBlock(SimplyConveyorsBlocks.busStop);
+		addBlock(SimplyConveyorsBlocks.busStop);
 	}
 
 	private void addItem(Item item) {

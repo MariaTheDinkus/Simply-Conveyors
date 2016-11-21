@@ -6,7 +6,7 @@
 		"side": "blocks/gold_block",
         "particle": "blocks/gold_block"
     },
-    "model": "simplyconveyors:blockFastMovingBackwardsPath"
+    "model": "simplyconveyors:blockMovingBackwardsPath"
   },
   "variants": {
     "normal": [{ "model": "simplyconveyors:blockFastMovingBackwardsPath" }],

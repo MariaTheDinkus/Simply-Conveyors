@@ -8,8 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 public class BusStopManager {
@@ -31,7 +34,7 @@ public class BusStopManager {
         output.close();
 	}
 	
-	public static void writeData() throws IOException {
+	public static void writeData(World world) throws IOException {
 		String fileName = "busData.dat";
         File file = new File(DimensionManager.getCurrentSaveRootDirectory(), fileName);
         DataInputStream input = new DataInputStream(new FileInputStream(file));
@@ -45,8 +48,8 @@ public class BusStopManager {
         	float y = input.readFloat();
         	float z = input.readFloat();
         	list2.add(name);
-        	list3.add(facing);
-        	list1.add(new BlockPos(x, y, z));
+            list3.add(facing);
+            list1.add(new BlockPos(x, y, z));
         }
         busStopsNames = list2;
         busStopsFacing = list3;

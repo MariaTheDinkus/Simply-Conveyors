@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.events;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -11,10 +12,12 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -34,7 +37,6 @@ import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
 import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingVerticalPath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
-import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;
 import com.momnop.simplyconveyors.items.ItemEntityFilter;
 import com.momnop.simplyconveyors.items.ItemWrench;
@@ -69,10 +71,13 @@ public class SimplyConveyorsEventHandler {
 	public void onWorldLoaded(PlayerLoggedInEvent event) {
 		BusStopManager.busStops.clear();
 		BusStopManager.busStopsNames.clear();
-		try {
-			BusStopManager.writeData();
-		} catch (IOException e) {
-			e.printStackTrace();
+		File busData = new File(DimensionManager.getCurrentSaveRootDirectory(), "busData.dat");
+		if (busData.exists()) {
+			try {
+				BusStopManager.writeData(event.player.getEntityWorld());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -198,11 +203,11 @@ public class SimplyConveyorsEventHandler {
 			}
 			
 			FontRenderer fr = mc.fontRendererObj;
-			try {
-				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
 		}
 		
 		if (mc.thePlayer.getHeldItemOffhand() != null && mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
@@ -222,11 +227,11 @@ public class SimplyConveyorsEventHandler {
 			}
 			
 			FontRenderer fr = mc.fontRendererObj;
-			try {
-				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 34 - offsetY, 0xFFFFFF);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 34 - offsetY, 0xFFFFFF);
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 	

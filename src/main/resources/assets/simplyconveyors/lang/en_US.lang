@@ -20,6 +20,7 @@ tile.blockSlowMovingStairPath.name=Slow Conveyor Ramp
 tile.blockFastMovingStairPath.name=Fast Conveyor Ramp
 tile.blockFastestMovingStairPath.name=Fastest Conveyor Ramp
 tile.blockGrabberMovingPath.name=Grabber Conveyor
+tile.blockBlockMovingPath.name=Block Conveyor
 
 tile.blockLowRangeItemPropeller.name=Item Propeller
 tile.blockMidRangeItemPropeller.name=Mid Range Item Propeller

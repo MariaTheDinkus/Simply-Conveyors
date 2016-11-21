@@ -100,12 +100,10 @@ public class BlockMovingPath extends BlockConveyor {
 		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
-			entity.setVelocity(this.getSpeed() * direction.getFrontOffsetX(), 0, this.getSpeed() * direction.getFrontOffsetZ());
-			
-//            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
             ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
 			
-//			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
+			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 
 			if (entity instanceof EntityItem) {

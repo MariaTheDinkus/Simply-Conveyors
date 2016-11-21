@@ -1,7 +1,5 @@
 package com.momnop.simplyconveyors.client.render.tiles;
 
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -9,11 +7,13 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 
 import org.lwjgl.opengl.GL11;
 
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
+import com.momnop.simplyconveyors.helpers.BusStopManager;
 
 public class TileEntityBusStopRenderer extends TileEntitySpecialRenderer {
 

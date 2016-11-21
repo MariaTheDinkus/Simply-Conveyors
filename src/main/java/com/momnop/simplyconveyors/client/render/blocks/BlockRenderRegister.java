@@ -22,6 +22,7 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockFastestMovingPath);
 		register(SimplyConveyorsBlocks.blockDropperMovingPath);
 		register(SimplyConveyorsBlocks.blockHoldingMovingPath);
+		register(SimplyConveyorsBlocks.blockBlockMovingPath);
 
 		register(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
 		register(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
@@ -37,6 +38,7 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockFastestMovingStairPath);
 		
 		register(SimplyConveyorsBlocks.blockGrabberMovingPath);
+		register(SimplyConveyorsBlocks.blockBlockMovingPath);
 		
 		register(SimplyConveyorsBlocks.busStop);
 	}

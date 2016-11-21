@@ -23,7 +23,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingBackwardsPath extends BlockHorizontal {
+public class BlockMovingBackwardsPath extends BlockConveyor {
 
 	private final double speed;
 	

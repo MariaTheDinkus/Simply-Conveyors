@@ -25,7 +25,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingPath extends BlockHorizontal {
+public class BlockMovingPath extends BlockConveyor {
 	
 	private final double speed;
 	

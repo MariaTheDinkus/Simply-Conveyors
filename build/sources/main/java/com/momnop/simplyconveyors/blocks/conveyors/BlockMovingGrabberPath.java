@@ -30,7 +30,7 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingGrabberPath extends BlockHorizontal implements ITileEntityProvider {
+public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntityProvider {
 	
 	private final double speed;
 

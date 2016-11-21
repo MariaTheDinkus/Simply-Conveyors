@@ -74,7 +74,7 @@ public class SimplyConveyorsEventHandler {
 		File busData = new File(DimensionManager.getCurrentSaveRootDirectory(), "busData.dat");
 		if (busData.exists()) {
 			try {
-				BusStopManager.writeData();
+				BusStopManager.writeData(event.player.getEntityWorld());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -203,11 +203,11 @@ public class SimplyConveyorsEventHandler {
 			}
 			
 			FontRenderer fr = mc.fontRendererObj;
-			try {
-				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
 		}
 		
 		if (mc.thePlayer.getHeldItemOffhand() != null && mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
@@ -227,11 +227,11 @@ public class SimplyConveyorsEventHandler {
 			}
 			
 			FontRenderer fr = mc.fontRendererObj;
-			try {
-				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 34 - offsetY, 0xFFFFFF);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(), (resolution.getScaledWidth() / 2) - (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName()) / 2), resolution.getScaledHeight() - 34 - offsetY, 0xFFFFFF);
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 	

@@ -30,6 +30,8 @@ public class RecipeHandler
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockGrabberMovingPath), new Object[] { "RER", "QrQ", 'R', Blocks.RAIL, 'E', Items.ENDER_PEARL, 'Q', Blocks.QUARTZ_BLOCK, 'r', Items.REDSTONE });
     	
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockBlockMovingPath), new Object[] { "RSR", "QEQ", 'R', Blocks.RAIL, 'E', Items.ENDER_PEARL, 'Q', Blocks.QUARTZ_BLOCK, 'S', Blocks.SAND });
+    	
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath));
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingBackwardsPath));
     	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath));

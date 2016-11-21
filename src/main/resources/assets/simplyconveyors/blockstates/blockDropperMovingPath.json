@@ -6,10 +6,10 @@
 		"side": "blocks/quartz_block_side",
         "particle": "blocks/quartz_block_side"
     },
-    "model": "simplyconveyors:blockDropperMovingPath"
+    "model": "simplyconveyors:blockMovingPath"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:blockDropperMovingPath" }],
+    "normal": [{ "model": "simplyconveyors:blockMovingPath" }],
     "inventory": [{}],
     "facing": {
       "north": {},
