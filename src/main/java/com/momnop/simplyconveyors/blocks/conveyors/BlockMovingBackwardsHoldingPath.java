@@ -1,5 +1,8 @@
 package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,12 +21,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingBackwardsHoldingPath extends BlockConveyor {
-	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
+public class BlockMovingBackwardsHoldingPath extends BlockPoweredFacing {
 	
 	public BlockMovingBackwardsHoldingPath(Material material, String unlocalizedName) {
 		super(material);
@@ -81,7 +83,7 @@ public class BlockMovingBackwardsHoldingPath extends BlockConveyor {
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!world.isBlockPowered(pos)) {
+		if (!blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.SOUTH);
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.WEST);
 			
@@ -94,20 +96,6 @@ public class BlockMovingBackwardsHoldingPath extends BlockConveyor {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		} else if (world.isBlockPowered(pos)) {
-			
-		}
-	}
-    
-    @Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
 		}
 	}
 

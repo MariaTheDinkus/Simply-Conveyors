@@ -1,5 +1,8 @@
 package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -20,11 +23,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityBlockMovingPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockBlockMovingPath extends BlockConveyor implements ITileEntityProvider {
+public class BlockBlockMovingPath extends BlockPoweredFacing implements ITileEntityProvider {
 	
 	private final double speed;
 	
@@ -96,7 +100,7 @@ public class BlockBlockMovingPath extends BlockConveyor implements ITileEntityPr
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
 			entity.setVelocity(this.getSpeed() * direction.getFrontOffsetX(), 0, this.getSpeed() * direction.getFrontOffsetZ());
@@ -111,18 +115,6 @@ public class BlockBlockMovingPath extends BlockConveyor implements ITileEntityPr
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		}
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
 		}
 	}
 	

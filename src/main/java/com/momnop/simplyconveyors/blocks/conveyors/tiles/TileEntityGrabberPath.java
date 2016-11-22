@@ -25,8 +25,6 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 
 	@Override
 	public void update() {
-		// System.out.println(isPowered);
-		
 		markDirty();
 		
 		List entities = this.worldObj.getEntitiesWithinAABB(
@@ -40,8 +38,6 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 				Object obj = entities.get(i);
 				if (obj instanceof Entity) {
 					Entity ent = (Entity) obj;
-//					System.out.println(ent.getDisplayName()
-//							.getUnformattedText());
 					isPowered = false;
 					try {
 						if (Class.forName(entityFilter).isInstance(ent)) {
