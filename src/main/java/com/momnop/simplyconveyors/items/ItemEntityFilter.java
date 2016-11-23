@@ -2,10 +2,6 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
-import javax.swing.JComboBox.KeySelectionManager;
-
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -20,7 +16,13 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingGrabberPath;
+import org.lwjgl.input.Keyboard;
+
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 
 public class ItemEntityFilter extends Item
@@ -86,6 +88,28 @@ public class ItemEntityFilter extends Item
     		float hitX, float hitY, float hitZ) {
     	if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingGrabberPath) {
     		TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
+    		try {
+				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				if (!worldIn.isRemote) {
+					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+    		return EnumActionResult.PASS;
+    	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingDetectorPath) {
+    		TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
+    		try {
+				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				if (!worldIn.isRemote) {
+					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+    		return EnumActionResult.PASS;
+    	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingBackwardsDetectorPath) {
+    		TileEntityDetectorBackwardsPath grabber = (TileEntityDetectorBackwardsPath) worldIn.getTileEntity(pos);
     		try {
 				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {

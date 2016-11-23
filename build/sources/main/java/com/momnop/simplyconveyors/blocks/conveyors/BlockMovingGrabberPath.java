@@ -26,11 +26,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntityProvider {
+public class BlockMovingGrabberPath extends BlockPoweredFacing implements ITileEntityProvider {
 	
 	private final double speed;
 

@@ -1,5 +1,7 @@
 package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -20,9 +22,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingVerticalPath extends BlockConveyor {
+public class BlockMovingVerticalPath extends BlockPoweredFacing {
 	
 	private final double speed;
 	
@@ -97,7 +100,7 @@ public class BlockMovingVerticalPath extends BlockConveyor {
 			Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 		
 			entity.motionY += this.getSpeed();
@@ -120,18 +123,6 @@ public class BlockMovingVerticalPath extends BlockConveyor {
 			if (direction == EnumFacing.NORTH) {
 				entity.motionZ = -this.getSpeed();
 			}
-		}
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
 		}
 	}
 

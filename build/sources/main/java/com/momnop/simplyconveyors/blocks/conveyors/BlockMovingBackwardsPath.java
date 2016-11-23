@@ -1,5 +1,7 @@
 package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -20,10 +22,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingBackwardsPath extends BlockConveyor {
+public class BlockMovingBackwardsPath extends BlockPoweredFacing {
 
 	private final double speed;
 	
@@ -90,7 +93,7 @@ public class BlockMovingBackwardsPath extends BlockConveyor {
 			Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, direction);
 			
             entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
@@ -108,18 +111,6 @@ public class BlockMovingBackwardsPath extends BlockConveyor {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		}
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
 		}
 	}
 

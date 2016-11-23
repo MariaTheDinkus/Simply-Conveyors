@@ -8,7 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
 
 public class TileEntityFastMovingStair extends TileEntity implements ITickable {
 	

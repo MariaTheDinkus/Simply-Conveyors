@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -44,8 +45,6 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 		this.prevPosZ = z;
 		this.tileEntityData = tileEntityData;
 	}
-	
-	
 
 	@Override
 	public boolean canBeCollidedWith() {

@@ -17,7 +17,11 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityTransporterBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityTransporterPath;
 import com.momnop.simplyconveyors.client.render.blocks.BlockRenderRegister;
 import com.momnop.simplyconveyors.client.render.guis.SimplyConveyorsGuiHandler;
 import com.momnop.simplyconveyors.events.SimplyConveyorsEventHandler;
@@ -57,6 +61,10 @@ public class SimplyConveyors
     	PacketDispatcher.registerPackets();
     	GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
     	GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");
+    	GameRegistry.registerTileEntity(TileEntityDetectorPath.class, "tileEntityDetectorPath");
+    	GameRegistry.registerTileEntity(TileEntityDetectorBackwardsPath.class, "tileEntityDetectorBackwardsPath");
+    	GameRegistry.registerTileEntity(TileEntityTransporterPath.class, "tileEntityTransporterPath");
+    	GameRegistry.registerTileEntity(TileEntityTransporterBackwardsPath.class, "tileEntityTransporterBackwardsPath");
         MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
         if (event.getSide() == Side.CLIENT) {
         	BlockRenderRegister.registerBlockRenderer();

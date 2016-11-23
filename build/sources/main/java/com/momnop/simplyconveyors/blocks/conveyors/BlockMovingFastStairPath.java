@@ -33,11 +33,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.google.common.collect.Lists;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastMovingStair;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class BlockMovingFastStairPath extends BlockConveyor implements
+public class BlockMovingFastStairPath extends BlockPoweredFacing implements
 		ITileEntityProvider {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -123,18 +124,6 @@ public class BlockMovingFastStairPath extends BlockConveyor implements
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, POWERED);
     }
-    
-    @Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
-		}
-	}
     
     /**
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the

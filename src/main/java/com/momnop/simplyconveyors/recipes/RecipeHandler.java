@@ -32,36 +32,38 @@ public class RecipeHandler
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockBlockMovingPath), new Object[] { "RSR", "QEQ", 'R', Blocks.RAIL, 'E', Items.ENDER_PEARL, 'Q', Blocks.QUARTZ_BLOCK, 'S', Blocks.SAND });
     	
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingBackwardsPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath));
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockDetectorMovingPath), new Object[] { "PTP", "QFQ", 'P', Blocks.STONE_PRESSURE_PLATE, 'T', Blocks.REDSTONE_TORCH, 'Q', Blocks.QUARTZ_BLOCK, 'F', SimplyConveyorsBlocks.blockFastMovingPath });
     	
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingBackwardsPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockDetectorMovingPath), new ItemStack(SimplyConveyorsBlocks.blockDetectorMovingBackwardsPath));
+    	
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockDropperMovingPath), new ItemStack(SimplyConveyorsBlocks.blockDropperMovingBackwardsPath));
+    	
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingBackwardsPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath));
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingStairPath, 6), new Object[] {"X  ", "XX ", "XXX", 'X', SimplyConveyorsBlocks.blockSlowMovingPath});
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingStairPath, 6), new Object[] {"X  ", "XX ", "XXX", 'X', SimplyConveyorsBlocks.blockFastMovingPath});
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingStairPath, 6), new Object[] {"X  ", "XX ", "XXX", 'X', SimplyConveyorsBlocks.blockFastestMovingPath});
     	
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingVerticalPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingVerticalPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingVerticalPath));
-    	
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingVerticalPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingStairPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingVerticalPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingStairPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingVerticalPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingStairPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockSlowMovingVerticalPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockFastMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockFastMovingVerticalPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingStairPath), new ItemStack(SimplyConveyorsBlocks.blockFastestMovingVerticalPath));
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath), new Object[] {"rSr", "QRQ", 'S', Items.SLIME_BALL, 'I', Items.IRON_INGOT, 'Q', Blocks.QUARTZ_BLOCK, 'R', Blocks.REDSTONE_BLOCK, 'r', Blocks.RAIL});
     	
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath));
-    	addInverseRecipe(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath));
+    	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath));
     	
     	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.entityFilter), new Object[] { Items.PAPER, Items.EGG });
     }
     
     public static void addInverseRecipe(ItemStack input, ItemStack output) {
     	GameRegistry.addShapelessRecipe(input, new Object[] {output});
+    }
+    
+    public static void addInverseRecipes(ItemStack input, ItemStack output) {
+    	GameRegistry.addShapelessRecipe(input, new Object[] {output});
+    	GameRegistry.addShapelessRecipe(output, new Object[] { input });
     }
 
 }

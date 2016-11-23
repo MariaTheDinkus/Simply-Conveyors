@@ -33,10 +33,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.google.common.collect.Lists;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class BlockMovingSlowStairPath extends BlockConveyor implements
+public class BlockMovingSlowStairPath extends BlockPoweredFacing implements
 		ITileEntityProvider {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -122,18 +123,6 @@ public class BlockMovingSlowStairPath extends BlockConveyor implements
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, POWERED);
     }
-    
-    @Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
-		}
-	}
     
     @Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,

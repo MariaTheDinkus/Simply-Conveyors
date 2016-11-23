@@ -1,5 +1,8 @@
 package com.momnop.simplyconveyors.blocks.conveyors;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,10 +21,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockPoweredFacing;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class BlockMovingHoldingPath extends BlockConveyor {
+public class BlockMovingHoldingPath extends BlockPoweredFacing {
 	
 	private final double speed;
 	
@@ -88,7 +92,7 @@ public class BlockMovingHoldingPath extends BlockConveyor {
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
-		if (!entity.isSneaking() && !world.isBlockPowered(pos)) {
+		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.SOUTH);
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.WEST);
 
@@ -109,18 +113,6 @@ public class BlockMovingHoldingPath extends BlockConveyor {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		}
-	}
-    
-    @Override
-	@SideOnly(Side.CLIENT)
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn,
-			BlockPos pos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.theWorld.isBlockPowered(pos)) {
-			return state.withProperty(POWERED, true);
-		} else {
-			return state.withProperty(POWERED, false);
 		}
 	}
 

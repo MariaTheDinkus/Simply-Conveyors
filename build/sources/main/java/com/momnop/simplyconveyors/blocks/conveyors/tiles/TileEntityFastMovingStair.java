@@ -20,7 +20,7 @@ public class TileEntityFastMovingStair extends TileEntity implements ITickable {
             		pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1.1F, pos.getZ() + 1));
             for (Object obj : entities)
                {
-               if (obj instanceof Entity && !this.worldObj.isBlockPowered(pos)) {
+            	if (obj instanceof Entity && !this.getWorld().getBlockState(this.getPos()).getValue(block.POWERED)) {
             	   Entity entity = (Entity)obj;
                 if (entity != null && entity.onGround && !entity.isInWater())
                 {

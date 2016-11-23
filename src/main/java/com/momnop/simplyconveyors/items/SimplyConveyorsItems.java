@@ -10,12 +10,14 @@ public class SimplyConveyorsItems {
 	public static Item entityFilter;
 	public static Item busStopBook;
 	public static Item busTicket;
+	public static Item emptyFluidOrb;
 
 	public static void load() {
 		wrench = new ItemWrench(ItemInfo.CONVEYOR_WRENCH_UNLOCALIZED_NAME);
 		entityFilter = new ItemEntityFilter("entityFilter");
 		busStopBook = new ItemBusStopBook("busStopBook");
 		busTicket = new ItemBusTicket("busTicket");
+		emptyFluidOrb = new ItemFluidOrb("emptyFluidOrb");
 		
 		registerItems();
 	}
@@ -25,6 +27,7 @@ public class SimplyConveyorsItems {
 		register(entityFilter);
 		register(busStopBook);
 		register(busTicket);
+		register(emptyFluidOrb);
 	}
 
 	public static void register(Item b) {
