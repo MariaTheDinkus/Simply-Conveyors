@@ -8,26 +8,33 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.momnop.simplyconveyors.blocks.bus.BlockBusMachine;
 import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockBlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingDropperPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastestStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingGrabberPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingVerticalPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockBlockMovingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsTransporterPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
 import com.momnop.simplyconveyors.info.BlockInfo;
 
 public class SimplyConveyorsBlocks
 {
 	public static Block blockSlowMovingPath, blockSlowMovingVerticalPath, blockFastMovingPath, blockHoldingMovingPath, blockFastMovingVerticalPath, blockFastestMovingPath, blockFastestMovingVerticalPath, blockSlowMovingStairPath, blockFastMovingStairPath, blockFastestMovingStairPath;
-	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath;
+	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath, blockDropperMovingBackwardsPath, blockDetectorMovingBackwardsPath;
 	public static Block blockDropperMovingPath;
 	public static Block blockGrabberMovingPath;
 	public static Block blockBlockMovingPath;
+	public static Block blockDetectorMovingPath;
+	public static Block blockTransporterMovingPath, blockTransporterMovingBackwardsPath;
 	
 	public static Block busStop;
 	public static Block busMachine;
@@ -60,6 +67,7 @@ public class SimplyConveyorsBlocks
         blockDropperMovingPath = new BlockMovingDropperPath(tier2Speed, Material.ROCK, BlockInfo.DROPPER_MOVING_PATH_UNLOCALIZED_NAME);
         blockHoldingMovingPath = new BlockMovingHoldingPath(tier2Speed, Material.ROCK, BlockInfo.HOLDING_MOVING_PATH_UNLOCALIZED_NAME);
         blockBlockMovingPath = new BlockBlockMovingPath(tier2Speed, Material.ROCK, "blockBlockMovingPath");
+        blockDetectorMovingPath = new BlockMovingDetectorPath(tier2Speed, Material.ROCK, "blockDetectorMovingPath");
 
         blockSlowMovingVerticalPath = new BlockMovingVerticalPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);
         blockFastMovingVerticalPath = new BlockMovingVerticalPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);    	
@@ -69,18 +77,23 @@ public class SimplyConveyorsBlocks
         blockFastMovingBackwardsPath = new BlockMovingBackwardsPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
         blockFastestMovingBackwardsPath = new BlockMovingBackwardsPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
         blockHoldingMovingBackwardsPath = new BlockMovingBackwardsHoldingPath(Material.ROCK, BlockInfo.HOLDING_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
+        blockDropperMovingBackwardsPath = new BlockMovingBackwardsDropperPath(tier2Speed, Material.ROCK, "blockDropperMovingBackwardsPath");
+        blockDetectorMovingBackwardsPath = new BlockMovingBackwardsDetectorPath(tier2Speed, Material.ROCK, "blockDetectorMovingBackwardsPath");
         
         blockSlowMovingStairPath = new BlockMovingSlowStairPath(Material.ROCK, BlockInfo.SLOW_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         blockFastMovingStairPath = new BlockMovingFastStairPath(Material.ROCK, BlockInfo.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         blockFastestMovingStairPath = new BlockMovingFastestStairPath(Material.ROCK, BlockInfo.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
         
         blockGrabberMovingPath = new BlockMovingGrabberPath(tier2Speed, Material.ROCK, "blockGrabberMovingPath");
+        blockTransporterMovingPath = new BlockMovingTransporterPath(tier2Speed, Material.ROCK, "blockTransporterMovingPath");
+        blockTransporterMovingBackwardsPath = new BlockMovingBackwardsTransporterPath(tier2Speed, Material.ROCK, "blockTransporterMovingBackwardsPath");
         
         register(blockSlowMovingPath);
         register(blockFastMovingPath);
         register(blockFastestMovingPath);
         register(blockDropperMovingPath);
         register(blockHoldingMovingPath);
+        register(blockDetectorMovingPath);
         
         register(blockSlowMovingVerticalPath);
         register(blockFastMovingVerticalPath);
@@ -90,6 +103,8 @@ public class SimplyConveyorsBlocks
         register(blockFastMovingBackwardsPath);
         register(blockFastestMovingBackwardsPath);
         register(blockHoldingMovingBackwardsPath);
+        register(blockDropperMovingBackwardsPath);
+        register(blockDetectorMovingBackwardsPath);
         
         register(blockSlowMovingStairPath);
         register(blockFastMovingStairPath);
@@ -97,6 +112,8 @@ public class SimplyConveyorsBlocks
         
         register(blockGrabberMovingPath);
         register(blockBlockMovingPath);
+        register(blockTransporterMovingPath);
+        register(blockTransporterMovingBackwardsPath);
     }
     
     public static void register(Block b) {

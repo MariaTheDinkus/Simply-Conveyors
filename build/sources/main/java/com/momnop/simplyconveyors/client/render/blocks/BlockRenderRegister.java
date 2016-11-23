@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,6 +24,7 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockDropperMovingPath);
 		register(SimplyConveyorsBlocks.blockHoldingMovingPath);
 		register(SimplyConveyorsBlocks.blockBlockMovingPath);
+		register(SimplyConveyorsBlocks.blockDetectorMovingPath);
 
 		register(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
 		register(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
@@ -32,6 +34,8 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
 		register(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath);
+		register(SimplyConveyorsBlocks.blockDropperMovingBackwardsPath);
+		register(SimplyConveyorsBlocks.blockDetectorMovingBackwardsPath);
 
 		register(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastMovingStairPath);
@@ -39,6 +43,7 @@ public final class BlockRenderRegister {
 		
 		register(SimplyConveyorsBlocks.blockGrabberMovingPath);
 		register(SimplyConveyorsBlocks.blockBlockMovingPath);
+		register(SimplyConveyorsBlocks.blockTransporterMovingPath);
 		
 		register(SimplyConveyorsBlocks.busStop);
 	}

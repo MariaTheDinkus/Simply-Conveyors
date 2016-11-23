@@ -26,15 +26,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingDropperPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingFastestStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingVerticalPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingBackwardsPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;

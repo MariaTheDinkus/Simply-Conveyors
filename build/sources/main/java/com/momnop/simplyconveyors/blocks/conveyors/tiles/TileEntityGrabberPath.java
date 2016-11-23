@@ -2,6 +2,7 @@ package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 
 import java.util.List;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,8 +12,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import com.momnop.simplyconveyors.blocks.conveyors.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
 
 public class TileEntityGrabberPath extends TileEntity implements ITickable {
 
@@ -96,5 +99,11 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos,
+			IBlockState oldState, IBlockState newSate) {
+		return oldState.getBlock() != newSate.getBlock();
 	}
 }

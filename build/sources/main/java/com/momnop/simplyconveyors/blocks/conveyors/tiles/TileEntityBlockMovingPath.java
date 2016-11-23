@@ -1,9 +1,12 @@
 package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.entity.EntityBlock;
 
@@ -30,6 +33,12 @@ public class TileEntityBlockMovingPath extends TileEntity implements ITickable {
 			
 			this.getWorld().setBlockToAir(this.getPos().up());
 		}
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos,
+			IBlockState oldState, IBlockState newSate) {
+		return oldState.getBlock() != newSate.getBlock();
 	}
 	
 }
