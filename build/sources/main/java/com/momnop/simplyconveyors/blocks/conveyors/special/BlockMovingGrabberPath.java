@@ -71,25 +71,6 @@ public class BlockMovingGrabberPath extends BlockPoweredConveyor implements ITil
 				(float) (entity.posZ - clickedBlock.getZ()));
 	}
 
-	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING);
-	}
-
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos,
 			IBlockState blockState, Entity entity) {
@@ -141,23 +122,6 @@ public class BlockMovingGrabberPath extends BlockPoweredConveyor implements ITil
 		
 		if (!worldIn.isBlockPowered(pos)) {
 			grabber.setPowered(false);
-		}
-	}
-	
-	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
-	 */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
 		}
 	}
 

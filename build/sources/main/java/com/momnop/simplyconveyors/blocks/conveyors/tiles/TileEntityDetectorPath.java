@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +37,7 @@ public class TileEntityDetectorPath extends TileEntity implements ITickable {
 				Entity ent = (Entity) obj;
 				try {
 					if (Class.forName(entityFilter).isInstance(ent)) {
-						this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
+						this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
 						return;
 					}
 				} catch (ClassNotFoundException e) {
@@ -44,7 +45,7 @@ public class TileEntityDetectorPath extends TileEntity implements ITickable {
 				}
 			}
 		}
-		this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).POWERED, false));
+		this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, false));
 	}
 
 	public void setEntityFilter(Class filterClass) {

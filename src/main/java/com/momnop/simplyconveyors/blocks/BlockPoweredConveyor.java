@@ -11,12 +11,16 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.api.enums.EnumConveyorRotation;
 import com.momnop.simplyconveyors.api.enums.EnumConveyorTier;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
 
 public class BlockPoweredConveyor extends BlockHorizontal {
 	
@@ -50,10 +54,6 @@ public class BlockPoweredConveyor extends BlockHorizontal {
 		} else {
 			metaNew = Integer.parseInt(String.valueOf(("" + meta).charAt(1)));
 		}
-		
-		System.out.println(powered);
-		
-		System.out.println(metaNew);
 		
         return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(metaNew)).withProperty(POWERED, powered);
     }
@@ -100,7 +100,6 @@ public class BlockPoweredConveyor extends BlockHorizontal {
 	@Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
-		System.out.println("WAT");
         if (!worldIn.isRemote)
         {
         	IBlockState blockState = worldIn.getBlockState(pos);
@@ -111,6 +110,9 @@ public class BlockPoweredConveyor extends BlockHorizontal {
             else if (!blockState.getValue(POWERED) && worldIn.isBlockPowered(pos))
             {
             	worldIn.setBlockState(pos, blockState.withProperty(POWERED, true), 2);
+            	if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+            		worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
+            	}
             }
         }
     }
@@ -124,6 +126,9 @@ public class BlockPoweredConveyor extends BlockHorizontal {
             if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, blockState.withProperty(POWERED, false), 2);
+                if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+            		worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
+            	}
             }
         }
     }

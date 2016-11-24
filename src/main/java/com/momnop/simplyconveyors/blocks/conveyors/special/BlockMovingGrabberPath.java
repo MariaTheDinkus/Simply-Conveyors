@@ -1,9 +1,10 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,12 +21,14 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
-import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
+import com.momnop.simplyconveyors.blocks.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemWrench;
 
-public class BlockMovingGrabberPath extends BlockPoweredConveyor implements ITileEntityProvider {
+public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntityProvider {
 	
 	private final double speed;
 
@@ -97,14 +100,37 @@ public class BlockMovingGrabberPath extends BlockPoweredConveyor implements ITil
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
 			float hitZ) {
-		if (playerIn.isSneaking()) {
+		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null && playerIn.getHeldItemOffhand() == null	) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			try {
-				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Currently filtering: " + Class.forName(grabber.getEntityFilter()).getSimpleName()));
+				if (worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
+					if (grabber.getBlacklisted() == false) {
+						playerIn.addChatMessage(new TextComponentString("Currently whitelisting: "));
+					} else {
+						playerIn.addChatMessage(new TextComponentString("Currently blacklisting: "));
+					}
+					for (String string : grabber.getFilterList()) {
+						playerIn.addChatMessage(new TextComponentString(Class.forName(string).getSimpleName()));
+					}
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+			}
+			return true;
+		} else if (playerIn.getHeldItemMainhand() == null && playerIn.getHeldItemOffhand() == null) {
+			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
+			grabber.setFilterList(new ArrayList<String>());
+			if (worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Cleared all filters."));
+			}
+			return true;
+		} else if (playerIn.getHeldItemMainhand() != null && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
+			grabber.setBlacklisted(!grabber.getBlacklisted());
+			if (grabber.getBlacklisted() && worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Now blacklisting."));
+			} else if (worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Now whitelisting."));
 			}
 			return true;
 		}

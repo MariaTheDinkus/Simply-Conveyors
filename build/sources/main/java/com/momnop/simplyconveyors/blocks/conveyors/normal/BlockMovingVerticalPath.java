@@ -29,8 +29,6 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 	
 	private final double speed;
 	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
-
 	public BlockMovingVerticalPath(double speed, Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
@@ -76,25 +74,6 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
         return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
 
-	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-    
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, POWERED);
-    }
-
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState,
 			Entity entity) {
@@ -123,23 +102,6 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 			if (direction == EnumFacing.NORTH) {
 				entity.motionZ = -0.1F;
 			}
-		}
-	}
-
-	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
 		}
 	}
 }

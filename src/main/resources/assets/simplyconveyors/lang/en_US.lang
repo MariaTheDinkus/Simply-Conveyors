@@ -26,6 +26,7 @@ tile.blockGrabberMovingPath.name=Grabber Conveyor
 tile.blockBlockMovingPath.name=Block Conveyor
 tile.blockDetectorMovingBackwardsPath.name=Detector Inverse Conveyor
 tile.blockTransporterMovingPath.name=Item I/O Conveyor
+tile.blockTrapDoorMovingPath.name=Trap Door Conveyor
 
 tile.blockLowRangeItemPropeller.name=Item Propeller
 tile.blockMidRangeItemPropeller.name=Mid Range Item Propeller

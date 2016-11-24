@@ -88,19 +88,23 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 			}
 			
 			if (direction == EnumFacing.EAST) {
-				entity.motionX = 0.1F;
+				entity.motionX += 0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.EAST);
 			}
 			
 			if (direction == EnumFacing.WEST) {
-				entity.motionX = -0.1F;
+				entity.motionX += -0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.WEST);
 			}
 			
 			if (direction == EnumFacing.SOUTH) {
-				entity.motionZ = 0.1F;
+				entity.motionZ += 0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.SOUTH);
 			}
 			
 			if (direction == EnumFacing.NORTH) {
-				entity.motionZ = -0.1F;
+				entity.motionZ += -0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.NORTH);
 			}
 		}
 	}

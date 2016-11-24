@@ -53,10 +53,10 @@ public class ItemEntityFilter extends Item
     public void addInformation(ItemStack stack, EntityPlayer playerIn,
     		List<String> tooltip, boolean advanced) {
     	tooltip.add("Right click on a mob to set the filter!");
-    	tooltip.add("Works with the Grabber Conveyor.");
+    	tooltip.add("Works with the Grabber Conveyor and Detector Conveyors.");
     	if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
     		if (stack.hasTagCompound()) {
-    			tooltip.add("Right-clicking on a Grabber Conveyor makes it filter the mob of this filter's type.");
+    			tooltip.add("Right-clicking on a compatible conveyor adds this filter's type to the filter list of the conveyor.");
     		}
     	} else {
     		if (stack.hasTagCompound()) {
@@ -89,7 +89,7 @@ public class ItemEntityFilter extends Item
     	if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingGrabberPath) {
     		TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
 					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
 				}
@@ -100,7 +100,7 @@ public class ItemEntityFilter extends Item
     	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingDetectorPath) {
     		TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
 					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
 				}
@@ -111,7 +111,7 @@ public class ItemEntityFilter extends Item
     	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingBackwardsDetectorPath) {
     		TileEntityDetectorBackwardsPath grabber = (TileEntityDetectorBackwardsPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
 					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
 				}
