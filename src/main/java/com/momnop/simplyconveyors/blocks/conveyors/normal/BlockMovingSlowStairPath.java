@@ -40,8 +40,6 @@ import com.momnop.simplyconveyors.info.ModInfo;
 public class BlockMovingSlowStairPath extends BlockPoweredConveyor implements
 		ITileEntityProvider {
 	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
-	
 	public BlockMovingSlowStairPath(Material material, String unlocalizedName) {
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
@@ -104,38 +102,6 @@ public class BlockMovingSlowStairPath extends BlockPoweredConveyor implements
 	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
         return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
-
-	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-    
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, POWERED);
-    }
-    
-    @Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().rotateY());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite().rotateY());
-		}
-	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {

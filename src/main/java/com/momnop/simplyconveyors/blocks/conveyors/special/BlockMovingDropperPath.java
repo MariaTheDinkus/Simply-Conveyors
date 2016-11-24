@@ -27,8 +27,6 @@ public class BlockMovingDropperPath extends BlockPoweredConveyor {
 	
 	private final double speed;
 	private EnumFacing facing = EnumFacing.NORTH;
-	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	public BlockMovingDropperPath(double speed, Material material, String unlocalizedName) {
 		super(material);
@@ -70,25 +68,6 @@ public class BlockMovingDropperPath extends BlockPoweredConveyor {
 				(float) (entity.posX - clickedBlock.getX()),
 				(float) (entity.posY - clickedBlock.getY()),
 				(float) (entity.posZ - clickedBlock.getZ()));
-	}
-
-	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING, POWERED);
 	}
 
 	@Override
@@ -149,23 +128,6 @@ public class BlockMovingDropperPath extends BlockPoweredConveyor {
 					}
 				}
 			}
-		}
-	}
-	
-	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
-	 */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
 		}
 	}
 }

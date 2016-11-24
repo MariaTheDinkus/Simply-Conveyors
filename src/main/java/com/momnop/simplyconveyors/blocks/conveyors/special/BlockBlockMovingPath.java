@@ -24,8 +24,6 @@ import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 public class BlockBlockMovingPath extends BlockPoweredConveyor implements ITileEntityProvider {
 	
 	private final double speed;
-	
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	public BlockBlockMovingPath(double speed, Material material, String unlocalizedName) {
 		super(material);
@@ -69,25 +67,6 @@ public class BlockBlockMovingPath extends BlockPoweredConveyor implements ITileE
 				(float) (entity.posZ - clickedBlock.getZ()));
 	}
 
-	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING, POWERED);
-	}
-
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos,
 			IBlockState blockState, Entity entity) {
@@ -96,35 +75,16 @@ public class BlockBlockMovingPath extends BlockPoweredConveyor implements ITileE
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
-			entity.setVelocity(this.getSpeed() * direction.getFrontOffsetX(), 0, this.getSpeed() * direction.getFrontOffsetZ());
-			
-//            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
             ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
 			
-//			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
+			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 
 			if (entity instanceof EntityItem) {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-		}
-	}
-	
-	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
-	 */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
 		}
 	}
 	

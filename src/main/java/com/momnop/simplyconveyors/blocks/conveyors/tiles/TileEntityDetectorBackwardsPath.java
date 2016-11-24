@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
 
 public class TileEntityDetectorBackwardsPath extends TileEntity implements ITickable {
 	
@@ -37,7 +37,7 @@ public class TileEntityDetectorBackwardsPath extends TileEntity implements ITick
 				try {
 					if (Class.forName(entityFilter).isInstance(ent)) {
 						String oldEntityFilter = new String(entityFilter);
-						this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingBackwardsDetectorPath) blockType).POWERED, true));
+						this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingBackwardsDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingBackwardsDetectorPath) blockType).FACING)).withProperty(((BlockMovingBackwardsDetectorPath) blockType).POWERED, true));
 						entityFilter = oldEntityFilter;
 						return;
 					}
@@ -47,7 +47,7 @@ public class TileEntityDetectorBackwardsPath extends TileEntity implements ITick
 			}
 		}
 		String oldEntityFilter = new String(entityFilter);
-		this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingBackwardsDetectorPath) blockType).POWERED, false));
+		this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingBackwardsDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingBackwardsDetectorPath) blockType).FACING)).withProperty(((BlockMovingBackwardsDetectorPath) blockType).POWERED, false));
 		entityFilter = oldEntityFilter;
 		
 		markDirty();
