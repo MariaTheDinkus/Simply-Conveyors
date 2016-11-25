@@ -25,7 +25,7 @@ public class BlockBlockMovingPath extends BlockPoweredConveyor implements ITileE
 
 	public BlockBlockMovingPath(double speed, Material material, String unlocalizedName) {
 		super(material);
-		setCreativeTab(SimplyConveyorsSpecialCreativeTab.INSTANCE);
+		//setCreativeTab(SimplyConveyorsSpecialCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(this.getRegistryName().toString()

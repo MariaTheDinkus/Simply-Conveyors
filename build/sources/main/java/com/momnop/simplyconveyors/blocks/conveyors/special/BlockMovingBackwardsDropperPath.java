@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
@@ -29,7 +29,7 @@ public class BlockMovingBackwardsDropperPath extends BlockPoweredConveyor {
 	
 	public BlockMovingBackwardsDropperPath(double speed, Material material, String unlocalizedName) {
 		super(material);
-		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		setCreativeTab(SimplyConveyorsSpecialCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
         setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
