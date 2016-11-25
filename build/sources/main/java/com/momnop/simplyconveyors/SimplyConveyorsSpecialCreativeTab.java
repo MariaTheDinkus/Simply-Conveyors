@@ -35,11 +35,12 @@ public class SimplyConveyorsSpecialCreativeTab extends CreativeTabs {
 	public void displayAllRelevantItems(List list) {
 		this.list = list;
 		
-		addBlock(SimplyConveyorsBlocks.blockBlockMovingPath);
+		//addBlock(SimplyConveyorsBlocks.blockBlockMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockDetectorMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockGrabberMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockHoldingMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockTransporterMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockTrapDoorMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockDropperMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockDetectorMovingBackwardsPath);
 		addBlock(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath);

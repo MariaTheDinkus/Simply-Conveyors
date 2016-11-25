@@ -30,7 +30,7 @@ public class TileEntityDetectorBackwardsPath extends TileEntity implements ITick
 	@Override
 	public void update() {
 		
-		List entities = this.worldObj.getEntitiesWithinAABB(Entity.class,
+		List entities = this.getWorld().getEntitiesWithinAABB(Entity.class,
 				new AxisAlignedBB(pos.getX() - 0, pos.getY() - 1, pos.getZ() - 0,
 						pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 		

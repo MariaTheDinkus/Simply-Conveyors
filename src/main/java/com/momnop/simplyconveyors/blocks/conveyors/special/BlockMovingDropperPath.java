@@ -1,8 +1,7 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -103,17 +102,17 @@ public class BlockMovingDropperPath extends BlockPoweredConveyor {
 					if(contact && inventoryTile!=null)
 					{
 						ItemStack stack = ((EntityItem)entity).getEntityItem();
-						if(stack!=null)
+						if(stack != ItemStackTools.getEmptyStack())
 						{
 							if (TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
-								if(ret==null)
+								if(ret==ItemStackTools.getEmptyStack())
 									entity.setDead();
 								else if(ret.stackSize<stack.stackSize)
 									((EntityItem)entity).setEntityItemStack(ret);
 							} else if (!TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
-								if(ret==null)
+								if(ret==ItemStackTools.getEmptyStack())
 									entity.setDead();
 								else if(ret.stackSize<stack.stackSize)
 									((EntityItem)entity).setEntityItemStack(ret);

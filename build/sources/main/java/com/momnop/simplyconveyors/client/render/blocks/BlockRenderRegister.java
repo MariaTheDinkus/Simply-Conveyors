@@ -45,6 +45,8 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockBlockMovingPath);
 		register(SimplyConveyorsBlocks.blockTransporterMovingPath);
 		
+		register(SimplyConveyorsBlocks.blockTrapDoorMovingPath);
+		
 		register(SimplyConveyorsBlocks.busStop);
 	}
 

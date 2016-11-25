@@ -34,7 +34,7 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 	public void update() {
 		markDirty();
 		
-		List entities = this.worldObj.getEntitiesWithinAABB(
+		List entities = this.getWorld().getEntitiesWithinAABB(
 				Entity.class,
 				new AxisAlignedBB(pos.getX() - 2, pos.getY(),
 						pos.getZ() - 2, pos.getX() + 3, pos.getY() + 2F, pos

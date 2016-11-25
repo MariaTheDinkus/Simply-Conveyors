@@ -24,7 +24,7 @@ public class TileEntityTransporterPath extends TileEntity implements ITickable {
 				for (int i = 0; i < inventory.getSizeInventory(); i++) {
 					if (inventory.getStackInSlot(i) != null) {
 						if (this.getWorld().isRemote == false) {
-							EntityItem entityItem = new EntityItem(this.worldObj, this.getPos().getX() + 0.5F, this.getPos().getY() + 1, this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
+							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + 1, this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
 							this.getWorld().spawnEntityInWorld(entityItem);
 							entityItem.motionX = 0;
 							entityItem.motionY = 0;

@@ -1,13 +1,12 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,8 +26,8 @@ import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemWrench;
 
 public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider {
 	
@@ -77,7 +76,7 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	@Override
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-		if (blockState.getValue(POWERED) == true && side != blockState.getValue(FACING) && side != blockState.getValue(FACING).getOpposite()) {
+		if (blockState.getValue(POWERED) == true) {
 			return 15;
 		}
         return 0;
@@ -86,7 +85,7 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	@Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-		if (blockState.getValue(POWERED) == true && side != blockState.getValue(FACING) && side != blockState.getValue(FACING).getOpposite()) {
+		if (blockState.getValue(POWERED) == true) {
 			return 15;
 		}
         return 0;
@@ -150,18 +149,40 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos,
+	protected boolean clOnBlockActivated(World worldIn, BlockPos pos,
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
-			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
-			float hitZ) {
-		if (playerIn.isSneaking()) {
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			try {
-				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Currently filtering: " + Class.forName(grabber.getEntityFilter()).getSimpleName()));
+				if (!worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
+					if (grabber.getBlacklisted() == false) {
+						playerIn.addChatMessage(new TextComponentString("Currently whitelisting: "));
+					} else {
+						playerIn.addChatMessage(new TextComponentString("Currently blacklisting: "));
+					}
+					for (String string : grabber.getFilterList()) {
+						playerIn.addChatMessage(new TextComponentString(Class.forName(string).getSimpleName()));
+					}
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+			}
+			return true;
+		} else if (playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
+			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
+			grabber.setFilterList(new ArrayList<String>());
+			if (worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Cleared all filters."));
+			}
+			return true;
+		} else if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
+			grabber.setBlacklisted(!grabber.getBlacklisted());
+			if (grabber.getBlacklisted() && worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Now blacklisting."));
+			} else if (worldIn.isRemote) {
+				playerIn.addChatMessage(new TextComponentString("Now whitelisting."));
 			}
 			return true;
 		}

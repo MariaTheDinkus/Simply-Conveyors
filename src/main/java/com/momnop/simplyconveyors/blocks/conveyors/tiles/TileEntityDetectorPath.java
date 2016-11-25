@@ -30,7 +30,7 @@ public class TileEntityDetectorPath extends TileEntity implements ITickable {
 	public void update() {
 		markDirty();
 		
-		List entities = this.worldObj.getEntitiesWithinAABB(Entity.class,
+		List entities = this.getWorld().getEntitiesWithinAABB(Entity.class,
 				new AxisAlignedBB(pos.getX() - 0, pos.getY(), pos.getZ() - 0,
 						pos.getX() + 1, pos.getY() + 2F, pos.getZ() + 1));
 		

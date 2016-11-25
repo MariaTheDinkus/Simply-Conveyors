@@ -2,8 +2,8 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
+import mcjty.lib.compat.CompatItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 
-public class ItemBusTicket extends Item
+public class ItemBusTicket extends CompatItem
 {
     public ItemBusTicket(String unlocalizedName)
     {

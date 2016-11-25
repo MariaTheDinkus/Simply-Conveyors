@@ -2,47 +2,40 @@ package com.momnop.simplyconveyors.blocks.bus;
 
 import java.io.IOException;
 
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockHorizontal;
+import mcjty.lib.compat.CompatBlock;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemNameTag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.fml.common.FMLLog;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
-import com.momnop.simplyconveyors.client.render.guis.GuiBusMachine;
-import com.momnop.simplyconveyors.client.render.guis.GuiSetNameBusStop;
 import com.momnop.simplyconveyors.entity.EntityBus;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusTicket;
 import com.momnop.simplyconveyors.items.ItemWrench;
 
-public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider {
+public class BlockBusStop extends CompatBlock implements ITileEntityProvider {
+	
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	
 	public Ticket ticket;
 	
 	public BlockBusStop(String unlocalizedName) {
 		super(Material.ROCK);
-		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		//setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
         setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
@@ -119,10 +112,10 @@ public class BlockBusStop extends BlockHorizontal implements ITileEntityProvider
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
 			float hitZ) {
-		if (worldIn.isRemote && heldItem != null && heldItem.getItem() instanceof ItemWrench && !(heldItem.getItem() instanceof ItemBusTicket)) {
+		if (worldIn.isRemote && heldItem != ItemStackTools.getEmptyStack() && heldItem.getItem() instanceof ItemWrench && !(heldItem.getItem() instanceof ItemBusTicket)) {
 			playerIn.openGui(SimplyConveyors.INSTANCE, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
-		} else if (heldItem != null && heldItem.getItem() instanceof ItemBusTicket) {
+		} else if (heldItem != ItemStackTools.getEmptyStack() && heldItem.getItem() instanceof ItemBusTicket) {
 			for (int i = 0; i < BusStopManager.busStopsNames.size(); i++) {
 	    		String name = BusStopManager.busStopsNames.get(i);
 	    		BlockPos pos1 = BusStopManager.busStops.get(i);

@@ -1,25 +1,14 @@
 package com.momnop.simplyconveyors.blocks.conveyors.normal;
 
-import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
@@ -88,19 +77,23 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 			}
 			
 			if (direction == EnumFacing.EAST) {
-				entity.motionX = 0.1F;
+				entity.motionX += 0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.EAST);
 			}
 			
 			if (direction == EnumFacing.WEST) {
-				entity.motionX = -0.1F;
+				entity.motionX += -0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.WEST);
 			}
 			
 			if (direction == EnumFacing.SOUTH) {
-				entity.motionZ = 0.1F;
+				entity.motionZ += 0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.SOUTH);
 			}
 			
 			if (direction == EnumFacing.NORTH) {
-				entity.motionZ = -0.1F;
+				entity.motionZ += -0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.NORTH);
 			}
 		}
 	}

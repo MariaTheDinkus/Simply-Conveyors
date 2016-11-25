@@ -2,6 +2,7 @@ package com.momnop.simplyconveyors.blocks.conveyors.special;
 
 import java.util.ArrayList;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -23,7 +24,6 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemWrench;
@@ -96,11 +96,10 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos,
+	protected boolean clOnBlockActivated(World worldIn, BlockPos pos,
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
-			ItemStack heldItem, EnumFacing side, float hitX, float hitY,
-			float hitZ) {
-		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null && playerIn.getHeldItemOffhand() == null	) {
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			try {
 				if (worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
@@ -117,14 +116,14 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 				e.printStackTrace();
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() == null && playerIn.getHeldItemOffhand() == null) {
+		} else if (playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			grabber.setFilterList(new ArrayList<String>());
 			if (worldIn.isRemote) {
 				playerIn.addChatMessage(new TextComponentString("Cleared all filters."));
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() != null && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+		} else if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());
 			if (grabber.getBlacklisted() && worldIn.isRemote) {
@@ -138,7 +137,7 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 	}
 	
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
+	public void clOnNeighborChanged(IBlockState state, World worldIn, BlockPos pos,
 			Block blockIn) {
 		TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 		

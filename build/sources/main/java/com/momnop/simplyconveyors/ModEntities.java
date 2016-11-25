@@ -25,8 +25,8 @@ public class ModEntities
     {
     	int modEntityIndex = 0;
     	
-    	EntityRegistry.registerModEntity(EntityBlock.class, "entityBlock", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true);
-    	EntityRegistry.registerModEntity(EntityBus.class, "entityBus", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true);
+    	//EntityRegistry.registerModEntity(EntityBlock.class, "entityBlock", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true, 0xFFFFFF, 0xFFFFFF);
+    	//EntityRegistry.registerModEntity(EntityBus.class, "entityBus", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true, 0xFFFFFF, 0xFFFFFF);
     }
     
     

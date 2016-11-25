@@ -65,6 +65,46 @@ public class ConveyorHelper {
     	}
     }
     
+    public static void centerBasedOnFacing(double speed, boolean additive, BlockPos pos, Entity entity, EnumFacing enumFacing) {
+    	if (additive == true) {
+    		if (getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX) {
+    			if (entity.posX > pos.getX() + .55) {
+    				entity.motionX += -speed;
+    			} else if (entity.posX < pos.getX() + .45) {
+    				entity.motionX += speed;
+    			} else {
+    				entity.motionX = 0;
+    			}
+    		} else if (getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ) {
+    			if (entity.posZ > pos.getZ() + .55) {
+    				entity.motionZ += -speed;
+    			} else if (entity.posZ < pos.getZ() + .45) {
+    				entity.motionZ += speed;
+    			} else {
+    				entity.motionZ = 0;
+    			}
+    		}
+    	} else if (additive == false) {
+    		if (getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX) {
+    			if (entity.posX > pos.getX() + .55) {
+    				entity.motionX = -speed;
+    			} else if (entity.posX < pos.getX() + .45) {
+    				entity.motionX = speed;
+    			} else {
+    				entity.motionX = 0;
+    			}
+    		} else if (getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ) {
+    			if (entity.posZ > pos.getZ() + .55) {
+    				entity.motionZ = -speed;
+    			} else if (entity.posZ < pos.getZ() + .45) {
+    				entity.motionZ = speed;
+    			} else {
+    				entity.motionZ = 0;
+    			}
+    		}
+    	}
+    }
+    
     public static void lockSpeed(boolean z, double speed, Entity entity, EnumFacing direction) {
     	if (z == true) {
     		if (speed * direction.getFrontOffsetZ() > 0) {

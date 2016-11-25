@@ -2,9 +2,9 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
+import mcjty.lib.compat.CompatItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
+import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
@@ -25,13 +26,14 @@ import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackw
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 
-public class ItemEntityFilter extends Item
+public class ItemEntityFilter extends CompatItem
 {
 	
     public ItemEntityFilter(String unlocalizedName)
     {
         super();
         setRegistryName(unlocalizedName);
+        setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
         setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
         setMaxStackSize(1);
     }
@@ -53,10 +55,10 @@ public class ItemEntityFilter extends Item
     public void addInformation(ItemStack stack, EntityPlayer playerIn,
     		List<String> tooltip, boolean advanced) {
     	tooltip.add("Right click on a mob to set the filter!");
-    	tooltip.add("Works with the Grabber Conveyor.");
+    	tooltip.add("Works with the Grabber Conveyor and Detector Conveyors.");
     	if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
     		if (stack.hasTagCompound()) {
-    			tooltip.add("Right-clicking on a Grabber Conveyor makes it filter the mob of this filter's type.");
+    			tooltip.add("Right-clicking on a compatible conveyor adds this filter's type to the filter list of the conveyor.");
     		}
     	} else {
     		if (stack.hasTagCompound()) {
@@ -73,25 +75,25 @@ public class ItemEntityFilter extends Item
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,
-    		World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    protected ActionResult<ItemStack> clOnItemRightClick(World worldIn,
+    		EntityPlayer playerIn, EnumHand hand) {
     	if (playerIn.isSneaking()) {
-    		itemStackIn.getTagCompound().setString("filter", "net.minecraft.entity.Entity");
-    		return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
+    		playerIn.getHeldItem(hand).getTagCompound().setString("filter", "net.minecraft.entity.Entity");
+    		return ActionResult.newResult(EnumActionResult.PASS, playerIn.getHeldItem(hand));
     	}
-		return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
+		return ActionResult.newResult(EnumActionResult.FAIL, playerIn.getHeldItem(hand));
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn,
+    protected EnumActionResult clOnItemUse(EntityPlayer playerIn,
     		World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing,
     		float hitX, float hitY, float hitZ) {
     	if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingGrabberPath) {
     		TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -100,9 +102,9 @@ public class ItemEntityFilter extends Item
     	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingDetectorPath) {
     		TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -111,9 +113,9 @@ public class ItemEntityFilter extends Item
     	} else if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingBackwardsDetectorPath) {
     		TileEntityDetectorBackwardsPath grabber = (TileEntityDetectorBackwardsPath) worldIn.getTileEntity(pos);
     		try {
-				grabber.setEntityFilter(Class.forName(stack.getTagCompound().getString("filter")));
+				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

@@ -13,6 +13,13 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+
+repositories {
+	maven { 
+		url "http://maven.k-4u.nl"
+	}
+}
 
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
@@ -20,12 +27,12 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.1.10"
+version = "1.1.11"
 group= "com.momnop.simplyconveyors" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SimplyConveyors"
 
 minecraft {
-    version = "1.10-12.18.0.1993-1.10.0"
+    version = "1.10.2-12.18.2.2125"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -54,6 +61,8 @@ dependencies {
     // except that these dependencies get remapped to your current MCP mappings
     //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
     //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+	
+	deobfCompile "com.github.mcjty:compatlayer:1.10-0.0.20alpha"
 
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

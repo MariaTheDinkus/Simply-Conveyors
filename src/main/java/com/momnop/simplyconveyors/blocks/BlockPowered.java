@@ -2,15 +2,15 @@ package com.momnop.simplyconveyors.blocks;
 
 import java.util.Random;
 
+import mcjty.lib.compat.CompatBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockPowered extends Block {
+public class BlockPowered extends CompatBlock {
 	
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
@@ -29,7 +29,7 @@ public class BlockPowered extends Block {
      * block, etc.
      */
 	@Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
+    public void clOnNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         if (!worldIn.isRemote)
         {

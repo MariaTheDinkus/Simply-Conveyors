@@ -7,13 +7,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.common.DimensionManager;
@@ -31,15 +31,9 @@ import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStai
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;
@@ -48,7 +42,7 @@ import com.momnop.simplyconveyors.items.ItemWrench;
 
 public class SimplyConveyorsEventHandler {
 	public static boolean followingNearest = false;
-
+	
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
@@ -62,10 +56,10 @@ public class SimplyConveyorsEventHandler {
 				|| block instanceof BlockMovingFastStairPath
 				|| block instanceof BlockMovingFastestStairPath) {
 			if (block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemMainhand() != null
+					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStackTools.getEmptyStack()
 					&& event.getEntityPlayer().getHeldItemMainhand().getItem() instanceof ItemWrench
 					|| block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemOffhand() != null
+					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStackTools.getEmptyStack()
 					&& event.getEntityPlayer().getHeldItemOffhand().getItem() instanceof ItemWrench) {
 				BlockHorizontal blockHorizontal = (BlockHorizontal) block;
 				if (!event.getEntityPlayer().isSneaking()) {
@@ -90,7 +84,7 @@ public class SimplyConveyorsEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-		if (event.getItemStack() != null
+		if (event.getItemStack() != ItemStackTools.getEmptyStack()
 				&& event.getItemStack().getItem() instanceof ItemEntityFilter) {
 			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack()
 					.getItem();
@@ -173,7 +167,7 @@ public class SimplyConveyorsEventHandler {
 		// GL11.glPopMatrix();
 		// }
 
-		if (mc.thePlayer.getHeldItemMainhand() != null
+		if (mc.thePlayer.getHeldItemMainhand() != ItemStackTools.getEmptyStack()
 				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemBusStopBook
 				|| mc.thePlayer.getHeldItemOffhand() != null
 				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemBusStopBook) {
@@ -239,7 +233,7 @@ public class SimplyConveyorsEventHandler {
 			}
 		}
 
-		if (mc.thePlayer.getHeldItemMainhand() != null
+		if (mc.thePlayer.getHeldItemMainhand() != ItemStackTools.getEmptyStack()
 				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
@@ -267,7 +261,7 @@ public class SimplyConveyorsEventHandler {
 			// }
 		}
 
-		if (mc.thePlayer.getHeldItemOffhand() != null
+		if (mc.thePlayer.getHeldItemOffhand() != ItemStackTools.getEmptyStack()
 				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
