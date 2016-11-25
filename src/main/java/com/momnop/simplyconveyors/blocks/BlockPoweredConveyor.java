@@ -20,41 +20,44 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
 
 public class BlockPoweredConveyor extends CompatBlock {
-	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+
+	public static final PropertyDirection FACING = PropertyDirection.create(
+			"facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	protected BlockPoweredConveyor(Material materialIn) {
 		super(materialIn);
 	}
-	
+
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock());
+		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
+				.getBlock());
 	}
-	
+
 	/**
-     * Convert the given metadata into a BlockState for this Block
-     */
+	 * Convert the given metadata into a BlockState for this Block
+	 */
 	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
+	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = false;
 		if (String.valueOf(meta).length() == 2) {
 			powered = true;
 		} else {
 			powered = false;
 		}
-		
+
 		int metaNew = 0;
 		if (String.valueOf(meta).length() == 1) {
 			metaNew = Integer.parseInt(String.valueOf(("" + meta).charAt(0)));
 		} else {
 			metaNew = Integer.parseInt(String.valueOf(("" + meta).charAt(1)));
 		}
-		
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(metaNew)).withProperty(POWERED, powered);
-    }
+
+		return this.getDefaultState()
+				.withProperty(FACING, EnumFacing.getHorizontal(metaNew))
+				.withProperty(POWERED, powered);
+	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
@@ -64,19 +67,21 @@ public class BlockPoweredConveyor extends CompatBlock {
 		} else {
 			powered = 1;
 		}
-		
-		return Integer.parseInt(powered + "" + state.getValue(FACING).getIndex());
+
+		return Integer.parseInt(powered + ""
+				+ state.getValue(FACING).getIndex());
 	}
-	
+
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { FACING, POWERED });
+		return new BlockStateContainer(this,
+				new IProperty[] { FACING, POWERED });
 	}
-	
+
 	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
+	 * Called by ItemBlocks just before a block is actually set in the world, to
+	 * allow for adjustments to the IBlockstate
+	 */
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
@@ -89,46 +94,43 @@ public class BlockPoweredConveyor extends CompatBlock {
 					placer.getHorizontalFacing().getOpposite());
 		}
 	}
-	
+
 	/**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
+	 * Called when a neighboring block was changed and marks that this state
+	 * should perform any checks during a neighbor change. Cases may include
+	 * when redstone power is updated, cactus blocks popping off due to a
+	 * neighboring solid block, etc.
+	 */
 	@Override
-    public void clOnNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
-    {
-        if (!worldIn.isRemote)
-        {
-        	IBlockState blockState = worldIn.getBlockState(pos);
-            if (blockState.getValue(POWERED) && !worldIn.isBlockPowered(pos))
-            {
-                worldIn.scheduleUpdate(pos, this, 4);
-            }
-            else if (!blockState.getValue(POWERED) && worldIn.isBlockPowered(pos))
-            {
-            	worldIn.setBlockState(pos, blockState.withProperty(POWERED, true), 2);
-            	if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
-            		worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
-            	}
-            }
-        }
-    }
+	public void clOnNeighborChanged(IBlockState state, World worldIn,
+			BlockPos pos, Block blockIn) {
+		IBlockState blockState = worldIn.getBlockState(pos);
+		if (blockState.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
+			worldIn.scheduleUpdate(pos, this, 4);
+		} else if (!blockState.getValue(POWERED) && worldIn.isBlockPowered(pos)) {
+			worldIn.setBlockState(pos, blockState.withProperty(POWERED, true),
+					2);
+			if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+				worldIn.playSound(null, pos,
+						SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
+						SoundCategory.BLOCKS, 1, 1);
+			}
+		}
+	}
 
 	@Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (!worldIn.isRemote)
-        {
-        	IBlockState blockState = worldIn.getBlockState(pos);
-            if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
-            {
-                worldIn.setBlockState(pos, blockState.withProperty(POWERED, false), 2);
-                if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
-            		worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
-            	}
-            }
-        }
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state,
+			Random rand) {
+		IBlockState blockState = worldIn.getBlockState(pos);
+		if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
+			worldIn.setBlockState(pos, blockState.withProperty(POWERED, false),
+					2);
+			if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+				worldIn.playSound(null, pos,
+						SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE,
+						SoundCategory.BLOCKS, 1, 1);
+			}
+		}
+	}
 
 }
