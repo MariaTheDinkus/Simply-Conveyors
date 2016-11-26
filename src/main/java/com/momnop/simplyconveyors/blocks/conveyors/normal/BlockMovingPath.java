@@ -82,7 +82,7 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 			}
 			
 			if (entity instanceof EntityItem && world.getBlockState(pos.up().add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock() instanceof BlockMovingVerticalPath) {
-				entity.setPositionAndUpdate(entity.posX, entity.posY + 0.07F, entity.posZ);
+				entity.setPositionAndUpdate(entity.posX, entity.posY + 0.3F, entity.posZ);
 			}
 		}
 	}
