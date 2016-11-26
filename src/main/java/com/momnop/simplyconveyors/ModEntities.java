@@ -2,17 +2,12 @@ package com.momnop.simplyconveyors;
 
 import java.util.Map;
 
-import net.minecraft.entity.Entity;
+import mcjty.lib.tools.EntityTools;
 import net.minecraft.entity.EntityList.EntityEggInfo;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
+import net.minecraft.util.ResourceLocation;
 
 import com.google.common.collect.Maps;
 import com.momnop.simplyconveyors.entity.EntityBlock;
-import com.momnop.simplyconveyors.entity.EntityBus;
 
 public class ModEntities
 {
@@ -25,7 +20,7 @@ public class ModEntities
     {
     	int modEntityIndex = 0;
     	
-    	//EntityRegistry.registerModEntity(EntityBlock.class, "entityBlock", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true, 0xFFFFFF, 0xFFFFFF);
+    	EntityTools.registerModEntity(new ResourceLocation("simplyconveyors", "entityBlock"), EntityBlock.class, "entityBlock", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true);
     	//EntityRegistry.registerModEntity(EntityBus.class, "entityBus", ++modEntityIndex, SimplyConveyors.INSTANCE, 64, 10, true, 0xFFFFFF, 0xFFFFFF);
     }
     

@@ -23,6 +23,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPat
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
+import com.momnop.simplyconveyors.config.ConfigHandler;
 import com.momnop.simplyconveyors.info.BlockInfo;
 
 public class SimplyConveyorsBlocks
@@ -41,9 +42,9 @@ public class SimplyConveyorsBlocks
 	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
 	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 1F / 16F, 0F, 1F, 1F, 1F);
 	
-	private static final double tier1Speed = 0.2F;
-	private static final double tier2Speed = 0.4F;
-	private static final double tier3Speed = 0.65F;
+	private static final double tier1Speed = ConfigHandler.tier1Speed;
+	private static final double tier2Speed = ConfigHandler.tier2Speed;
+	private static final double tier3Speed = ConfigHandler.tier3Speed;
 	
 	public static void load() {
 		loadBus();

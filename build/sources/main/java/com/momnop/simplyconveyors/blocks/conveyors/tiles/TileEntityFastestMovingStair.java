@@ -17,7 +17,7 @@ public class TileEntityFastestMovingStair extends TileEntity implements ITickabl
     {
 			BlockMovingFastestStairPath block = (BlockMovingFastestStairPath) blockType;
             List entities = this.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(
-            		pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1.1F, pos.getZ() + 1));
+            		pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1.1F, pos.getZ() + 1));
             for (Object obj : entities)
                {
             	if (obj instanceof Entity && !this.getWorld().getBlockState(this.getPos()).getValue(block.POWERED)) {
@@ -26,24 +26,24 @@ public class TileEntityFastestMovingStair extends TileEntity implements ITickabl
                 {
                 	entity.stepHeight = 0.6F;
                 	if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.EAST) {
-            			entity.motionZ += 0.65F;
-            			if (entity.motionZ > 0.65F) {
-            				entity.motionZ = 0.65F;
+            			entity.motionZ += 0.7f;
+            			if (entity.motionZ > 0.7f) {
+            				entity.motionZ = 0.7f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.SOUTH) {
-            			entity.motionX += -0.65F;
-            			if (entity.motionX < -0.65F) {
-            				entity.motionX = -0.65F;
+            			entity.motionX += -0.7f;
+            			if (entity.motionX < -0.7f) {
+            				entity.motionX = -0.7f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.NORTH) {
-            			entity.motionX += 0.65F;
-            			if (entity.motionX > 0.65F) {
-            				entity.motionX = 0.65F;
+            			entity.motionX += 0.7f;
+            			if (entity.motionX > 0.7f) {
+            				entity.motionX = 0.7f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.WEST) {
-            			entity.motionZ += -0.65F;
-            			if (entity.motionZ < -0.65F) {
-            				entity.motionZ = -0.65F;
+            			entity.motionZ += -0.7f;
+            			if (entity.motionZ < -0.7f) {
+            				entity.motionZ = -0.7f;
             			}
             		}
                 }

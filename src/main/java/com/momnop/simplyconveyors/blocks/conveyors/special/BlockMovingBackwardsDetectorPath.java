@@ -68,15 +68,15 @@ public class BlockMovingBackwardsDetectorPath extends BlockPoweredConveyor imple
 	}
 	
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
-			Block blockIn) {
+	public void clOnNeighborChanged(IBlockState state, World worldIn,
+			BlockPos pos, Block blockIn) {
 		
 	}
 	
 	@Override
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-		if (blockState.getValue(POWERED) == true) {
+		if (blockState.getValue(POWERED) == true && side != blockState.getValue(FACING)) {
 			return 15;
 		}
         return 0;
@@ -85,7 +85,7 @@ public class BlockMovingBackwardsDetectorPath extends BlockPoweredConveyor imple
 	@Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-		if (blockState.getValue(POWERED) == true) {
+		if (blockState.getValue(POWERED) == true && side != blockState.getValue(FACING)) {
 			return 15;
 		}
         return 0;

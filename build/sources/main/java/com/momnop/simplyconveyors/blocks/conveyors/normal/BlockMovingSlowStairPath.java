@@ -45,19 +45,15 @@ public class BlockMovingSlowStairPath extends BlockPoweredConveyor implements
 		if (state.getValue(FACING) == EnumFacing.SOUTH) {
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 0.5F, pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 1F), list, mask);
-			super.addCollisionBoxToList(state, worldIn, pos, mask, list, entityIn);
 		} else if (state.getValue(FACING) == EnumFacing.WEST) {
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 0.5F, pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 1F, pos.getZ() + 0.5F), list, mask);
-			super.addCollisionBoxToList(state, worldIn, pos, mask, list, entityIn);
 		} else if (state.getValue(FACING) == EnumFacing.NORTH) {
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 0.5F, pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0.5F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 1F, pos.getZ() + 1F), list, mask);
-			super.addCollisionBoxToList(state, worldIn, pos, mask, list, entityIn);
 		}  else if (state.getValue(FACING) == EnumFacing.EAST) {
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + 0.5F, pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0.5F, pos.getX() + 1F, pos.getY() + 1F, pos.getZ() + 1F), list, mask);
-			super.addCollisionBoxToList(state, worldIn, pos, mask, list, entityIn);
 		}
 	}
 	
@@ -82,6 +78,19 @@ public class BlockMovingSlowStairPath extends BlockPoweredConveyor implements
 	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
         return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
+	
+	@Override
+	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos,
+			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+			EntityLivingBase placer) {
+		if (placer.isSneaking()) {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing().rotateY());
+		} else {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing().getOpposite().rotateY());
+		}
+	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {

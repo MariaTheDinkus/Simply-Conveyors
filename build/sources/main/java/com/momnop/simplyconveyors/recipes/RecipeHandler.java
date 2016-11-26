@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.config.ConfigHandler;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 /**
@@ -22,9 +23,9 @@ public class RecipeHandler
     {		
 		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsItems.wrench, 1), new Object[] {"X X", " X ", " X ", 'X', Items.IRON_INGOT});
     	
-    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath, 8), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.IRON_INGOT, 'S', Blocks.GLASS});
-    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath, 8), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.GOLD_INGOT, 'S', Blocks.GLASS});
-    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath, 8), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.DIAMOND, 'S', Blocks.GLASS});
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath, ConfigHandler.normalConveyorRecipeAmount), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.IRON_INGOT, 'S', Blocks.GLASS});
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMovingPath, ConfigHandler.normalConveyorRecipeAmount), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.GOLD_INGOT, 'S', Blocks.GLASS});
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMovingPath, ConfigHandler.normalConveyorRecipeAmount), new Object[] {"XXX", "SGS", 'X', Blocks.RAIL, 'G', Items.DIAMOND, 'S', Blocks.GLASS});
     	
     	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockDropperMovingPath, 6), new Object[] {"RRR", "QHQ", 'R', Blocks.RAIL, 'Q', Blocks.QUARTZ_BLOCK, 'H', Blocks.HOPPER});
     	

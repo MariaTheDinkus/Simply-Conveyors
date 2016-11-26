@@ -80,6 +80,10 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
+			
+			if (entity instanceof EntityItem && world.getBlockState(pos.up().add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock() instanceof BlockMovingVerticalPath) {
+				entity.setPositionAndUpdate(entity.posX, entity.posY + 0.07F, entity.posZ);
+			}
 		}
 	}
 }

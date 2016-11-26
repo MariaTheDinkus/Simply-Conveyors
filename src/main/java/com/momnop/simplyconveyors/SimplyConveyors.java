@@ -24,6 +24,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityTransporterPath;
 import com.momnop.simplyconveyors.client.render.blocks.BlockRenderRegister;
 import com.momnop.simplyconveyors.client.render.guis.SimplyConveyorsGuiHandler;
+import com.momnop.simplyconveyors.config.ConfigHandler;
 import com.momnop.simplyconveyors.events.SimplyConveyorsEventHandler;
 import com.momnop.simplyconveyors.info.BlockInfoOld;
 import com.momnop.simplyconveyors.info.ModInfo;
@@ -104,6 +105,8 @@ public class SimplyConveyors
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	ConfigHandler.init(event.getSuggestedConfigurationFile());
+    	
         SimplyConveyorsBlocks.load();
         SimplyConveyorsItems.load();
         ModEntities.init();

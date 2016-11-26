@@ -19,6 +19,19 @@ public class BlockConveyor extends CompatBlock {
 		super(materialIn);
 	}
 	
+	@Override
+	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos,
+			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+			EntityLivingBase placer) {
+		if (placer.isSneaking()) {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing());
+		} else {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing().getOpposite());
+		}
+	}
+	
 	/**
      * Convert the given metadata into a BlockState for this Block
      */

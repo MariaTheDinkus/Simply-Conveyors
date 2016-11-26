@@ -68,8 +68,8 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	}
 	
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
-			Block blockIn) {
+	public void clOnNeighborChanged(IBlockState state, World worldIn,
+			BlockPos pos, Block blockIn) {
 		
 	}
 	

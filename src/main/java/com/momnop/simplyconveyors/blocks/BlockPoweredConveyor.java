@@ -31,8 +31,21 @@ public class BlockPoweredConveyor extends CompatBlock {
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
+		this.clOnNeighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
 				.getBlock());
+	}
+	
+	@Override
+	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos,
+			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+			EntityLivingBase placer) {
+		if (placer.isSneaking()) {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing());
+		} else {
+			return this.getDefaultState().withProperty(FACING,
+					placer.getHorizontalFacing().getOpposite());
+		}
 	}
 
 	/**
@@ -76,23 +89,6 @@ public class BlockPoweredConveyor extends CompatBlock {
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this,
 				new IProperty[] { FACING, POWERED });
-	}
-
-	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
-	 */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
-		}
 	}
 
 	/**

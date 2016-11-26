@@ -20,7 +20,7 @@ public class BlockPowered extends CompatBlock {
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
+		this.clOnNeighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
 				.getBlock());
 	}
 
