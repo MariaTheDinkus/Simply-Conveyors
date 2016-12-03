@@ -2,14 +2,18 @@ package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 
 import java.util.List;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
 	
@@ -23,28 +27,36 @@ public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
                {
                if (obj instanceof Entity && !this.getWorld().getBlockState(this.getPos()).getValue(block.POWERED)) {
             	   Entity entity = (Entity)obj;
+            	   
+            	   if (entity instanceof EntityPlayer) {
+              			EntityPlayer player = (EntityPlayer) entity;
+              			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+              				return;
+              			}
+              		}
+            	   
                 if (entity != null && entity.onGround && !entity.isInWater())
                 {
                 	entity.stepHeight = 0.6F;
                 	if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.EAST) {
-            			entity.motionZ += 0.2f;
-            			if (entity.motionZ > 0.2f) {
-            				entity.motionZ = 0.2f;
+            			entity.motionZ += 0.125f;
+            			if (entity.motionZ > 0.125f) {
+            				entity.motionZ = 0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.SOUTH) {
-            			entity.motionX += -0.2f;
-            			if (entity.motionX < -0.2f) {
-            				entity.motionX = -0.2f;
+            			entity.motionX += -0.125f;
+            			if (entity.motionX < -0.125f) {
+            				entity.motionX = -0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.NORTH) {
-            			entity.motionX += 0.2f;
-            			if (entity.motionX > 0.2f) {
-            				entity.motionX = 0.2f;
+            			entity.motionX += 0.125f;
+            			if (entity.motionX > 0.125f) {
+            				entity.motionX = 0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.WEST) {
-            			entity.motionZ += -0.2f;
-            			if (entity.motionZ < -0.2f) {
-            				entity.motionZ = -0.2f;
+            			entity.motionZ += -0.125f;
+            			if (entity.motionZ < -0.125f) {
+            				entity.motionZ = -0.125f;
             			}
             		}
                 }

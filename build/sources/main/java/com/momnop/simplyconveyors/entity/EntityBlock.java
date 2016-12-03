@@ -451,7 +451,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 	
 	@Override
 	public boolean hitByEntity(Entity entityIn) {
-		ItemStack item = new ItemStack(fallTile.getBlock(), 1, fallTile.getBlock().getMetaFromState(fallTile));
+		ItemStack item = new ItemStack(fallTile.getBlock(), 1, fallTile.getBlock().damageDropped(fallTile));
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
 			player.inventory.addItemStackToInventory(item);

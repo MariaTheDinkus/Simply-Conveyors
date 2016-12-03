@@ -2,11 +2,14 @@ package com.momnop.simplyconveyors.blocks.conveyors.special;
 
 import java.util.List;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +20,7 @@ import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
 	
@@ -45,16 +49,16 @@ public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
 			BlockPos pos, AxisAlignedBB mask,
 			List<AxisAlignedBB> list, Entity entityIn) {
 		if (state.getValue(POWERED) == true) {
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + (1F / 16F)), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 		} else if (state.getValue(POWERED) == false) {
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + (1F / 16F)), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX(), pos.getY() + (14F / 16F), pos.getZ(), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX(), pos.getY() + (0F / 16F), pos.getZ(), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 		}
 	}
 	
@@ -94,6 +98,13 @@ public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
 	public void onEntityCollidedWithBlock(World world, BlockPos pos,
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
+		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+				return;
+			}
+		}
 		
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(speed, true, pos, entity, direction);

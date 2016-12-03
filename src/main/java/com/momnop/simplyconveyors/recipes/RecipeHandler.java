@@ -60,6 +60,16 @@ public class RecipeHandler
     	addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingPath), new ItemStack(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath));
     	
     	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.entityFilter), new Object[] { Items.PAPER, Items.EGG });
+    	
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowSpongeMovingPath, 8), new Object[] { "CCC", "CSC", "CCC", 'S', Blocks.SPONGE, 'C', SimplyConveyorsBlocks.blockSlowMovingPath });
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastSpongeMovingPath, 8), new Object[] { "CCC", "CSC", "CCC", 'S', Blocks.SPONGE, 'C', SimplyConveyorsBlocks.blockFastMovingPath });
+    	GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestSpongeMovingPath, 8), new Object[] { "CCC", "CSC", "CCC", 'S', Blocks.SPONGE, 'C', SimplyConveyorsBlocks.blockFastestMovingPath });
+    	
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockSlowMovingPath, Items.IRON_SWORD });
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockFastMovingPath, Blocks.GOLD_BLOCK, Blocks.LAPIS_BLOCK, Items.GOLDEN_SWORD });
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockFastestMovingPath, Blocks.DIAMOND_BLOCK, Blocks.LAPIS_BLOCK, Items.DIAMOND_SWORD });
+    
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.conveyorResistanceBoots), new Object[] { Items.LEATHER_BOOTS, Items.SLIME_BALL });
     }
     
     public static void addInverseRecipe(ItemStack input, ItemStack output) {

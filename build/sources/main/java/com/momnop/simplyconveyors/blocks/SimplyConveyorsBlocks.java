@@ -19,11 +19,12 @@ import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsD
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingFoamPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
-import com.momnop.simplyconveyors.config.ConfigHandler;
 import com.momnop.simplyconveyors.info.BlockInfo;
 
 public class SimplyConveyorsBlocks
@@ -36,15 +37,17 @@ public class SimplyConveyorsBlocks
 	public static Block blockDetectorMovingPath;
 	public static Block blockTransporterMovingPath;
 	public static Block blockTrapDoorMovingPath;
+	public static Block blockSlowSpongeMovingPath, blockFastSpongeMovingPath, blockFastestSpongeMovingPath;
+	public static Block blockSlowSpikeMovingPath, blockFastSpikeMovingPath, blockFastestSpikeMovingPath;
 	
 	public static Block busStop;
 	
-	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
-	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 1F / 16F, 0F, 1F, 1F, 1F);
+	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 1F / 16F, 1F);
+	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 15F / 16F, 0F, 1F, 1F, 1F);
 	
-	private static final double tier1Speed = ConfigHandler.tier1Speed;
-	private static final double tier2Speed = ConfigHandler.tier2Speed;
-	private static final double tier3Speed = ConfigHandler.tier3Speed;
+	private static final double tier1Speed = 0.125F;
+	private static final double tier2Speed = 0.25F;
+	private static final double tier3Speed = 0.5F;
 	
 	public static void load() {
 		loadBus();
@@ -86,6 +89,14 @@ public class SimplyConveyorsBlocks
         blockGrabberMovingPath = new BlockMovingGrabberPath(tier2Speed, Material.ROCK, "conveyor_grabber");
         blockTransporterMovingPath = new BlockMovingTransporterPath(tier2Speed, Material.ROCK, "conveyor_transporter");
         
+        blockSlowSpongeMovingPath = new BlockMovingFoamPath(tier1Speed, Material.ROCK, "conveyor_foam_slow");
+        blockFastSpongeMovingPath = new BlockMovingFoamPath(tier2Speed, Material.ROCK, "conveyor_foam_fast");
+        blockFastestSpongeMovingPath = new BlockMovingFoamPath(tier3Speed, Material.ROCK, "conveyor_foam_fastest");
+        
+        blockSlowSpikeMovingPath = new BlockMovingSpikePath(tier1Speed, Material.ROCK, "conveyor_spike_slow");
+        blockFastSpikeMovingPath = new BlockMovingSpikePath(tier2Speed, Material.ROCK, "conveyor_spike_fast");
+        blockFastestSpikeMovingPath = new BlockMovingSpikePath(tier3Speed, Material.ROCK, "conveyor_spike_fastest");
+        
         register(blockSlowMovingPath);
         register(blockFastMovingPath);
         register(blockFastestMovingPath);
@@ -112,6 +123,14 @@ public class SimplyConveyorsBlocks
         register(blockGrabberMovingPath);
         register(blockBlockMovingPath);
         register(blockTransporterMovingPath);
+        
+        register(blockSlowSpongeMovingPath);
+        register(blockFastSpongeMovingPath);
+        register(blockFastestSpongeMovingPath);
+        
+        register(blockSlowSpikeMovingPath);
+        register(blockFastSpikeMovingPath);
+        register(blockFastestSpikeMovingPath);
     }
     
     public static void register(Block b) {

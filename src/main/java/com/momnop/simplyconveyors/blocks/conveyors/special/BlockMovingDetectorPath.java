@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -27,6 +28,7 @@ import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 import com.momnop.simplyconveyors.items.ItemWrench;
 
 public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider {
@@ -131,6 +133,13 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	public void onEntityCollidedWithBlock(World world, BlockPos pos,
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
+		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+				return;
+			}
+		}
 		
 		if (!entity.isSneaking()) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);

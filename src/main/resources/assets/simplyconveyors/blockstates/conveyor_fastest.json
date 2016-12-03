@@ -25,7 +25,7 @@
 		},
 		"false": {
 			"textures": {
-				"top": "simplyconveyors:blocks/conveyor_on"
+				"top": "simplyconveyors:blocks/conveyor_fastest_on"
 			}
 		}
 	}

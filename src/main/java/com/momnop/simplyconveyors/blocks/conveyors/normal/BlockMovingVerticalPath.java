@@ -1,9 +1,12 @@
 package com.momnop.simplyconveyors.blocks.conveyors.normal;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +16,7 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 	
@@ -37,14 +41,14 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
 			BlockPos pos) {
-		if (state.getValue(FACING) == EnumFacing.SOUTH) {
-			return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 15F / 16F);
-		} else if (state.getValue(FACING) == EnumFacing.WEST) {
-			return new AxisAlignedBB(1F / 16F, 0F, 0F, 1F, 1F, 1F);
-		} else if (state.getValue(FACING) == EnumFacing.NORTH) {
-			return new AxisAlignedBB(0F, 0F, 1F / 16F, 1F, 1F, 1F);
+		if (state.getValue(FACING) == EnumFacing.NORTH) {
+			return new AxisAlignedBB(0, 0, 0.1F / 16F, 1F, 1F, 1F);
 		} else if (state.getValue(FACING) == EnumFacing.EAST) {
-			return new AxisAlignedBB(0F, 0F, 0F, 15F / 16F, 1F, 1F);
+			return new AxisAlignedBB(0F, 0F, 0F, 15.9F / 16F, 1F, 1F);
+		} else if (state.getValue(FACING) == EnumFacing.SOUTH) {
+			return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 15.9F / 16F);
+		} else if (state.getValue(FACING) == EnumFacing.WEST) {
+			return new AxisAlignedBB(0.1F / 16F, 0F, 0F, 1F, 1F, 1F);
 		}
 		return null;
 	}
@@ -67,6 +71,13 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState,
 			Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
+		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+				return;
+			}
+		}
 		
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);

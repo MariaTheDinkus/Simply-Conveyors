@@ -2,7 +2,7 @@
 	"parent": "block/block",
     "elements": [
         {   
-			"from": [ 0, 1, 0 ],
+			"from": [ 0, 15, 0 ],
             "to": [ 16, 16, 16 ],
             "faces": {
                 "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "top" },

@@ -7,6 +7,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,6 +25,7 @@ import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityTransporterPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockMovingTransporterPath extends BlockPoweredConveyor implements ITileEntityProvider {
 	
@@ -76,6 +79,13 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+				return;
+			}
+		}
+		
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
@@ -95,7 +105,7 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 				double treshold = .9;
 				boolean contact = facing.getAxis()==Axis.Z?distZ<treshold: distX<treshold;
 				
-				inventoryTile = world.getTileEntity(pos.add(0,1,0).add(direction.getDirectionVec()));
+				inventoryTile = world.getTileEntity(pos.add(direction.getDirectionVec()));
 				contact = Math.abs(facing.getAxis()==Axis.Z?(pos.getZ()+.5-entity.posZ):(pos.getX()+.5-entity.posX))<.2;
 				inventoryDir = EnumFacing.DOWN;
 				
@@ -121,7 +131,7 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 							}
 						}
 					}
-					else if(contact && world.isAirBlock(pos.add(0,1,0).add(direction.getDirectionVec())))
+					else if(contact && world.isAirBlock(pos.add(direction.getDirectionVec())))
 					{
 						entity.motionX = 0;
 						entity.motionZ = 0;

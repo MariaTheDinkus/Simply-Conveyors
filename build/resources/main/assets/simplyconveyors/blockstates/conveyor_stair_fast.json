@@ -4,8 +4,8 @@
 	"textures": {
 		"top": "simplyconveyors:blocks/conveyor_side_off",
 		"top2": "simplyconveyors:blocks/conveyor_inverse_off",
-		"side": "blocks/gold_block",
-		"particle": "blocks/gold_block"
+		"side": "simplyconveyors:blocks/conveyor_fast_side",
+		"particle": "simplyconveyors:blocks/conveyor_fast_side"
 	},
 	"model": "simplyconveyors:conveyor_stair_fast"
   },
@@ -27,7 +27,7 @@
 		"false": {
 			"textures": {
 				"top": "simplyconveyors:blocks/conveyor_side_on",
-				"top2": "simplyconveyors:blocks/conveyor_inverse_on"
+				"top2": "simplyconveyors:blocks/conveyor_inverse_fast_on"
 			}
 		}
 	}

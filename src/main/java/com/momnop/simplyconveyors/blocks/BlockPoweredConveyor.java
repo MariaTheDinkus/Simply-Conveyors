@@ -17,6 +17,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
 
 public class BlockPoweredConveyor extends CompatBlock {
@@ -106,7 +107,7 @@ public class BlockPoweredConveyor extends CompatBlock {
 		} else if (!blockState.getValue(POWERED) && worldIn.isBlockPowered(pos)) {
 			worldIn.setBlockState(pos, blockState.withProperty(POWERED, true),
 					2);
-			if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
 				worldIn.playSound(null, pos,
 						SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
 						SoundCategory.BLOCKS, 1, 1);
@@ -121,7 +122,7 @@ public class BlockPoweredConveyor extends CompatBlock {
 		if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
 			worldIn.setBlockState(pos, blockState.withProperty(POWERED, false),
 					2);
-			if (state.getBlock() instanceof BlockMovingTrapDoorPath) {
+			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
 				worldIn.playSound(null, pos,
 						SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE,
 						SoundCategory.BLOCKS, 1, 1);

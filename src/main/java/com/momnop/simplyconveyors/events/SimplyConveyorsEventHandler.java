@@ -13,10 +13,13 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -33,7 +36,9 @@ import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPa
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingFoamPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
+import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;
@@ -287,6 +292,29 @@ public class SimplyConveyorsEventHandler {
 			// } catch (ClassNotFoundException e) {
 			// e.printStackTrace();
 			// }
+		}
+	}
+	
+	@SubscribeEvent
+	public void tooltips(ItemTooltipEvent event) {
+		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
+			event.getToolTip().add(TextFormatting.DARK_GRAY + "In the ocean you may find, sponge growing somewhere hard to find...");
+		}
+		
+		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
+			BlockMovingSpikePath spike = (BlockMovingSpikePath) Block.getBlockFromItem(event.getItemStack().getItem());
+			if (spike.getSpeed() == 0.125F) {
+				event.getToolTip().add("Drops non player-only items.");
+				event.getToolTip().add(" 6 Attack Damage");
+			}
+			if (spike.getSpeed() == 0.25F) {
+				event.getToolTip().add("Drops non player-only items and experience orbs.");
+				event.getToolTip().add(" 6 Attack Damage");
+			}
+			if (spike.getSpeed() == 0.5F) {
+				event.getToolTip().add("Drops player-only items, non player-only items, and experience orbs.");
+				event.getToolTip().add(" 7 Attack Damage");
+			}
 		}
 	}
 

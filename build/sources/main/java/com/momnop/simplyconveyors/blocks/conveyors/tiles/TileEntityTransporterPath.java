@@ -18,18 +18,18 @@ public class TileEntityTransporterPath extends TileEntity implements ITickable {
 		
 		if (blockType instanceof BlockMovingTransporterPath && this.getWorld().getTotalWorldTime() % 20 == 0) {
 			BlockMovingTransporterPath blockTransporter = (BlockMovingTransporterPath) blockType;
-			TileEntity tile = this.getWorld().getTileEntity(this.getPos().up().add(this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.FACING).getDirectionVec()));
+			TileEntity tile = this.getWorld().getTileEntity(this.getPos().add(this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.FACING).getDirectionVec()));
 			if (tile != null && tile instanceof IInventory && !this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.POWERED)) {
 				IInventory inventory = (IInventory) tile;
 				for (int i = 0; i < inventory.getSizeInventory(); i++) {
 					if (inventory.getStackInSlot(i) != null) {
 						if (this.getWorld().isRemote == false) {
-							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + 1, this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
+							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
 							this.getWorld().spawnEntityInWorld(entityItem);
 							entityItem.motionX = 0;
 							entityItem.motionY = 0;
 							entityItem.motionZ = 0;
-							entityItem.setPosition(this.getPos().getX() + 0.5F, this.getPos().getY() + 1, this.getPos().getZ() + 0.5F);
+							entityItem.setPosition(this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F);
 							inventory.setInventorySlotContents(i, null);
 							break;
 						}

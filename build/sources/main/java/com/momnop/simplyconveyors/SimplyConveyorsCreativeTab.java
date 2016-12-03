@@ -42,6 +42,14 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingPath);
 		
+		//addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
+		//addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
+		//addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+		
+		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
+		
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);

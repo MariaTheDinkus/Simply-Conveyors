@@ -21,6 +21,12 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockSlowMovingPath);
 		register(SimplyConveyorsBlocks.blockFastMovingPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingPath);
+		register(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
+		register(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
+		register(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+		register(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
+		register(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
+		register(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
 		register(SimplyConveyorsBlocks.blockDropperMovingPath);
 		register(SimplyConveyorsBlocks.blockHoldingMovingPath);
 		register(SimplyConveyorsBlocks.blockBlockMovingPath);

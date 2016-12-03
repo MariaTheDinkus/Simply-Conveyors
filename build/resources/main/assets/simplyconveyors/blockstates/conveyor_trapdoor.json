@@ -2,9 +2,8 @@
   "forge_marker": 1,
   "defaults": {
 	"textures": {
-        "0": "blocks/quartz_block_side",
-        "1": "simplyconveyors:blocks/conveyor_inside",
-        "2": "simplyconveyors:blocks/conveyor_trapdoor_on"
+        "0": "simplyconveyors:blocks/conveyor_inside",
+        "1": "simplyconveyors:blocks/conveyor_trapdoor_on"
     },
 	"model": "simplyconveyors:conveyor_trapdoor_off"
   },
@@ -22,7 +21,7 @@
 	"powered": {
 		"true": {
 			"textures": {
-				"2": "simplyconveyors:blocks/conveyor_trapdoor_off"
+				"1": "simplyconveyors:blocks/conveyor_trapdoor_off"
 			},
 			"model": "simplyconveyors:conveyor_trapdoor_on"
 		},

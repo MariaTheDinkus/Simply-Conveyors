@@ -26,24 +26,24 @@ public class TileEntityFastestMovingStair extends TileEntity implements ITickabl
                 {
                 	entity.stepHeight = 0.6F;
                 	if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.EAST) {
-            			entity.motionZ += 0.7f;
-            			if (entity.motionZ > 0.7f) {
-            				entity.motionZ = 0.7f;
+            			entity.motionZ += 0.5f;
+            			if (entity.motionZ > 0.5f) {
+            				entity.motionZ = 0.5f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.SOUTH) {
-            			entity.motionX += -0.7f;
-            			if (entity.motionX < -0.7f) {
-            				entity.motionX = -0.7f;
+            			entity.motionX += -0.5f;
+            			if (entity.motionX < -0.5f) {
+            				entity.motionX = -0.5f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.NORTH) {
-            			entity.motionX += 0.7f;
-            			if (entity.motionX > 0.7f) {
-            				entity.motionX = 0.7f;
+            			entity.motionX += 0.5f;
+            			if (entity.motionX > 0.5f) {
+            				entity.motionX = 0.5f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.WEST) {
-            			entity.motionZ += -0.7f;
-            			if (entity.motionZ < -0.7f) {
-            				entity.motionZ = -0.7f;
+            			entity.motionZ += -0.5f;
+            			if (entity.motionZ < -0.5f) {
+            				entity.motionZ = -0.5f;
             			}
             		}
                 }

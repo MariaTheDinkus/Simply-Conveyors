@@ -3,8 +3,8 @@
   "defaults": {
 	"textures": {
 		"top": "simplyconveyors:blocks/conveyor_inverse_off",
-		"side": "blocks/iron_block",
-        "particle": "blocks/iron_block"
+		"side": "simplyconveyors:blocks/conveyor_slow_side",
+        "particle": "simplyconveyors:blocks/conveyor_slow_side"
     },
     "model": "simplyconveyors:conveyor_vertical"
   },
@@ -25,7 +25,7 @@
 		},
 		"false": {
 			"textures": {
-				"top": "simplyconveyors:blocks/conveyor_inverse_on"
+				"top": "simplyconveyors:blocks/conveyor_inverse_slow_on"
 			}
 		}
 	}

@@ -37,14 +37,14 @@ public class BlockMovingVerticalPath extends BlockPoweredConveyor {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
 			BlockPos pos) {
-		if (state.getValue(FACING) == EnumFacing.SOUTH) {
-			return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 15F / 16F);
-		} else if (state.getValue(FACING) == EnumFacing.WEST) {
-			return new AxisAlignedBB(1F / 16F, 0F, 0F, 1F, 1F, 1F);
-		} else if (state.getValue(FACING) == EnumFacing.NORTH) {
-			return new AxisAlignedBB(0F, 0F, 1F / 16F, 1F, 1F, 1F);
+		if (state.getValue(FACING) == EnumFacing.NORTH) {
+			return new AxisAlignedBB(0, 0, 0.1F / 16F, 1F, 1F, 1F);
 		} else if (state.getValue(FACING) == EnumFacing.EAST) {
-			return new AxisAlignedBB(0F, 0F, 0F, 15F / 16F, 1F, 1F);
+			return new AxisAlignedBB(0F, 0F, 0F, 15.9F / 16F, 1F, 1F);
+		} else if (state.getValue(FACING) == EnumFacing.SOUTH) {
+			return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 15.9F / 16F);
+		} else if (state.getValue(FACING) == EnumFacing.WEST) {
+			return new AxisAlignedBB(0.1F / 16F, 0F, 0F, 1F, 1F, 1F);
 		}
 		return null;
 	}

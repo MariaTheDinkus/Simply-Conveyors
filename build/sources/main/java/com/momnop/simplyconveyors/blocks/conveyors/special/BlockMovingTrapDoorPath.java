@@ -45,16 +45,16 @@ public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
 			BlockPos pos, AxisAlignedBB mask,
 			List<AxisAlignedBB> list, Entity entityIn) {
 		if (state.getValue(POWERED) == true) {
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + (1F / 16F)), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 		} else if (state.getValue(POWERED) == false) {
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + (1F / 16F)), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
-			addCollisionBox(new AxisAlignedBB(pos.getX(), pos.getY() + (14F / 16F), pos.getZ(), pos.getX() + 1F, pos.getY() + (15F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
+			addCollisionBox(new AxisAlignedBB(pos.getX(), pos.getY() + (0F / 16F), pos.getZ(), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 		}
 	}
 	

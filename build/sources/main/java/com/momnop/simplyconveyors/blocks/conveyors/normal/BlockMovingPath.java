@@ -1,6 +1,8 @@
 package com.momnop.simplyconveyors.blocks.conveyors.normal;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +21,9 @@ import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 public class BlockMovingPath extends BlockPoweredConveyor {
 	
 	private final double speed;
+	
+	PropertyBool CONNECTED_LEFT = PropertyBool.create("left");
+	PropertyBool CONNECTED_RIGHT = PropertyBool.create("right");
 	
 	public BlockMovingPath(double speed, Material material, String unlocalizedName) {
 		super(material);
@@ -81,8 +86,11 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 				item.setAgeToCreativeDespawnTime();
 			}
 			
-			if (entity instanceof EntityItem && world.getBlockState(pos.up().add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock() instanceof BlockMovingVerticalPath) {
-				entity.setPositionAndUpdate(entity.posX, entity.posY + 0.3F, entity.posZ);
+			if (entity instanceof EntityItem) {
+				Block block = world.getBlockState(pos.add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock();
+				if (block instanceof BlockMovingVerticalPath || block instanceof BlockMovingSlowStairPath || block instanceof BlockMovingFastStairPath || block instanceof BlockMovingFastestStairPath) {
+					entity.setPositionAndUpdate(entity.posX, entity.posY + 0.25F, entity.posZ);
+				}
 			}
 		}
 	}

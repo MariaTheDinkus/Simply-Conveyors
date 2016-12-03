@@ -27,24 +27,24 @@ public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
                 {
                 	entity.stepHeight = 0.6F;
                 	if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.EAST) {
-            			entity.motionZ += 0.2f;
-            			if (entity.motionZ > 0.2f) {
-            				entity.motionZ = 0.2f;
+            			entity.motionZ += 0.125f;
+            			if (entity.motionZ > 0.125f) {
+            				entity.motionZ = 0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.SOUTH) {
-            			entity.motionX += -0.2f;
-            			if (entity.motionX < -0.2f) {
-            				entity.motionX = -0.2f;
+            			entity.motionX += -0.125f;
+            			if (entity.motionX < -0.125f) {
+            				entity.motionX = -0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.NORTH) {
-            			entity.motionX += 0.2f;
-            			if (entity.motionX > 0.2f) {
-            				entity.motionX = 0.2f;
+            			entity.motionX += 0.125f;
+            			if (entity.motionX > 0.125f) {
+            				entity.motionX = 0.125f;
             			}
             		} else if (this.getWorld().getBlockState(this.pos).getValue(block.FACING) == EnumFacing.WEST) {
-            			entity.motionZ += -0.2f;
-            			if (entity.motionZ < -0.2f) {
-            				entity.motionZ = -0.2f;
+            			entity.motionZ += -0.125f;
+            			if (entity.motionZ < -0.125f) {
+            				entity.motionZ = -0.125f;
             			}
             		}
                 }

@@ -51,7 +51,7 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 							if (!entityFilter.isEmpty()) {
 								for (String string : entityFilter) {
 									if (Class.forName(string).isInstance(ent)) {
-										ent.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + ent.height, pos.getZ() + 0.5);
+										ent.setPositionAndUpdate(pos.getX() + 0.5, (pos.getY() - (15F / 16F)) + ent.height, pos.getZ() + 0.5);
 										isPowered = false;
 										return;
 									}
@@ -59,7 +59,7 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 							} 
 
 							if (entityFilter.isEmpty()) {
-								ent.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + ent.height, pos.getZ() + 0.5);
+								ent.setPositionAndUpdate(pos.getX() + 0.5, (pos.getY() - (15F / 16F)) + ent.height, pos.getZ() + 0.5);
 								isPowered = false;
 								return;
 							}
@@ -74,7 +74,7 @@ public class TileEntityGrabberPath extends TileEntity implements ITickable {
 							}
 						
 							if (isABlacklistedEntity == false) {
-								ent.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + ent.height, pos.getZ() + 0.5);
+								ent.setPositionAndUpdate(pos.getX() + 0.5, (pos.getY() - (15F / 16F)) + ent.height, pos.getZ() + 0.5);
 								isPowered = false;
 								return;
 							}

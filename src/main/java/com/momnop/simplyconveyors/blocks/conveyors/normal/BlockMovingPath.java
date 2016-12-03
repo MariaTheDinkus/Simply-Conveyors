@@ -1,10 +1,15 @@
 package com.momnop.simplyconveyors.blocks.conveyors.normal;
 
+import mcjty.lib.tools.ItemStackTools;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +20,14 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockMovingPath extends BlockPoweredConveyor {
 	
 	private final double speed;
+	
+	PropertyBool CONNECTED_LEFT = PropertyBool.create("left");
+	PropertyBool CONNECTED_RIGHT = PropertyBool.create("right");
 	
 	public BlockMovingPath(double speed, Material material, String unlocalizedName) {
 		super(material);
@@ -67,6 +76,13 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
+				return;
+			}
+		}
+		
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
@@ -81,8 +97,11 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 				item.setAgeToCreativeDespawnTime();
 			}
 			
-			if (entity instanceof EntityItem && world.getBlockState(pos.up().add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock() instanceof BlockMovingVerticalPath) {
-				entity.setPositionAndUpdate(entity.posX, entity.posY + 0.3F, entity.posZ);
+			if (entity instanceof EntityItem) {
+				Block block = world.getBlockState(pos.add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock();
+				if (block instanceof BlockMovingVerticalPath || block instanceof BlockMovingSlowStairPath || block instanceof BlockMovingFastStairPath || block instanceof BlockMovingFastestStairPath) {
+					entity.setPositionAndUpdate(entity.posX, entity.posY + 0.25F, entity.posZ);
+				}
 			}
 		}
 	}

@@ -18,9 +18,9 @@ public class TileEntityBlockMovingPath extends TileEntity implements ITickable {
 			EntityBlock entityBlock = null;
 			if (this.getWorld().getTileEntity(this.getPos().up()) != null) {
 				TileEntity tile = this.getWorld().getTileEntity(this.getPos().up());
-				entityBlock = new EntityBlock(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + 1, this.getPos().getZ() + 0.5, this.getWorld().getBlockState(this.getPos().up()), tile.writeToNBT(new NBTTagCompound()));
+				entityBlock = new EntityBlock(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + (1F / 16F), (this.getPos().getZ() + 0.5), this.getWorld().getBlockState(this.getPos().up()), tile.writeToNBT(new NBTTagCompound()));
 			} else {
-				entityBlock = new EntityBlock(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + 1, this.getPos().getZ() + 0.5, this.getWorld().getBlockState(this.getPos().up()), new NBTTagCompound());
+				entityBlock = new EntityBlock(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + (1F / 16F), (this.getPos().getZ() + 0.5), this.getWorld().getBlockState(this.getPos().up()), new NBTTagCompound());
 			}
 			
 			if (this.getWorld().isRemote == false) {

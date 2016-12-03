@@ -95,7 +95,7 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 				double treshold = .9;
 				boolean contact = facing.getAxis()==Axis.Z?distZ<treshold: distX<treshold;
 				
-				inventoryTile = world.getTileEntity(pos.add(0,1,0).add(direction.getDirectionVec()));
+				inventoryTile = world.getTileEntity(pos.add(direction.getDirectionVec()));
 				contact = Math.abs(facing.getAxis()==Axis.Z?(pos.getZ()+.5-entity.posZ):(pos.getX()+.5-entity.posX))<.2;
 				inventoryDir = EnumFacing.DOWN;
 				
@@ -121,7 +121,7 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 							}
 						}
 					}
-					else if(contact && world.isAirBlock(pos.add(0,1,0).add(direction.getDirectionVec())))
+					else if(contact && world.isAirBlock(pos.add(direction.getDirectionVec())))
 					{
 						entity.motionX = 0;
 						entity.motionZ = 0;
