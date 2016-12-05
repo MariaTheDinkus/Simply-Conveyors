@@ -2,7 +2,6 @@ package com.momnop.simplyconveyors.blocks;
 
 import java.util.Random;
 
-import mcjty.lib.compat.CompatBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -12,7 +11,9 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
 
-public class BlockPoweredConveyor extends CompatBlock {
+public class BlockPoweredConveyor extends Block {
 
 	public static final PropertyDirection FACING = PropertyDirection.create(
 			"facing", EnumFacing.Plane.HORIZONTAL);
@@ -32,14 +33,29 @@ public class BlockPoweredConveyor extends CompatBlock {
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.clOnNeighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
-				.getBlock());
+		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
+				.getBlock(), null);
 	}
 	
 	@Override
-	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos,
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
+			Block blockIn, BlockPos p_189540_5_) {
+		if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
+			worldIn.scheduleUpdate(pos, this, 4);
+		} else if (!state.getValue(POWERED) && worldIn.isBlockPowered(pos)) {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 2);
+			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
+				worldIn.playSound(null, pos,
+						SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
+						SoundCategory.BLOCKS, 1, 1);
+			}
+		}
+	}
+	
+	@Override
+	public IBlockState getStateForPlacement(World world, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
+			EntityLivingBase placer, EnumHand hand) {
 		if (placer.isSneaking()) {
 			return this.getDefaultState().withProperty(FACING,
 					placer.getHorizontalFacing());
@@ -92,28 +108,6 @@ public class BlockPoweredConveyor extends CompatBlock {
 				new IProperty[] { FACING, POWERED });
 	}
 
-	/**
-	 * Called when a neighboring block was changed and marks that this state
-	 * should perform any checks during a neighbor change. Cases may include
-	 * when redstone power is updated, cactus blocks popping off due to a
-	 * neighboring solid block, etc.
-	 */
-	@Override
-	public void clOnNeighborChanged(IBlockState state, World worldIn,
-			BlockPos pos, Block blockIn) {
-		IBlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
-			worldIn.scheduleUpdate(pos, this, 4);
-		} else if (!blockState.getValue(POWERED) && worldIn.isBlockPowered(pos)) {
-			worldIn.setBlockState(pos, blockState.withProperty(POWERED, true),
-					2);
-			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
-				worldIn.playSound(null, pos,
-						SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
-						SoundCategory.BLOCKS, 1, 1);
-			}
-		}
-	}
 
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state,

@@ -68,6 +68,8 @@ public class RecipeHandler
     	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockSlowMovingPath, Items.IRON_SWORD });
     	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockFastMovingPath, Blocks.GOLD_BLOCK, Blocks.LAPIS_BLOCK, Items.GOLDEN_SWORD });
     	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockFastestMovingPath, Blocks.DIAMOND_BLOCK, Blocks.LAPIS_BLOCK, Items.DIAMOND_SWORD });
+    
+    	GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.conveyorResistanceBoots), new Object[] { Items.LEATHER_BOOTS, Items.SLIME_BALL });
     }
     
     public static void addInverseRecipe(ItemStack input, ItemStack output) {

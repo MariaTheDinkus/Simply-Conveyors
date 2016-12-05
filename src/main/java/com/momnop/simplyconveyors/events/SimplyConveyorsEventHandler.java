@@ -7,13 +7,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -61,10 +61,10 @@ public class SimplyConveyorsEventHandler {
 				|| block instanceof BlockMovingFastStairPath
 				|| block instanceof BlockMovingFastestStairPath) {
 			if (block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStackTools.getEmptyStack()
+					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStack.field_190927_a
 					&& event.getEntityPlayer().getHeldItemMainhand().getItem() instanceof ItemWrench
 					|| block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStackTools.getEmptyStack()
+					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStack.field_190927_a
 					&& event.getEntityPlayer().getHeldItemOffhand().getItem() instanceof ItemWrench) {
 				BlockHorizontal blockHorizontal = (BlockHorizontal) block;
 				if (!event.getEntityPlayer().isSneaking()) {
@@ -89,7 +89,7 @@ public class SimplyConveyorsEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-		if (event.getItemStack() != ItemStackTools.getEmptyStack()
+		if (event.getItemStack() != ItemStack.field_190927_a
 				&& event.getItemStack().getItem() instanceof ItemEntityFilter) {
 			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack()
 					.getItem();
@@ -172,7 +172,7 @@ public class SimplyConveyorsEventHandler {
 		// GL11.glPopMatrix();
 		// }
 
-		if (mc.thePlayer.getHeldItemMainhand() != ItemStackTools.getEmptyStack()
+		if (mc.thePlayer.getHeldItemMainhand() != ItemStack.field_190927_a
 				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemBusStopBook
 				|| mc.thePlayer.getHeldItemOffhand() != null
 				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemBusStopBook) {
@@ -238,7 +238,7 @@ public class SimplyConveyorsEventHandler {
 			}
 		}
 
-		if (mc.thePlayer.getHeldItemMainhand() != ItemStackTools.getEmptyStack()
+		if (mc.thePlayer.getHeldItemMainhand() != ItemStack.field_190927_a
 				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
@@ -266,7 +266,7 @@ public class SimplyConveyorsEventHandler {
 			// }
 		}
 
-		if (mc.thePlayer.getHeldItemOffhand() != ItemStackTools.getEmptyStack()
+		if (mc.thePlayer.getHeldItemOffhand() != ItemStack.field_190927_a
 				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
@@ -297,11 +297,11 @@ public class SimplyConveyorsEventHandler {
 	
 	@SubscribeEvent
 	public void tooltips(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
+		if (event.getItemStack() != ItemStack.field_190927_a && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
 			event.getToolTip().add(TextFormatting.DARK_GRAY + "In the ocean you may find, sponge growing somewhere hard to find...");
 		}
 		
-		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
+		if (event.getItemStack() != ItemStack.field_190927_a && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
 			BlockMovingSpikePath spike = (BlockMovingSpikePath) Block.getBlockFromItem(event.getItemStack().getItem());
 			if (spike.getSpeed() == 0.125F) {
 				event.getToolTip().add("Drops non player-only items.");

@@ -17,6 +17,7 @@ public final class BlockRenderRegister {
 	public static void registerBlockRenderer() {
 		register(SimplyConveyorsItems.wrench);
 		register(SimplyConveyorsItems.entityFilter);
+		register(SimplyConveyorsItems.conveyorResistanceBoots);
 
 		register(SimplyConveyorsBlocks.blockSlowMovingPath);
 		register(SimplyConveyorsBlocks.blockFastMovingPath);

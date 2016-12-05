@@ -2,9 +2,9 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
-import mcjty.lib.compat.CompatItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -26,7 +26,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackw
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 
-public class ItemEntityFilter extends CompatItem
+public class ItemEntityFilter extends Item
 {
 	
     public ItemEntityFilter(String unlocalizedName)
@@ -75,7 +75,7 @@ public class ItemEntityFilter extends CompatItem
     }
     
     @Override
-    protected ActionResult<ItemStack> clOnItemRightClick(World worldIn,
+	public ActionResult<ItemStack> onItemRightClick(World worldIn,
     		EntityPlayer playerIn, EnumHand hand) {
     	if (playerIn.isSneaking()) {
     		playerIn.getHeldItem(hand).getTagCompound().setString("filter", "net.minecraft.entity.Entity");
@@ -85,7 +85,7 @@ public class ItemEntityFilter extends CompatItem
     }
     
     @Override
-    protected EnumActionResult clOnItemUse(EntityPlayer playerIn,
+	public EnumActionResult onItemUse(EntityPlayer playerIn,
     		World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing,
     		float hitX, float hitY, float hitZ) {
     	if (worldIn.getBlockState(pos).getBlock() instanceof BlockMovingGrabberPath) {

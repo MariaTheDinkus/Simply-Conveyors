@@ -3,7 +3,7 @@ itemGroup.simplyconveyors_special=Simply Conveyors - Special
 
 item.conveyor_wrench.name=Conveyor Wrench
 item.entity_filter.name=Entity Filter
-item.fan_blade.name=Fan Blade
+item.conveyor_resistance_boots.name=Conveyor Resistance Boots
 
 tile.conveyor_slow.name=Slow Conveyor
 tile.conveyor_fast.name=Fast Conveyor

@@ -1,17 +1,19 @@
 package com.momnop.simplyconveyors.blocks;
 
-import mcjty.lib.compat.CompatBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockConveyor extends CompatBlock {
+public class BlockConveyor extends Block {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
@@ -20,9 +22,9 @@ public class BlockConveyor extends CompatBlock {
 	}
 	
 	@Override
-	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos,
+	public IBlockState getStateForPlacement(World world, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
+			EntityLivingBase placer, EnumHand hand) {
 		if (placer.isSneaking()) {
 			return this.getDefaultState().withProperty(FACING,
 					placer.getHorizontalFacing());

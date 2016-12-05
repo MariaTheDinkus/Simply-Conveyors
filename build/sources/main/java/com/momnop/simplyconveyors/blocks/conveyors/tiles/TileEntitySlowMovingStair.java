@@ -3,13 +3,16 @@ package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
 	
@@ -23,6 +26,14 @@ public class TileEntitySlowMovingStair extends TileEntity implements ITickable {
                {
                if (obj instanceof Entity && !this.getWorld().getBlockState(this.getPos()).getValue(block.POWERED)) {
             	   Entity entity = (Entity)obj;
+            	   
+            	   if (entity instanceof EntityPlayer) {
+              			EntityPlayer player = (EntityPlayer) entity;
+              			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+              				return;
+              			}
+              		}
+            	   
                 if (entity != null && entity.onGround && !entity.isInWater())
                 {
                 	entity.stepHeight = 0.6F;

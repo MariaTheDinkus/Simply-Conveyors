@@ -1,10 +1,10 @@
 package com.momnop.simplyconveyors.items;
 
+import net.minecraft.item.Item;
+
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 
-import mcjty.lib.compat.CompatItem;
-
-public class ItemWrench extends CompatItem
+public class ItemWrench extends Item
 {
     public ItemWrench(String unlocalizedName)
     {

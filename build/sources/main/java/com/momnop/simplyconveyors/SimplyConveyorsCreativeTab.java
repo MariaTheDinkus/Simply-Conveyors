@@ -1,16 +1,16 @@
 package com.momnop.simplyconveyors;
 
 import java.util.List;
-import java.util.Random;
-
-import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.info.ModInfo;
-import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.info.ModInfo;
+import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 public class SimplyConveyorsCreativeTab extends CreativeTabs {
 
@@ -27,16 +27,17 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return getIconItemStack().getItem();
+	public ItemStack getTabIconItem() {
+		return getIconItemStack();
 	}
 
 	@Override
-	public void displayAllRelevantItems(List list) {
+	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 		this.list = list;
 		
 		addItem(SimplyConveyorsItems.wrench);
 		addItem(SimplyConveyorsItems.entityFilter);
+		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
 		
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
@@ -64,12 +65,12 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs {
 	}
 
 	private void addItem(Item item) {
-		item.getSubItems(item, this, list);
+		item.getSubItems(item, this, (NonNullList<ItemStack>) list);
 	}
 
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
-		block.getSubBlocks(stack.getItem(), this, list);
+		block.getSubBlocks(stack.getItem(), this, (NonNullList<ItemStack>) list);
 	}
 
 }

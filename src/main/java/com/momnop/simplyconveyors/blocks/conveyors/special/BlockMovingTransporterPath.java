@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -80,11 +79,11 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
 		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
-				return;
-			}
-		}
+   			EntityPlayer player = (EntityPlayer) entity;
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   				return;
+   			}
+   		}
 		
 		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
@@ -114,19 +113,19 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 					if(contact && inventoryTile!=null)
 					{
 						ItemStack stack = ((EntityItem)entity).getEntityItem();
-						if(stack != ItemStackTools.getEmptyStack())
+						if(stack != ItemStack.field_190927_a)
 						{
 							if (TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
-								if(ret == ItemStackTools.getEmptyStack())
+								if(ret == ItemStack.field_190927_a)
 									entity.setDead();
-								else if(ret.stackSize<stack.stackSize)
+								else if(ret.func_190916_E()<stack.func_190916_E())
 									((EntityItem)entity).setEntityItemStack(ret);
 							} else if (!TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
-								if(ret == ItemStackTools.getEmptyStack())
+								if(ret == ItemStack.field_190927_a)
 									entity.setDead();
-								else if(ret.stackSize<stack.stackSize)
+								else if(ret.func_190916_E()<stack.func_190916_E())
 									((EntityItem)entity).setEntityItemStack(ret);
 							}
 						}

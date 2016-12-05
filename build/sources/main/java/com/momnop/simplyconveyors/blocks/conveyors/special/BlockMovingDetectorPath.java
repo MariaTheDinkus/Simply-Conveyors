@@ -3,7 +3,6 @@ package com.momnop.simplyconveyors.blocks.conveyors.special;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -12,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -27,6 +27,7 @@ import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 import com.momnop.simplyconveyors.items.ItemWrench;
 
 public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider {
@@ -68,8 +69,8 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	}
 	
 	@Override
-	public void clOnNeighborChanged(IBlockState state, World worldIn,
-			BlockPos pos, Block blockIn) {
+	public void neighborChanged(IBlockState state, World worldIn,
+			BlockPos pos, Block blockIn, BlockPos pos2) {
 		
 	}
 	
@@ -93,8 +94,8 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	
 	private void notifyNeighbors(World worldIn, BlockPos pos, EnumFacing facing)
     {
-        worldIn.notifyNeighborsOfStateChange(pos, this);
-        worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this);
+        worldIn.notifyNeighborsOfStateChange(pos, this, false);
+        worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this, false);
     }
 	
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
@@ -132,6 +133,13 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 			IBlockState blockState, Entity entity) {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
+		if (entity instanceof EntityPlayer) {
+   			EntityPlayer player = (EntityPlayer) entity;
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   				return;
+   			}
+   		}
+		
 		if (!entity.isSneaking()) {
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 			
@@ -149,10 +157,10 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	}
 	
 	@Override
-	protected boolean clOnBlockActivated(World worldIn, BlockPos pos,
+	public boolean onBlockActivated(World worldIn, BlockPos pos,
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
+		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStack.field_190927_a && playerIn.getHeldItemOffhand() == ItemStack.field_190927_a) {
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			try {
 				if (!worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
@@ -169,14 +177,14 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 				e.printStackTrace();
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() == ItemStackTools.getEmptyStack() && playerIn.getHeldItemOffhand() == ItemStackTools.getEmptyStack()) {
+		} else if (playerIn.getHeldItemMainhand() == ItemStack.field_190927_a && playerIn.getHeldItemOffhand() == ItemStack.field_190927_a) {
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			grabber.setFilterList(new ArrayList<String>());
 			if (worldIn.isRemote) {
 				playerIn.addChatMessage(new TextComponentString("Cleared all filters."));
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+		} else if (playerIn.getHeldItemMainhand() != ItemStack.field_190927_a && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());
 			if (grabber.getBlacklisted() && worldIn.isRemote) {

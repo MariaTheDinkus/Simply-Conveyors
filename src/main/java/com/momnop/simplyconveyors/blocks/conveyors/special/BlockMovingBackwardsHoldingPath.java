@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -8,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -60,11 +60,11 @@ public class BlockMovingBackwardsHoldingPath extends BlockPoweredConveyor {
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
 		
 		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			if (player.inventory.player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()] != ItemStackTools.getEmptyStack() && player.inventory.armorInventory[EntityEquipmentSlot.FEET.getIndex()].getItem() instanceof ItemConveyorResistanceBoots) {
-				return;
-			}
-		}
+   			EntityPlayer player = (EntityPlayer) entity;
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   				return;
+   			}
+   		}
 		
 		if (!blockState.getValue(POWERED)) {
 			ConveyorHelper.centerBasedOnFacing(false, pos, entity, EnumFacing.SOUTH);

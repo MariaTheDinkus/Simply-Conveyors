@@ -369,7 +369,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 			this.prevPosY = this.posY;
 			this.prevPosZ = this.posZ;
 
-			if (!this.func_189652_ae()) {
+			if (!this.hasNoGravity()) {
 				this.motionY -= 0.03999999910593033D;
 			}
 
@@ -385,7 +385,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 						tileEntityData.setDouble("x", this.posX);
 						tileEntityData.setDouble("y", this.posY);
 						tileEntityData.setDouble("z", this.posZ);
-						TileEntity tile = TileEntity.func_190200_a(this.worldObj, tileEntityData);
+						TileEntity tile = TileEntity.create(this.worldObj, tileEntityData);
 						if (tile != null) {
 							worldObj.getChunkFromBlockCoords(this.getPosition()).addTileEntity(tile);
 							tile.markDirty();
