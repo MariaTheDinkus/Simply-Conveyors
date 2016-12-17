@@ -93,7 +93,7 @@ public class ItemEntityFilter extends Item
     		try {
 				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -104,7 +104,7 @@ public class ItemEntityFilter extends Item
     		try {
 				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -115,7 +115,7 @@ public class ItemEntityFilter extends Item
     		try {
 				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
 				if (!worldIn.isRemote) {
-					playerIn.addChatMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
+					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

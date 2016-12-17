@@ -61,10 +61,10 @@ public class SimplyConveyorsEventHandler {
 				|| block instanceof BlockMovingFastStairPath
 				|| block instanceof BlockMovingFastestStairPath) {
 			if (block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStack.field_190927_a
+					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStack.EMPTY
 					&& event.getEntityPlayer().getHeldItemMainhand().getItem() instanceof ItemWrench
 					|| block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStack.field_190927_a
+					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStack.EMPTY
 					&& event.getEntityPlayer().getHeldItemOffhand().getItem() instanceof ItemWrench) {
 				BlockHorizontal blockHorizontal = (BlockHorizontal) block;
 				if (!event.getEntityPlayer().isSneaking()) {
@@ -89,7 +89,7 @@ public class SimplyConveyorsEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-		if (event.getItemStack() != ItemStack.field_190927_a
+		if (event.getItemStack() != ItemStack.EMPTY
 				&& event.getItemStack().getItem() instanceof ItemEntityFilter) {
 			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack()
 					.getItem();
@@ -172,10 +172,10 @@ public class SimplyConveyorsEventHandler {
 		// GL11.glPopMatrix();
 		// }
 
-		if (mc.thePlayer.getHeldItemMainhand() != ItemStack.field_190927_a
-				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemBusStopBook
-				|| mc.thePlayer.getHeldItemOffhand() != null
-				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemBusStopBook) {
+		if (mc.player.getHeldItemMainhand() != ItemStack.EMPTY
+				&& mc.player.getHeldItemMainhand().getItem() instanceof ItemBusStopBook
+				|| mc.player.getHeldItemOffhand() != null
+				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemBusStopBook) {
 			if (event.getType() != ElementType.ALL) {
 				return;
 			}
@@ -190,9 +190,9 @@ public class SimplyConveyorsEventHandler {
 
 					list.add(name);
 					list1.add(Math.sqrt(Math.pow(
-							pos.getX() - mc.thePlayer.posX, 2)
-							+ Math.pow(pos.getY() - mc.thePlayer.posY, 2)
-							+ Math.pow(pos.getZ() - mc.thePlayer.posZ, 2)));
+							pos.getX() - mc.player.posX, 2)
+							+ Math.pow(pos.getY() - mc.player.posY, 2)
+							+ Math.pow(pos.getZ() - mc.player.posZ, 2)));
 					list2.add(pos);
 				}
 
@@ -215,7 +215,7 @@ public class SimplyConveyorsEventHandler {
 				int offsetY = 0;
 				int offsetY2 = 0;
 
-				if (!mc.thePlayer.capabilities.isCreativeMode) {
+				if (!mc.player.capabilities.isCreativeMode) {
 					offsetY = 15;
 					offsetY2 = 15;
 				}
@@ -238,8 +238,8 @@ public class SimplyConveyorsEventHandler {
 			}
 		}
 
-		if (mc.thePlayer.getHeldItemMainhand() != ItemStack.field_190927_a
-				&& mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemEntityFilter) {
+		if (mc.player.getHeldItemMainhand() != ItemStack.EMPTY
+				&& mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
 			}
@@ -251,7 +251,7 @@ public class SimplyConveyorsEventHandler {
 
 			int offsetY = 0;
 
-			if (!mc.thePlayer.capabilities.isCreativeMode) {
+			if (!mc.player.capabilities.isCreativeMode) {
 				offsetY = 14;
 			}
 
@@ -266,8 +266,8 @@ public class SimplyConveyorsEventHandler {
 			// }
 		}
 
-		if (mc.thePlayer.getHeldItemOffhand() != ItemStack.field_190927_a
-				&& mc.thePlayer.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
+		if (mc.player.getHeldItemOffhand() != ItemStack.EMPTY
+				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
 			if (event.getType() != ElementType.ALL) {
 				return;
 			}
@@ -279,7 +279,7 @@ public class SimplyConveyorsEventHandler {
 
 			int offsetY = 0;
 
-			if (!mc.thePlayer.capabilities.isCreativeMode) {
+			if (!mc.player.capabilities.isCreativeMode) {
 				offsetY = 15;
 			}
 
@@ -297,11 +297,11 @@ public class SimplyConveyorsEventHandler {
 	
 	@SubscribeEvent
 	public void tooltips(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStack.field_190927_a && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
+		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
 			event.getToolTip().add(TextFormatting.DARK_GRAY + "In the ocean you may find, sponge growing somewhere hard to find...");
 		}
 		
-		if (event.getItemStack() != ItemStack.field_190927_a && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
+		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
 			BlockMovingSpikePath spike = (BlockMovingSpikePath) Block.getBlockFromItem(event.getItemStack().getItem());
 			if (spike.getSpeed() == 0.125F) {
 				event.getToolTip().add("Drops non player-only items.");

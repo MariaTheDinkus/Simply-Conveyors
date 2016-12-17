@@ -24,7 +24,7 @@ public class TileEntityBlockMovingPath extends TileEntity implements ITickable {
 			}
 			
 			if (this.getWorld().isRemote == false) {
-				this.getWorld().spawnEntityInWorld(entityBlock);
+				this.getWorld().spawnEntity(entityBlock);
 			}
 			
 			if (this.getWorld().getTileEntity(this.getPos().up()) != null) {

@@ -82,7 +82,7 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 		
 		if (entity instanceof EntityPlayer) {
    			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
    				return;
    			}
    		}
@@ -107,37 +107,37 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 	public boolean onBlockActivated(World worldIn, BlockPos pos,
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStack.field_190927_a && playerIn.getHeldItemOffhand() == ItemStack.field_190927_a) {
+		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			try {
 				if (worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
 					if (grabber.getBlacklisted() == false) {
-						playerIn.addChatMessage(new TextComponentString("Currently whitelisting: "));
+						playerIn.sendMessage(new TextComponentString("Currently whitelisting: "));
 					} else {
-						playerIn.addChatMessage(new TextComponentString("Currently blacklisting: "));
+						playerIn.sendMessage(new TextComponentString("Currently blacklisting: "));
 					}
 					for (String string : grabber.getFilterList()) {
-						playerIn.addChatMessage(new TextComponentString(Class.forName(string).getSimpleName()));
+						playerIn.sendMessage(new TextComponentString(Class.forName(string).getSimpleName()));
 					}
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() == ItemStack.field_190927_a && playerIn.getHeldItemOffhand() == ItemStack.field_190927_a) {
+		} else if (playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			grabber.setFilterList(new ArrayList<String>());
 			if (worldIn.isRemote) {
-				playerIn.addChatMessage(new TextComponentString("Cleared all filters."));
+				playerIn.sendMessage(new TextComponentString("Cleared all filters."));
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() != ItemStack.field_190927_a && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+		} else if (playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());
 			if (grabber.getBlacklisted() && worldIn.isRemote) {
-				playerIn.addChatMessage(new TextComponentString("Now blacklisting."));
+				playerIn.sendMessage(new TextComponentString("Now blacklisting."));
 			} else if (worldIn.isRemote) {
-				playerIn.addChatMessage(new TextComponentString("Now whitelisting."));
+				playerIn.sendMessage(new TextComponentString("Now whitelisting."));
 			}
 			return true;
 		}

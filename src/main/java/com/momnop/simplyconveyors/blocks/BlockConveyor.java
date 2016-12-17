@@ -53,12 +53,14 @@ public class BlockConveyor extends Block {
 		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 	
-	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state,
+			EntityLivingBase placer, ItemStack stack) {
+		
+	}
+	
+	@Override
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos,
 			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
 			EntityLivingBase placer) {
 		if (placer.isSneaking()) {

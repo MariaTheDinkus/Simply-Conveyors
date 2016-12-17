@@ -1,8 +1,9 @@
 package com.momnop.simplyconveyors.entity;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.List;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -13,8 +14,6 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -55,7 +54,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
         }
         else
         {
-            this.worldObj.theProfiler.startSection("move");
+            this.getEntityWorld().theProfiler.startSection("move");
             double d0 = this.posX;
             double d1 = this.posY;
             double d2 = this.posZ;
@@ -78,7 +77,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 
             if (flag)
             {
-                for (double d6 = 0.05D; x != 0.0D && this.worldObj.getCollisionBoxes(this, this.getEntityBoundingBox().offset(x, -1.0D, 0.0D)).isEmpty(); d3 = x)
+                for (double d6 = 0.05D; x != 0.0D && this.getEntityWorld().getCollisionBoxes(this, this.getEntityBoundingBox().offset(x, -1.0D, 0.0D)).isEmpty(); d3 = x)
                 {
                     if (x < 0.05D && x >= -0.05D)
                     {
@@ -94,7 +93,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
                     }
                 }
 
-                for (; z != 0.0D && this.worldObj.getCollisionBoxes(this, this.getEntityBoundingBox().offset(0.0D, -1.0D, z)).isEmpty(); d5 = z)
+                for (; z != 0.0D && this.getEntityWorld().getCollisionBoxes(this, this.getEntityBoundingBox().offset(0.0D, -1.0D, z)).isEmpty(); d5 = z)
                 {
                     if (z < 0.05D && z >= -0.05D)
                     {
@@ -110,7 +109,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
                     }
                 }
 
-                for (; x != 0.0D && z != 0.0D && this.worldObj.getCollisionBoxes(this, this.getEntityBoundingBox().offset(x, -1.0D, z)).isEmpty(); d5 = z)
+                for (; x != 0.0D && z != 0.0D && this.getEntityWorld().getCollisionBoxes(this, this.getEntityBoundingBox().offset(x, -1.0D, z)).isEmpty(); d5 = z)
                 {
                     if (x < 0.05D && x >= -0.05D)
                     {
@@ -142,7 +141,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
                 }
             }
 
-            List<AxisAlignedBB> list1 = this.worldObj.getCollisionBoxes(this, this.getEntityBoundingBox().addCoord(x, y, z));
+            List<AxisAlignedBB> list1 = this.getEntityWorld().getCollisionBoxes(this, this.getEntityBoundingBox().addCoord(x, y, z));
             AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
             int i = 0;
 
@@ -178,7 +177,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
                 AxisAlignedBB axisalignedbb1 = this.getEntityBoundingBox();
                 this.setEntityBoundingBox(axisalignedbb);
                 y = (double)this.stepHeight;
-                List<AxisAlignedBB> list = this.worldObj.getCollisionBoxes(this, this.getEntityBoundingBox().addCoord(d3, y, d5));
+                List<AxisAlignedBB> list = this.getEntityWorld().getCollisionBoxes(this, this.getEntityBoundingBox().addCoord(d3, y, d5));
                 AxisAlignedBB axisalignedbb2 = this.getEntityBoundingBox();
                 AxisAlignedBB axisalignedbb3 = axisalignedbb2.addCoord(d3, 0.0D, d5);
                 double d9 = y;
@@ -272,23 +271,23 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
                 }
             }
 
-            this.worldObj.theProfiler.endSection();
-            this.worldObj.theProfiler.startSection("rest");
+            this.getEntityWorld().theProfiler.endSection();
+            this.getEntityWorld().theProfiler.startSection("rest");
             this.resetPositionToBB();
             this.isCollidedHorizontally = d3 != x || d5 != z;
             this.isCollidedVertically = d4 != y;
             this.onGround = this.isCollidedVertically && d4 < 0.0D;
             this.isCollided = this.isCollidedHorizontally || this.isCollidedVertically;
-            j4 = MathHelper.floor_double(this.posX);
-            int l4 = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-            int i5 = MathHelper.floor_double(this.posZ);
+            j4 = MathHelper.floor(this.posX);
+            int l4 = MathHelper.floor(this.posY - 0.20000000298023224D);
+            int i5 = MathHelper.floor(this.posZ);
             BlockPos blockpos = new BlockPos(j4, l4, i5);
-            IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+            IBlockState iblockstate = this.getEntityWorld().getBlockState(blockpos);
 
             if (iblockstate.getMaterial() == Material.AIR)
             {
                 BlockPos blockpos1 = blockpos.down();
-                IBlockState iblockstate1 = this.worldObj.getBlockState(blockpos1);
+                IBlockState iblockstate1 = this.getEntityWorld().getBlockState(blockpos1);
                 Block block1 = iblockstate1.getBlock();
 
                 if (block1 instanceof BlockFence || block1 instanceof BlockWall || block1 instanceof BlockFenceGate)
@@ -314,7 +313,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 
             if (d4 != y)
             {
-                block.onLanded(this.worldObj, this);
+                block.onLanded(this.getEntityWorld(), this);
             }
 
             try
@@ -331,7 +330,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 
             boolean flag1 = this.isWet();
 
-            this.worldObj.theProfiler.endSection();
+            this.getEntityWorld().theProfiler.endSection();
         }
     }
 
@@ -378,18 +377,18 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 			this.motionY *= 0.9800000190734863D;
 			this.motionZ *= 0.55D;
 
-			if (!this.worldObj.isRemote) {
-				if (this.onGround && !this.worldObj.isAirBlock(this.getPosition().down()) && this.motionY == 0 && this.posY % 1 == 0) {
-					this.worldObj.setBlockState(this.getPosition(), fallTile);
-					if (this.worldObj.getTileEntity(this.getPosition()) != null) {
+			if (!this.getEntityWorld().isRemote) {
+				if (this.onGround && !this.getEntityWorld().isAirBlock(this.getPosition().down()) && this.motionY == 0 && this.posY % 1 == 0) {
+					this.getEntityWorld().setBlockState(this.getPosition(), fallTile);
+					if (this.getEntityWorld().getTileEntity(this.getPosition()) != null) {
 						tileEntityData.setDouble("x", this.posX);
 						tileEntityData.setDouble("y", this.posY);
 						tileEntityData.setDouble("z", this.posZ);
-						TileEntity tile = TileEntity.create(this.worldObj, tileEntityData);
+						TileEntity tile = TileEntity.create(this.getEntityWorld(), tileEntityData);
 						if (tile != null) {
-							worldObj.getChunkFromBlockCoords(this.getPosition()).addTileEntity(tile);
+							world.getChunkFromBlockCoords(this.getPosition()).addTileEntity(tile);
 							tile.markDirty();
-							worldObj.notifyBlockUpdate(this.getPosition(), fallTile, fallTile, 3);
+							world.notifyBlockUpdate(this.getPosition(), fallTile, fallTile, 3);
 						}
 					}
 					this.setDead();
@@ -400,7 +399,7 @@ public class EntityBlock extends Entity implements IEntityAdditionalSpawnData {
 
 	@SideOnly(Side.CLIENT)
 	public World getWorldObj() {
-		return this.worldObj;
+		return this.getEntityWorld();
 	}
 
 	public IBlockState getBlock() {

@@ -2,7 +2,6 @@ package com.momnop.simplyconveyors.proxies;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderFallingBlock;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +39,7 @@ public class ClientProxy extends CommonProxy
     
     public EntityPlayer getPlayerEntity(MessageContext ctx)
     {
-      return ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : super.getPlayerEntity(ctx);
+      return ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx);
     }
     
     private static <E extends Entity> void registerEntityRenderer(Class<E> entityClass, Class<? extends Render<E>> renderClass)

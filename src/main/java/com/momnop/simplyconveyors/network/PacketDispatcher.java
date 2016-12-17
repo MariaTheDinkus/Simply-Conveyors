@@ -49,7 +49,7 @@ public class PacketDispatcher
   
   public static final void sendToAllAround(IMessage message, EntityPlayer player, double range)
   {
-    sendToAllAround(message, player.worldObj.provider.getDimension(), player.posX, player.posY, player.posZ, range);
+    sendToAllAround(message, player.getEntityWorld().provider.getDimension(), player.posX, player.posY, player.posZ, range);
   }
   
   public static final void sendToDimension(IMessage message, int dimensionId)

@@ -78,7 +78,7 @@ public class BlockMovingFoamPath extends BlockPoweredConveyor {
 		
 		if (entity instanceof EntityPlayer) {
    			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
    				return;
    			}
    		}
@@ -92,7 +92,7 @@ public class BlockMovingFoamPath extends BlockPoweredConveyor {
 			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 			
-			entity.attackEntityFrom(DamageSource.fall, -1 * (entity.fallDistance - 3));
+			entity.attackEntityFrom(DamageSource.FALL, -1 * (entity.fallDistance - 3));
 			
 			if (entity instanceof EntityItem) {
 				final EntityItem item = (EntityItem) entity;

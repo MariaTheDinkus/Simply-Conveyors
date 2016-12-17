@@ -76,22 +76,18 @@ public class BlockBusStop extends Block implements ITileEntityProvider {
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING);
     }
-
-	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer) {
-		if (!worldIn.isRemote) {
+    
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos,
+    		EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+    		EntityLivingBase placer, EnumHand hand) {
+    	if (!world.isRemote) {
 			BusStopManager.busStopsNames.add("Bus Stop");
 			BusStopManager.busStops.add(pos);
 			BusStopManager.busStopsFacing.add(placer.getHorizontalFacing());
 			try {
 				BusStopManager.saveData();
-				BusStopManager.writeData(worldIn);
+				BusStopManager.writeData(world);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -111,10 +107,10 @@ public class BlockBusStop extends Block implements ITileEntityProvider {
 			IBlockState state, EntityPlayer playerIn, EnumHand hand,
 			EnumFacing side, float hitX, float hitY,
 			float hitZ) {
-		if (worldIn.isRemote && playerIn.getHeldItem(hand) != ItemStack.field_190927_a && playerIn.getHeldItem(hand).getItem() instanceof ItemWrench && !(playerIn.getHeldItem(hand).getItem() instanceof ItemBusTicket)) {
+		if (worldIn.isRemote && playerIn.getHeldItem(hand) != ItemStack.EMPTY && playerIn.getHeldItem(hand).getItem() instanceof ItemWrench && !(playerIn.getHeldItem(hand).getItem() instanceof ItemBusTicket)) {
 			playerIn.openGui(SimplyConveyors.INSTANCE, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
-		} else if (playerIn.getHeldItem(hand) != ItemStack.field_190927_a && playerIn.getHeldItem(hand).getItem() instanceof ItemBusTicket) {
+		} else if (playerIn.getHeldItem(hand) != ItemStack.EMPTY && playerIn.getHeldItem(hand).getItem() instanceof ItemBusTicket) {
 			for (int i = 0; i < BusStopManager.busStopsNames.size(); i++) {
 	    		String name = BusStopManager.busStopsNames.get(i);
 	    		BlockPos pos1 = BusStopManager.busStops.get(i);
@@ -124,14 +120,14 @@ public class BlockBusStop extends Block implements ITileEntityProvider {
 	    			if (worldIn.isRemote == false) {
 	    				EntityBus bus = new EntityBus(worldIn, pos.getX(), pos.getY() + 4, pos.getZ(), state.getValue(FACING));
 	    				//System.out.println("STEVE");
-	    				worldIn.spawnEntityInWorld(bus);
+	    				worldIn.spawnEntity(bus);
 	    			}
 	    		}
 	    	}
 			System.out.println();
 		}
 		return false;
-	}
+    }
 	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {

@@ -135,7 +135,7 @@ public class ConveyorHelper {
 		{
 			IItemHandler handler = inventory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			ItemStack temp = ItemHandlerHelper.insertItem(handler, stack.copy(), true);
-			if(temp==null || temp.func_190916_E()<stack.func_190916_E())
+			if(temp==null || temp.getCount()<stack.getCount())
 				return true;
 		}
 		return false;
@@ -146,7 +146,7 @@ public class ConveyorHelper {
 		{
 			IItemHandler handler = inventory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			ItemStack temp = ItemHandlerHelper.insertItem(handler, stack.copy(), true);
-			if(temp==null || temp.func_190916_E()<stack.func_190916_E())
+			if(temp==null || temp.getCount()<stack.getCount())
 				return ItemHandlerHelper.insertItem(handler, stack, false);
 		}
 		return stack;
@@ -163,7 +163,7 @@ public class ConveyorHelper {
 	
 	private static boolean canCombine(ItemStack stack1, ItemStack stack2)
     {
-        return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.func_190916_E() > stack1.getMaxStackSize() ? false : ItemStack.areItemStackTagsEqual(stack1, stack2)));
+        return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.getCount() > stack1.getMaxStackSize() ? false : ItemStack.areItemStackTagsEqual(stack1, stack2)));
     }
 	
 	/**
@@ -189,7 +189,7 @@ public class ConveyorHelper {
             {
                 //Forge: BUGFIX: Again, make things respect max stack sizes.
                 int max = Math.min(stack.getMaxStackSize(), inventoryIn.getInventoryStackLimit());
-                if (max >= stack.func_190916_E())
+                if (max >= stack.getCount())
                 {
                 inventoryIn.setInventorySlotContents(index, stack);
                 stack = null;
@@ -204,12 +204,12 @@ public class ConveyorHelper {
             {
                 //Forge: BUGFIX: Again, make things respect max stack sizes.
                 int max = Math.min(stack.getMaxStackSize(), inventoryIn.getInventoryStackLimit());
-                if (max > itemstack.func_190916_E())
+                if (max > itemstack.getCount())
                 {
-                int i = max - itemstack.func_190916_E();
-                int j = Math.min(stack.func_190916_E(), i);
-                stack.func_190920_e(stack.func_190916_E() - j);
-                stack.func_190920_e(itemstack.func_190916_E() + j);
+                int i = max - itemstack.getCount();
+                int j = Math.min(stack.getCount(), i);
+                stack.setCount(stack.getCount() - j);
+                stack.setCount(itemstack.getCount() + j);
                 flag = j > 0;
                 }
             }
@@ -245,7 +245,7 @@ public class ConveyorHelper {
             ISidedInventory isidedinventory = (ISidedInventory)inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
-            for (int k = 0; k < aint.length && stack != null && stack.func_190916_E() > 0; ++k)
+            for (int k = 0; k < aint.length && stack != null && stack.getCount() > 0; ++k)
             {
                 stack = insertStack(inventoryIn, stack, aint[k], side);
             }
@@ -254,13 +254,13 @@ public class ConveyorHelper {
         {
             int i = inventoryIn.getSizeInventory();
 
-            for (int j = 0; j < i && stack != null && stack.func_190916_E() > 0; ++j)
+            for (int j = 0; j < i && stack != null && stack.getCount() > 0; ++j)
             {
                 stack = insertStack(inventoryIn, stack, j, side);
             }
         }
 
-        if (stack != null && stack.func_190916_E() == 0)
+        if (stack != null && stack.getCount() == 0)
         {
             stack = null;
         }
@@ -281,7 +281,7 @@ public class ConveyorHelper {
             ItemStack itemstack = itemIn.getEntityItem().copy();
             ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing)null);
 
-            if (itemstack1 != null && itemstack1.func_190916_E() != 0)
+            if (itemstack1 != null && itemstack1.getCount() != 0)
             {
                 itemIn.setEntityItemStack(itemstack1);
             }

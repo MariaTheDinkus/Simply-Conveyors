@@ -48,8 +48,8 @@ public class MessageBusStopData
     {
       if ((player != null) && (message != null) && (ctx != null))
       {
-        if (player.worldObj.getTileEntity(message.pos) instanceof TileEntityBusStop) {
-        	TileEntityBusStop busStop = (TileEntityBusStop) player.worldObj.getTileEntity(message.pos);
+        if (player.getEntityWorld().getTileEntity(message.pos) instanceof TileEntityBusStop) {
+        	TileEntityBusStop busStop = (TileEntityBusStop) player.getEntityWorld().getTileEntity(message.pos);
         	busStop.setName(message.name);
         }
       }

@@ -80,7 +80,7 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 		
 		if (entity instanceof EntityPlayer) {
    			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
    				return;
    			}
    		}
@@ -113,19 +113,19 @@ public class BlockMovingTransporterPath extends BlockPoweredConveyor implements 
 					if(contact && inventoryTile!=null)
 					{
 						ItemStack stack = ((EntityItem)entity).getEntityItem();
-						if(stack != ItemStack.field_190927_a)
+						if(stack != ItemStack.EMPTY)
 						{
 							if (TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
-								if(ret == ItemStack.field_190927_a)
+								if(ret == ItemStack.EMPTY)
 									entity.setDead();
-								else if(ret.func_190916_E()<stack.func_190916_E())
+								else if(ret.getCount()<stack.getCount())
 									((EntityItem)entity).setEntityItemStack(ret);
 							} else if (!TileEntityFurnace.isItemFuel(stack)) {
 								ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
-								if(ret == ItemStack.field_190927_a)
+								if(ret == ItemStack.EMPTY)
 									entity.setDead();
-								else if(ret.func_190916_E()<stack.func_190916_E())
+								else if(ret.getCount()<stack.getCount())
 									((EntityItem)entity).setEntityItemStack(ret);
 							}
 						}

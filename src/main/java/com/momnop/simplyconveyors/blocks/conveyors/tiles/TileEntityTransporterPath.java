@@ -3,6 +3,7 @@ package com.momnop.simplyconveyors.blocks.conveyors.tiles;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -22,10 +23,10 @@ public class TileEntityTransporterPath extends TileEntity implements ITickable {
 			if (tile != null && tile instanceof IInventory && !this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.POWERED)) {
 				IInventory inventory = (IInventory) tile;
 				for (int i = 0; i < inventory.getSizeInventory(); i++) {
-					if (inventory.getStackInSlot(i) != null) {
+					if (inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 						if (this.getWorld().isRemote == false) {
 							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
-							this.getWorld().spawnEntityInWorld(entityItem);
+							this.getWorld().spawnEntity(entityItem);
 							entityItem.motionX = 0;
 							entityItem.motionY = 0;
 							entityItem.motionZ = 0;

@@ -78,7 +78,7 @@ public class BlockMovingPath extends BlockPoweredConveyor {
 		
 		if (entity instanceof EntityPlayer) {
    			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
    				return;
    			}
    		}

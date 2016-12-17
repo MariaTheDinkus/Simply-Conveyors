@@ -122,7 +122,7 @@ public class SimplyConveyors
     public void init(FMLInitializationEvent event)
     {
     	NetworkRegistry.INSTANCE.registerGuiHandler(SimplyConveyors.INSTANCE, (IGuiHandler) new SimplyConveyorsGuiHandler());
-    	PacketDispatcher.registerPackets();
+    	//PacketDispatcher.registerPackets();
     	GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
     	GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");
     	GameRegistry.registerTileEntity(TileEntityDetectorPath.class, "tileEntityDetectorPath");

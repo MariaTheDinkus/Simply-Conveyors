@@ -79,7 +79,7 @@ public class BlockMovingSpikePath extends BlockPoweredConveyor {
 		
 		if (entity instanceof EntityPlayer) {
    			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.field_190927_a && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
+   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
    				return;
    			}
    		}
@@ -106,11 +106,11 @@ public class BlockMovingSpikePath extends BlockPoweredConveyor {
 			entity.setPosition(pos.getX() + 0.5, (pos.getY()) + (1F / 16F), pos.getZ() + 0.5);
 			
 			if (world.getTotalWorldTime() % 20 == 0 && speed != 0.25F && speed != 0.5F) {
-				entity.attackEntityFrom(DamageSource.generic, 6);
+				entity.attackEntityFrom(DamageSource.GENERIC, 6);
 			} else if (world instanceof WorldServer && world.getTotalWorldTime() % 20 == 0 && speed != 0.5F && speed == 0.25F) {
 				final FakePlayer fakePlayer = FakePlayerFactory.getMinecraft((WorldServer)world);
 				entity.attackEntityFrom(new EntityDamageSource("player", (Entity)fakePlayer), 0);
-				entity.attackEntityFrom(DamageSource.generic, 6);
+				entity.attackEntityFrom(DamageSource.GENERIC, 6);
 			} else if (world instanceof WorldServer && world.getTotalWorldTime() % 20 == 0 && speed != 0.25F && speed == 0.5F) {
 				final FakePlayer fakePlayer = FakePlayerFactory.getMinecraft((WorldServer)world);
 				entity.attackEntityFrom(new EntityDamageSource("player", (Entity)fakePlayer), 7);
