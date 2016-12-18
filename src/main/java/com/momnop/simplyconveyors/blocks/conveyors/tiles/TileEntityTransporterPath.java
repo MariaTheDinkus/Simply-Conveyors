@@ -31,7 +31,7 @@ public class TileEntityTransporterPath extends TileEntity implements ITickable {
 							entityItem.motionY = 0;
 							entityItem.motionZ = 0;
 							entityItem.setPosition(this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F);
-							inventory.setInventorySlotContents(i, null);
+							inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 							break;
 						}
 					}
