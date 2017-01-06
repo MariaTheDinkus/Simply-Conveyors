@@ -3,8 +3,10 @@ package com.momnop.simplyconveyors.network;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class NBTHelper {
-	public static NBTTagCompound writeAxisAlignedBB(String name, AxisAlignedBB bb) {
+public class NBTHelper
+{
+	public static NBTTagCompound writeAxisAlignedBB(String name, AxisAlignedBB bb)
+	{
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setDouble(name + "_minX", bb.minX);
 		compound.setDouble(name + "_minY", bb.minY);
@@ -14,8 +16,9 @@ public class NBTHelper {
 		compound.setDouble(name + "_maxZ", bb.maxZ);
 		return compound;
 	}
-	
-	public static AxisAlignedBB getAxisAlignedBBFromNBT(NBTTagCompound compound, String name) {
+
+	public static AxisAlignedBB getAxisAlignedBBFromNBT(NBTTagCompound compound, String name)
+	{
 		NBTTagCompound compound1 = compound;
 		double minX = compound1.getDouble(name + "_minX");
 		double minY = compound1.getDouble(name + "_minY");

@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -28,16 +27,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStairPath;
+import com.momnop.simplyconveyors.blocks.BlockConveyor;
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingFoamPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
@@ -45,70 +38,102 @@ import com.momnop.simplyconveyors.items.ItemBusStopBook;
 import com.momnop.simplyconveyors.items.ItemEntityFilter;
 import com.momnop.simplyconveyors.items.ItemWrench;
 
-public class SimplyConveyorsEventHandler {
+public class SimplyConveyorsEventHandler
+{
 	public static boolean followingNearest = false;
-	
+
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
+	{
 		Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-		if (block instanceof BlockMovingPath
-				|| block instanceof BlockMovingVerticalPath
-				|| block instanceof BlockMovingBackwardsPath
-				|| block instanceof BlockMovingHoldingPath
-				|| block instanceof BlockMovingBackwardsHoldingPath
-				|| block instanceof BlockMovingDropperPath
-				|| block instanceof BlockMovingSlowStairPath
-				|| block instanceof BlockMovingFastStairPath
-				|| block instanceof BlockMovingFastestStairPath) {
-			if (block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemMainhand() != ItemStack.EMPTY
-					&& event.getEntityPlayer().getHeldItemMainhand().getItem() instanceof ItemWrench
-					|| block instanceof BlockHorizontal
-					&& event.getEntityPlayer().getHeldItemOffhand() != ItemStack.EMPTY
-					&& event.getEntityPlayer().getHeldItemOffhand().getItem() instanceof ItemWrench) {
+		if(block instanceof BlockMovingPath || block instanceof BlockConveyor)
+		{
+			if(block instanceof BlockHorizontal && event.getEntityPlayer().getHeldItem(event.getHand()) != null && event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemWrench)
+			{
 				BlockHorizontal blockHorizontal = (BlockHorizontal) block;
-				if (!event.getEntityPlayer().isSneaking()) {
-					event.getWorld().setBlockState(
-							event.getPos(),
-							block.getDefaultState().withProperty(
-									blockHorizontal.FACING,
-									event.getEntityPlayer()
-											.getHorizontalFacing()
-											.getOpposite()));
-				} else {
-					event.getWorld().setBlockState(
-							event.getPos(),
-							block.getDefaultState().withProperty(
-									blockHorizontal.FACING,
-									event.getEntityPlayer()
-											.getHorizontalFacing()));
+				if(!event.getEntityPlayer().isSneaking())
+				{
+					event.getWorld().setBlockState(event.getPos(),
+							block.getDefaultState().withProperty(blockHorizontal.FACING, event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING).rotateY()));
+				}
+				else
+				{
+					if(block == SimplyConveyorsBlocks.blockSlowMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockSlowDownMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
+
+					if(block == SimplyConveyorsBlocks.blockFastMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockFastDownMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
+
+					if(block == SimplyConveyorsBlocks.blockFastestMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
+
+					if(block == SimplyConveyorsBlocks.blockSlowDownMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockSlowMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
+
+					if(block == SimplyConveyorsBlocks.blockFastDownMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockFastMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
+
+					if(block == SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath)
+					{
+						event.getWorld().setBlockState(
+								event.getPos(),
+								SimplyConveyorsBlocks.blockFastestMovingVerticalPath.getDefaultState().withProperty(blockHorizontal.FACING,
+										event.getWorld().getBlockState(event.getPos()).getValue(blockHorizontal.FACING)));
+					}
 				}
 			}
 		}
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-		if (event.getItemStack() != ItemStack.EMPTY
-				&& event.getItemStack().getItem() instanceof ItemEntityFilter) {
-			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack()
-					.getItem();
-			event.getItemStack()
-					.getTagCompound()
-					.setString("filter", event.getTarget().getClass().getName());
+	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event)
+	{
+		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemEntityFilter)
+		{
+			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack().getItem();
+			event.getItemStack().getTagCompound().setString("filter", event.getTarget().getClass().getName());
 		}
 	}
 
 	@SubscribeEvent
-	public void onWorldLoaded(PlayerLoggedInEvent event) {
+	public void onWorldLoaded(PlayerLoggedInEvent event)
+	{
 		BusStopManager.busStops.clear();
 		BusStopManager.busStopsNames.clear();
-		File busData = new File(DimensionManager.getCurrentSaveRootDirectory(),
-				"busData.dat");
-		if (busData.exists()) {
-			try {
+		File busData = new File(DimensionManager.getCurrentSaveRootDirectory(), "busData.dat");
+		if(busData.exists())
+		{
+			try
+			{
 				BusStopManager.writeData(event.player.getEntityWorld());
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}
@@ -116,10 +141,11 @@ public class SimplyConveyorsEventHandler {
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
+	public void onRenderGameOverlay(RenderGameOverlayEvent.Post event)
+	{
 		Minecraft mc = Minecraft.getMinecraft();
 
-		// if (mc.thePlayer.isSneaking()) {
+		// if (mc.player.isSneaking()) {
 		// if (event.getType() != ElementType.ALL) {
 		// return;
 		// }
@@ -156,7 +182,7 @@ public class SimplyConveyorsEventHandler {
 		// GL11.glTranslated((mc.displayWidth - 62.5) / 4, 8.75, 0);
 		// GL11.glTranslated(18, 18, 18);
 		// GL11.glRotated(180, 0, 0, 1);
-		// GL11.glRotated(mc.thePlayer.rotationYaw, 0, 0, 1);
+		// GL11.glRotated(mc.player.rotationYaw, 0, 0, 1);
 		// GL11.glTranslated(-18, -18, -18);
 		//
 		// mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MODID + ":"
@@ -172,27 +198,26 @@ public class SimplyConveyorsEventHandler {
 		// GL11.glPopMatrix();
 		// }
 
-		if (mc.player.getHeldItemMainhand() != ItemStack.EMPTY
-				&& mc.player.getHeldItemMainhand().getItem() instanceof ItemBusStopBook
-				|| mc.player.getHeldItemOffhand() != null
-				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemBusStopBook) {
-			if (event.getType() != ElementType.ALL) {
+		if(mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemBusStopBook || mc.player.getHeldItemOffhand() != null
+				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemBusStopBook)
+		{
+			if(event.getType() != ElementType.ALL)
+			{
 				return;
 			}
 
-			if (!BusStopManager.busStops.isEmpty()) {
+			if(!BusStopManager.busStops.isEmpty())
+			{
 				ArrayList<String> list = new ArrayList<String>();
 				ArrayList<Double> list1 = new ArrayList<Double>();
 				ArrayList<BlockPos> list2 = new ArrayList<BlockPos>();
-				for (int i = 0; i < BusStopManager.busStopsNames.size(); i++) {
+				for(int i = 0; i < BusStopManager.busStopsNames.size(); i++)
+				{
 					String name = BusStopManager.busStopsNames.get(i);
 					BlockPos pos = BusStopManager.busStops.get(i);
 
 					list.add(name);
-					list1.add(Math.sqrt(Math.pow(
-							pos.getX() - mc.player.posX, 2)
-							+ Math.pow(pos.getY() - mc.player.posY, 2)
-							+ Math.pow(pos.getZ() - mc.player.posZ, 2)));
+					list1.add(Math.sqrt(Math.pow(pos.getX() - mc.player.posX, 2) + Math.pow(pos.getY() - mc.player.posY, 2) + Math.pow(pos.getZ() - mc.player.posZ, 2)));
 					list2.add(pos);
 				}
 
@@ -215,32 +240,26 @@ public class SimplyConveyorsEventHandler {
 				int offsetY = 0;
 				int offsetY2 = 0;
 
-				if (!mc.player.capabilities.isCreativeMode) {
+				if(!mc.player.capabilities.isCreativeMode)
+				{
 					offsetY = 15;
 					offsetY2 = 15;
 				}
 
-				fr.drawStringWithShadow(
-						list.get(minIndex) + ", " + distance + " blocks away.",
-						(resolution.getScaledWidth() / 2)
-								- (fr.getStringWidth(list.get(minIndex) + ", "
-										+ distance + " blocks away.") / 2),
-						resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
-				fr.drawStringWithShadow(
-						"Located at " + pos.getX() + ", " + pos.getY() + ", "
-								+ pos.getZ(),
-						(resolution.getScaledWidth() / 2)
-								- (fr.getStringWidth("Located at " + pos.getX()
-										+ ", " + pos.getY() + ", " + pos.getZ()) / 2),
-						resolution.getScaledHeight() - 34 - offsetY2, 0xFFFFFF);
+				fr.drawStringWithShadow(list.get(minIndex) + ", " + distance + " blocks away.",
+						(resolution.getScaledWidth() / 2) - (fr.getStringWidth(list.get(minIndex) + ", " + distance + " blocks away.") / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
+				fr.drawStringWithShadow("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ(),
+						(resolution.getScaledWidth() / 2) - (fr.getStringWidth("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()) / 2), resolution.getScaledHeight() - 34 - offsetY2,
+						0xFFFFFF);
 
 				GL11.glPopMatrix();
 			}
 		}
 
-		if (mc.player.getHeldItemMainhand() != ItemStack.EMPTY
-				&& mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter) {
-			if (event.getType() != ElementType.ALL) {
+		if(mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter)
+		{
+			if(event.getType() != ElementType.ALL)
+			{
 				return;
 			}
 
@@ -251,24 +270,26 @@ public class SimplyConveyorsEventHandler {
 
 			int offsetY = 0;
 
-			if (!mc.player.capabilities.isCreativeMode) {
+			if(!mc.player.capabilities.isCreativeMode)
+			{
 				offsetY = 14;
 			}
 
 			FontRenderer fr = mc.fontRendererObj;
 			// try {
-			// fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(),
+			// fr.drawStringWithShadow(Class.forName(mc.player.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName(),
 			// (resolution.getScaledWidth() / 2) -
-			// (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName())
+			// (fr.getStringWidth(Class.forName(mc.player.getHeldItemMainhand().getTagCompound().getString("filter")).getSimpleName())
 			// / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
 			// } catch (ClassNotFoundException e) {
 			// e.printStackTrace();
 			// }
 		}
 
-		if (mc.player.getHeldItemOffhand() != ItemStack.EMPTY
-				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemEntityFilter) {
-			if (event.getType() != ElementType.ALL) {
+		if(mc.player.getHeldItemOffhand() != null && mc.player.getHeldItemOffhand().getItem() instanceof ItemEntityFilter)
+		{
+			if(event.getType() != ElementType.ALL)
+			{
 				return;
 			}
 
@@ -279,46 +300,54 @@ public class SimplyConveyorsEventHandler {
 
 			int offsetY = 0;
 
-			if (!mc.player.capabilities.isCreativeMode) {
+			if(!mc.player.capabilities.isCreativeMode)
+			{
 				offsetY = 15;
 			}
 
 			FontRenderer fr = mc.fontRendererObj;
 			// try {
-			// fr.drawStringWithShadow(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(),
+			// fr.drawStringWithShadow(Class.forName(mc.player.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName(),
 			// (resolution.getScaledWidth() / 2) -
-			// (fr.getStringWidth(Class.forName(mc.thePlayer.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName())
+			// (fr.getStringWidth(Class.forName(mc.player.getHeldItemOffhand().getTagCompound().getString("filter")).getSimpleName())
 			// / 2), resolution.getScaledHeight() - 34 - offsetY, 0xFFFFFF);
 			// } catch (ClassNotFoundException e) {
 			// e.printStackTrace();
 			// }
 		}
 	}
-	
+
 	@SubscribeEvent
-	public void tooltips(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath) {
+	public void tooltips(ItemTooltipEvent event)
+	{
+		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingFoamPath)
+		{
 			event.getToolTip().add(TextFormatting.DARK_GRAY + "In the ocean you may find, sponge growing somewhere hard to find...");
 		}
-		
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath) {
+
+		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath)
+		{
 			BlockMovingSpikePath spike = (BlockMovingSpikePath) Block.getBlockFromItem(event.getItemStack().getItem());
-			if (spike.getSpeed() == 0.125F) {
+			if(spike.getSpeed() == 0.125F)
+			{
 				event.getToolTip().add("Drops non player-only items.");
 				event.getToolTip().add(" 6 Attack Damage");
 			}
-			if (spike.getSpeed() == 0.25F) {
+			if(spike.getSpeed() == 0.25F)
+			{
 				event.getToolTip().add("Drops non player-only items and experience orbs.");
 				event.getToolTip().add(" 6 Attack Damage");
 			}
-			if (spike.getSpeed() == 0.5F) {
+			if(spike.getSpeed() == 0.5F)
+			{
 				event.getToolTip().add("Drops player-only items, non player-only items, and experience orbs.");
 				event.getToolTip().add(" 7 Attack Damage");
 			}
 		}
 	}
 
-	public void myDrawTexturedModalRect(int x, int y, int width, int height) {
+	public void myDrawTexturedModalRect(int x, int y, int width, int height)
+	{
 		RenderHelper tessellator = RenderHelper.getInstance();
 		tessellator.startDrawing(GL11.GL_QUADS);
 		tessellator.addVertexWithUV(x, y + height, 0, 0.0, 1.0);

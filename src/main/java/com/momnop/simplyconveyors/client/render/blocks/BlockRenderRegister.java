@@ -12,9 +12,11 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
-public final class BlockRenderRegister {
+public final class BlockRenderRegister
+{
 	@SideOnly(Side.CLIENT)
-	public static void registerBlockRenderer() {
+	public static void registerBlockRenderer()
+	{
 		register(SimplyConveyorsItems.wrench);
 		register(SimplyConveyorsItems.entityFilter);
 		register(SimplyConveyorsItems.conveyorResistanceBoots);
@@ -37,6 +39,10 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);
 
+		register(SimplyConveyorsBlocks.blockSlowDownMovingVerticalPath);
+		register(SimplyConveyorsBlocks.blockFastDownMovingVerticalPath);
+		register(SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath);
+
 		register(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
 		register(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
@@ -47,39 +53,24 @@ public final class BlockRenderRegister {
 		register(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastMovingStairPath);
 		register(SimplyConveyorsBlocks.blockFastestMovingStairPath);
-		
+
 		register(SimplyConveyorsBlocks.blockGrabberMovingPath);
 		register(SimplyConveyorsBlocks.blockBlockMovingPath);
 		register(SimplyConveyorsBlocks.blockTransporterMovingPath);
-		
+
 		register(SimplyConveyorsBlocks.blockTrapDoorMovingPath);
-		
+
 		register(SimplyConveyorsBlocks.busStop);
 	}
 
-	public static void register(Block block) {
-		Minecraft
-				.getMinecraft()
-				.getRenderItem()
-				.getItemModelMesher()
-				.register(
-						Item.getItemFromBlock(block),
-						0,
-						new ModelResourceLocation(ModInfo.MODID + ":"
-								+ block.getUnlocalizedName().substring(5),
-								"inventory"));
+	public static void register(Block block)
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+				.register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(ModInfo.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
 	}
 
-	public static void register(Item item) {
-		Minecraft
-				.getMinecraft()
-				.getRenderItem()
-				.getItemModelMesher()
-				.register(
-						item,
-						0,
-						new ModelResourceLocation(ModInfo.MODID + ":"
-								+ item.getUnlocalizedName().substring(5),
-								"inventory"));
+	public static void register(Item item)
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(ModInfo.MODID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

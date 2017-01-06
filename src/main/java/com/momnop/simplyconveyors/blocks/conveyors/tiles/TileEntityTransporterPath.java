@@ -11,21 +11,29 @@ import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
 
-public class TileEntityTransporterPath extends TileEntity implements ITickable {
+public class TileEntityTransporterPath extends TileEntity implements ITickable
+{
 
 	@Override
-	public void update() {
+	public void update()
+	{
 		markDirty();
-		
-		if (blockType instanceof BlockMovingTransporterPath && this.getWorld().getTotalWorldTime() % 20 == 0) {
+
+		if(blockType instanceof BlockMovingTransporterPath && this.getWorld().getTotalWorldTime() % 20 == 0)
+		{
 			BlockMovingTransporterPath blockTransporter = (BlockMovingTransporterPath) blockType;
 			TileEntity tile = this.getWorld().getTileEntity(this.getPos().add(this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.FACING).getDirectionVec()));
-			if (tile != null && tile instanceof IInventory && !this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.POWERED)) {
+			if(tile != null && tile instanceof IInventory && !this.getWorld().getBlockState(this.getPos()).getValue(blockTransporter.POWERED))
+			{
 				IInventory inventory = (IInventory) tile;
-				for (int i = 0; i < inventory.getSizeInventory(); i++) {
-					if (inventory.getStackInSlot(i) != ItemStack.EMPTY) {
-						if (this.getWorld().isRemote == false) {
-							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F, inventory.getStackInSlot(i));
+				for(int i = 0; i < inventory.getSizeInventory(); i++)
+				{
+					if(inventory.getStackInSlot(i) != ItemStack.EMPTY)
+					{
+						if(this.getWorld().isRemote == false)
+						{
+							EntityItem entityItem = new EntityItem(this.getWorld(), this.getPos().getX() + 0.5F, this.getPos().getY() + (1F / 16F), this.getPos().getZ() + 0.5F,
+									inventory.getStackInSlot(i));
 							this.getWorld().spawnEntity(entityItem);
 							entityItem.motionX = 0;
 							entityItem.motionY = 0;
@@ -39,10 +47,10 @@ public class TileEntityTransporterPath extends TileEntity implements ITickable {
 			}
 		}
 	}
-	
+
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos,
-			IBlockState oldState, IBlockState newSate) {
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
+	{
 		return oldState.getBlock() != newSate.getBlock();
 	}
 }

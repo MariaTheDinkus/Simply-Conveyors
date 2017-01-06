@@ -13,63 +13,79 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
-public class SimplyConveyorsCreativeTab extends CreativeTabs {
+public class SimplyConveyorsCreativeTab extends CreativeTabs
+{
 
 	List list;
 	public static SimplyConveyorsCreativeTab INSTANCE = new SimplyConveyorsCreativeTab();
 
-	public SimplyConveyorsCreativeTab() {
+	public SimplyConveyorsCreativeTab()
+	{
 		super(ModInfo.MODID);
 	}
 
 	@Override
-	public ItemStack getIconItemStack() {
+	public ItemStack getIconItemStack()
+	{
 		return new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath);
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack getTabIconItem()
+	{
 		return getIconItemStack();
 	}
 
 	@Override
-	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
+	public void displayAllRelevantItems(NonNullList<ItemStack> list)
+	{
 		this.list = list;
-		
+
 		addItem(SimplyConveyorsItems.wrench);
 		addItem(SimplyConveyorsItems.entityFilter);
 		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
-		
+
+		addItem(SimplyConveyorsItems.busStopBook);
+		addItem(SimplyConveyorsItems.busTicket);
+
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingPath);
-		
-		//addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
-		//addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
-		//addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
-		
-		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
-		
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);
-		
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
-		
+
+		// addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
+		// addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
+		// addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingStairPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingStairPath);
+
+		addBlock(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
+		addBlock(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);
+
+		addBlock(SimplyConveyorsBlocks.blockSlowDownMovingVerticalPath);
+		addBlock(SimplyConveyorsBlocks.blockFastDownMovingVerticalPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath);
+
+		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
+
+		addBlock(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
+		addBlock(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
+
+		addBlock(SimplyConveyorsBlocks.busStop);
 	}
 
-	private void addItem(Item item) {
+	private void addItem(Item item)
+	{
 		item.getSubItems(item, this, (NonNullList<ItemStack>) list);
 	}
 
-	private void addBlock(Block block) {
+	private void addBlock(Block block)
+	{
 		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(stack.getItem(), this, (NonNullList<ItemStack>) list);
 	}

@@ -5,13 +5,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class EntityBus extends Entity {
+public class EntityBus extends Entity
+{
 
-	public EntityBus(World worldIn) {
+	public EntityBus(World worldIn)
+	{
 		super(worldIn);
 	}
-	
-	public EntityBus(World worldIn, double x, double y, double z, EnumFacing facing) {
+
+	public EntityBus(World worldIn, double x, double y, double z, EnumFacing facing)
+	{
 		super(worldIn);
 		this.setSize(5, 3);
 		this.setPositionAndRotation(x, y, z, facing.getHorizontalAngle(), 0);
@@ -22,37 +25,44 @@ public class EntityBus extends Entity {
 		this.prevPosY = y;
 		this.prevPosZ = z;
 	}
-	
+
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith()
+	{
 		return true;
 	}
 
 	@Override
-	public boolean canBePushed() {
+	public boolean canBePushed()
+	{
 		return false;
 	}
 
 	@Override
-	protected void entityInit() {
-		
+	protected void entityInit()
+	{
+
 	}
-	
+
 	@Override
-	public void onUpdate() {
-		if (this.ticksExisted > 200) {
+	public void onUpdate()
+	{
+		if(this.ticksExisted > 200)
+		{
 			setDead();
 		}
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound compound) {
-		
+	protected void readEntityFromNBT(NBTTagCompound compound)
+	{
+
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound compound) {
-		
+	protected void writeEntityToNBT(NBTTagCompound compound)
+	{
+
 	}
-	
+
 }

@@ -25,92 +25,100 @@ import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPat
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
-public class BlockMovingFoamPath extends BlockPoweredConveyor {
-	
+public class BlockMovingFoamPath extends BlockPoweredConveyor
+{
+
 	private final double speed;
-	
-	public BlockMovingFoamPath(double speed, Material material, String unlocalizedName) {
+
+	public BlockMovingFoamPath(double speed, Material material, String unlocalizedName)
+	{
 		super(material);
-		//setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		// setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
-		setUnlocalizedName(this.getRegistryName().toString()
-				.replace("simplyconveyors:", ""));
+		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
 		useNeighborBrightness = true;
 		setHarvestLevel("pickaxe", 0);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		this.speed = speed;
 	}
-	
-	public double getSpeed() {
+
+	public double getSpeed()
+	{
 		return speed;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-			BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
 		return SimplyConveyorsBlocks.CONVEYOR_AABB;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(IBlockState state)
+	{
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState blockState) {
+	public boolean isOpaqueCube(IBlockState blockState)
+	{
 		return false;
 	}
-	
-	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock,
-			EntityLivingBase entity) {
-		return EnumFacing.getFacingFromVector(
-				(float) (entity.posX - clickedBlock.getX()),
-				(float) (entity.posY - clickedBlock.getY()),
-				(float) (entity.posZ - clickedBlock.getZ()));
+
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity)
+	{
+		return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos,
-			IBlockState blockState, Entity entity) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState, Entity entity)
+	{
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
-		
-		if (entity instanceof EntityPlayer) {
-   			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
-   				return;
-   			}
-   		}
-		
-		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
+
+		if(entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) entity;
+			if(player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
+					&& player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots)
+			{
+				return;
+			}
+		}
+
+		if(!entity.isSneaking() && !blockState.getValue(POWERED))
+		{
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
-			
-            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
-            ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
-			
+
+			entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+			ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
+
 			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
-			
+
 			entity.attackEntityFrom(DamageSource.FALL, -1 * (entity.fallDistance - 3));
-			
-			if (entity instanceof EntityItem) {
+
+			if(entity instanceof EntityItem)
+			{
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
-			
-			if (entity instanceof EntityItem) {
+
+			if(entity instanceof EntityItem)
+			{
 				Block block = world.getBlockState(pos.add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock();
-				if (block instanceof BlockMovingVerticalPath || block instanceof BlockMovingSlowStairPath || block instanceof BlockMovingFastStairPath || block instanceof BlockMovingFastestStairPath) {
+				if(block instanceof BlockMovingVerticalPath || block instanceof BlockMovingSlowStairPath || block instanceof BlockMovingFastStairPath || block instanceof BlockMovingFastestStairPath)
+				{
 					entity.setPositionAndUpdate(entity.posX, entity.posY + 0.25F, entity.posZ);
 				}
 			}
 		}
 	}
-	
+
 	@Override
-	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn,
-			float fallDistance) {
+	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
+	{
 		entityIn.fallDistance = 0;
 		System.out.println("BLAH");
 	}

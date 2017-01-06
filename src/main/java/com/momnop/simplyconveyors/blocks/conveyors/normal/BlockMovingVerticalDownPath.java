@@ -1,12 +1,9 @@
 package com.momnop.simplyconveyors.blocks.conveyors.normal;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -17,20 +14,17 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.blocks.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
-import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
-public class BlockMovingPath extends BlockPoweredConveyor
+public class BlockMovingVerticalDownPath extends BlockPoweredConveyor
 {
 
 	private final double speed;
 
-	PropertyBool CONNECTED_LEFT = PropertyBool.create("left");
-	PropertyBool CONNECTED_RIGHT = PropertyBool.create("right");
-
-	public BlockMovingPath(double speed, Material material, String unlocalizedName)
+	public BlockMovingVerticalDownPath(double speed, Material material, String unlocalizedName)
 	{
 		super(material);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
@@ -38,7 +32,6 @@ public class BlockMovingPath extends BlockPoweredConveyor
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
 		useNeighborBrightness = true;
-		setHarvestLevel("pickaxe", 0);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		this.speed = speed;
@@ -52,7 +45,23 @@ public class BlockMovingPath extends BlockPoweredConveyor
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
-		return SimplyConveyorsBlocks.CONVEYOR_AABB;
+		if(state.getValue(FACING) == EnumFacing.NORTH)
+		{
+			return new AxisAlignedBB(0, 0, 0.1F / 16F, 1F, 1F, 1F);
+		}
+		else if(state.getValue(FACING) == EnumFacing.EAST)
+		{
+			return new AxisAlignedBB(0F, 0F, 0F, 15.9F / 16F, 1F, 1F);
+		}
+		else if(state.getValue(FACING) == EnumFacing.SOUTH)
+		{
+			return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 15.9F / 16F);
+		}
+		else if(state.getValue(FACING) == EnumFacing.WEST)
+		{
+			return new AxisAlignedBB(0.1F / 16F, 0F, 0F, 1F, 1F, 1F);
+		}
+		return null;
 	}
 
 	@Override
@@ -91,24 +100,62 @@ public class BlockMovingPath extends BlockPoweredConveyor
 		{
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
 
-			entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
-			ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
+			entity.motionY = 0;
 
-			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
-			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
-
-			if(entity instanceof EntityItem)
+			entity.motionY += -this.getSpeed();
+			if(entity.motionY < -this.getSpeed())
 			{
-				final EntityItem item = (EntityItem) entity;
-				item.setAgeToCreativeDespawnTime();
+				entity.motionY = -this.getSpeed();
 			}
 
-			if(entity instanceof EntityItem)
+			if(direction == EnumFacing.EAST)
 			{
-				Block block = world.getBlockState(pos.add(blockState.getValue(FACING).getOpposite().getDirectionVec())).getBlock();
-				if(block instanceof BlockMovingVerticalPath || block instanceof BlockMovingSlowStairPath || block instanceof BlockMovingFastStairPath || block instanceof BlockMovingFastestStairPath)
+				entity.motionX += 0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.EAST);
+			}
+
+			if(direction == EnumFacing.WEST)
+			{
+				entity.motionX += -0.1F;
+				ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.WEST);
+			}
+
+			if(direction == EnumFacing.SOUTH)
+			{
+				entity.motionZ += 0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.SOUTH);
+			}
+
+			if(direction == EnumFacing.NORTH)
+			{
+				entity.motionZ += -0.1F;
+				ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.NORTH);
+			}
+
+			if(!(world.getBlockState(pos.offset(direction.getOpposite())) instanceof BlockConveyor))
+			{
+				if(direction.getOpposite() == EnumFacing.EAST)
 				{
-					entity.setPositionAndUpdate(entity.posX, entity.posY + 0.25F, entity.posZ);
+					entity.motionX += 0.1F;
+					ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.EAST);
+				}
+
+				if(direction.getOpposite() == EnumFacing.WEST)
+				{
+					entity.motionX += -0.1F;
+					ConveyorHelper.lockSpeed(false, 0.1F, entity, EnumFacing.WEST);
+				}
+
+				if(direction.getOpposite() == EnumFacing.SOUTH)
+				{
+					entity.motionZ += 0.1F;
+					ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.SOUTH);
+				}
+
+				if(direction.getOpposite() == EnumFacing.NORTH)
+				{
+					entity.motionZ += -0.1F;
+					ConveyorHelper.lockSpeed(true, 0.1F, entity, EnumFacing.NORTH);
 				}
 			}
 		}

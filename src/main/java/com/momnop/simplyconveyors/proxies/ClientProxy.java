@@ -17,60 +17,61 @@ import com.momnop.simplyconveyors.entity.EntityBlock;
 
 public class ClientProxy extends CommonProxy
 {
-	
-	public void preInitRenders() {
+
+	public void preInitRenders()
+	{
 		registerEntityRenderer(EntityBlock.class, RenderBlock.class);
 	}
-	
-    public void initSounds()
-    {
-        
-    }
-    
-    public void initRenders()
-    {
-    	ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBusStop.class, new TileEntityBusStopRenderer());
-    }
-    
-    public void initKeybinds()
-    {
-    	
-    }
-    
-    public EntityPlayer getPlayerEntity(MessageContext ctx)
-    {
-      return ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx);
-    }
-    
-    private static <E extends Entity> void registerEntityRenderer(Class<E> entityClass, Class<? extends Render<E>> renderClass)
-    {
-        RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<E>(renderClass));
-    }
+
+	public void initSounds()
+	{
+
+	}
+
+	public void initRenders()
+	{
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBusStop.class, new TileEntityBusStopRenderer());
+	}
+
+	public void initKeybinds()
+	{
+
+	}
+
+	public EntityPlayer getPlayerEntity(MessageContext ctx)
+	{
+		return ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx);
+	}
+
+	private static <E extends Entity> void registerEntityRenderer(Class<E> entityClass, Class<? extends Render<E>> renderClass)
+	{
+		RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<E>(renderClass));
+	}
 
 	private static class EntityRenderFactory<E extends Entity> implements IRenderFactory<E>
-    {
-        private Class<? extends Render<E>> renderClass;
+	{
+		private Class<? extends Render<E>> renderClass;
 
-        private EntityRenderFactory(Class<? extends Render<E>> renderClass)
-        {
-            this.renderClass = renderClass;
-        }
+		private EntityRenderFactory(Class<? extends Render<E>> renderClass)
+		{
+			this.renderClass = renderClass;
+		}
 
-        @Override
-        public Render<E> createRenderFor(RenderManager manager) 
-        {
-            Render<E> renderer = null;
+		@Override
+		public Render<E> createRenderFor(RenderManager manager)
+		{
+			Render<E> renderer = null;
 
-            try 
-            {
-                renderer = renderClass.getConstructor(RenderManager.class).newInstance(manager);
-            } 
-            catch (Exception e) 
-            {
-                e.printStackTrace();
-            }
+			try
+			{
+				renderer = renderClass.getConstructor(RenderManager.class).newInstance(manager);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 
-            return renderer;
-        }
-    }
+			return renderer;
+		}
+	}
 }

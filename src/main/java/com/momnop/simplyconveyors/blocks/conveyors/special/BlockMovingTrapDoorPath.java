@@ -22,38 +22,42 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
-public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
-	
+public class BlockMovingTrapDoorPath extends BlockPoweredConveyor
+{
+
 	private final double speed;
-	
-	public BlockMovingTrapDoorPath(double speed, Material material, String unlocalizedName) {
+
+	public BlockMovingTrapDoorPath(double speed, Material material, String unlocalizedName)
+	{
 		super(material);
 		setCreativeTab(SimplyConveyorsSpecialCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
-		setUnlocalizedName(this.getRegistryName().toString()
-				.replace("simplyconveyors:", ""));
+		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
 		useNeighborBrightness = true;
 		setHarvestLevel("pickaxe", 0);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		this.speed = speed;
 	}
-	
-	public double getSpeed() {
+
+	public double getSpeed()
+	{
 		return speed;
 	}
-	
+
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World worldIn,
-			BlockPos pos, AxisAlignedBB mask,
-			List<AxisAlignedBB> list, Entity entityIn) {
-		if (state.getValue(POWERED) == true) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entityIn)
+	{
+		if(state.getValue(POWERED) == true)
+		{
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + (15F / 16F), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
-		} else if (state.getValue(POWERED) == false) {
+		}
+		else if(state.getValue(POWERED) == false)
+		{
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + (1F / 16F)), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + 0F, pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + (1F / 16F), pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 			addCollisionBox(new AxisAlignedBB(pos.getX() + (15F / 16F), pos.getY() + 0F, pos.getZ() + 0F, pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
@@ -61,61 +65,65 @@ public class BlockMovingTrapDoorPath extends BlockPoweredConveyor {
 			addCollisionBox(new AxisAlignedBB(pos.getX(), pos.getY() + (0F / 16F), pos.getZ(), pos.getX() + 1F, pos.getY() + (1F / 16F), pos.getZ() + 1F), list, mask);
 		}
 	}
-	
+
 	public void addCollisionBox(AxisAlignedBB box, List list, AxisAlignedBB mask)
 	{
-        if (box != null && mask.intersectsWith(box))
-        {
-            list.add(box);
-        }
+		if(box != null && mask.intersectsWith(box))
+		{
+			list.add(box);
+		}
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-			BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
 		return SimplyConveyorsBlocks.CONVEYOR_AABB;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(IBlockState state)
+	{
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState blockState) {
+	public boolean isOpaqueCube(IBlockState blockState)
+	{
 		return false;
 	}
-	
-	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock,
-			EntityLivingBase entity) {
-		return EnumFacing.getFacingFromVector(
-				(float) (entity.posX - clickedBlock.getX()),
-				(float) (entity.posY - clickedBlock.getY()),
-				(float) (entity.posZ - clickedBlock.getZ()));
+
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity)
+	{
+		return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos,
-			IBlockState blockState, Entity entity) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState, Entity entity)
+	{
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
-		
-		if (entity instanceof EntityPlayer) {
-   			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
-   				return;
-   			}
-   		}
-		
-		if (!entity.isSneaking() && !blockState.getValue(POWERED)) {
+
+		if(entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) entity;
+			if(player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
+					&& player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots)
+			{
+				return;
+			}
+		}
+
+		if(!entity.isSneaking() && !blockState.getValue(POWERED))
+		{
 			ConveyorHelper.centerBasedOnFacing(speed, true, pos, entity, direction);
-			
-            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
-            ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
-			
+
+			entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+			ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
+
 			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 
-			if (entity instanceof EntityItem) {
+			if(entity instanceof EntityItem)
+			{
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}

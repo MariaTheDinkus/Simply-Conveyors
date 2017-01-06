@@ -9,19 +9,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
 
-public abstract class AbstractMessageHandler<T extends IMessage>
-  implements IMessageHandler<T, IMessage>
+public abstract class AbstractMessageHandler<T extends IMessage> implements IMessageHandler<T, IMessage>
 {
-  @SideOnly(Side.CLIENT)
-  public abstract IMessage handleClientMessage(EntityPlayer paramEntityPlayer, T paramT, MessageContext paramMessageContext);
-  
-  public abstract IMessage handleServerMessage(EntityPlayer paramEntityPlayer, T paramT, MessageContext paramMessageContext);
-  
-  public IMessage onMessage(T message, MessageContext ctx)
-  {
-    if (ctx.side.isClient()) {
-      return handleClientMessage(SimplyConveyors.proxy.getPlayerEntity(ctx), message, ctx);
-    }
-    return handleServerMessage(SimplyConveyors.proxy.getPlayerEntity(ctx), message, ctx);
-  }
+	@SideOnly(Side.CLIENT)
+	public abstract IMessage handleClientMessage(EntityPlayer paramEntityPlayer, T paramT, MessageContext paramMessageContext);
+
+	public abstract IMessage handleServerMessage(EntityPlayer paramEntityPlayer, T paramT, MessageContext paramMessageContext);
+
+	public IMessage onMessage(T message, MessageContext ctx)
+	{
+		if(ctx.side.isClient())
+		{
+			return handleClientMessage(SimplyConveyors.proxy.getPlayerEntity(ctx), message, ctx);
+		}
+		return handleServerMessage(SimplyConveyors.proxy.getPlayerEntity(ctx), message, ctx);
+	}
 }

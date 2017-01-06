@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -30,166 +31,197 @@ import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 import com.momnop.simplyconveyors.items.ItemWrench;
 
-public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider {
-	
+public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider
+{
+
 	private final double speed;
-	
-	public BlockMovingDetectorPath(double speed, Material material, String unlocalizedName) {
+
+	public BlockMovingDetectorPath(double speed, Material material, String unlocalizedName)
+	{
 		super(material);
 		setCreativeTab(SimplyConveyorsSpecialCreativeTab.INSTANCE);
 		setHardness(1.5F);
 		setRegistryName(unlocalizedName);
-		setUnlocalizedName(this.getRegistryName().toString()
-				.replace("simplyconveyors:", ""));
+		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
 		useNeighborBrightness = true;
 		setHarvestLevel("pickaxe", 0);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 		this.speed = speed;
 	}
-	
-	public double getSpeed() {
+
+	public double getSpeed()
+	{
 		return speed;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-			BlockPos pos) {
+	public BlockRenderLayer getBlockLayer()
+	{
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
 		return SimplyConveyorsBlocks.CONVEYOR_AABB;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(IBlockState state)
+	{
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState blockState) {
+	public boolean isOpaqueCube(IBlockState blockState)
+	{
 		return false;
 	}
-	
+
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn,
-			BlockPos pos, Block blockIn, BlockPos pos2) {
-		
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2)
+	{
+
 	}
-	
+
 	@Override
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-		if (blockState.getValue(POWERED) == true) {
+	{
+		if(blockState.getValue(POWERED) == true)
+		{
 			return 15;
 		}
-        return 0;
-    }
-
-	@Override
-    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-		if (blockState.getValue(POWERED) == true) {
-			return 15;
-		}
-        return 0;
-    }
-	
-	private void notifyNeighbors(World worldIn, BlockPos pos, EnumFacing facing)
-    {
-        worldIn.notifyNeighborsOfStateChange(pos, this, false);
-        worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this, false);
-    }
-	
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (!worldIn.isRemote)
-        {
-            if (((Boolean)state.getValue(POWERED)).booleanValue())
-            {
-            	worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
-                this.notifyNeighbors(worldIn, pos, (EnumFacing)state.getValue(FACING));
-                worldIn.markBlockRangeForRenderUpdate(pos, pos);
-            }
-        }
-    }
-
-    /**
-     * Can this block provide power. Only wire currently seems to have this change based on its state.
-     */
-    @Override
-    public boolean canProvidePower(IBlockState state)
-    {
-        return true;
-    }
-	
-	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock,
-			EntityLivingBase entity) {
-		return EnumFacing.getFacingFromVector(
-				(float) (entity.posX - clickedBlock.getX()),
-				(float) (entity.posY - clickedBlock.getY()),
-				(float) (entity.posZ - clickedBlock.getZ()));
+		return 0;
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos,
-			IBlockState blockState, Entity entity) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		if(blockState.getValue(POWERED) == true)
+		{
+			return 15;
+		}
+		return 0;
+	}
+
+	private void notifyNeighbors(World worldIn, BlockPos pos, EnumFacing facing)
+	{
+		worldIn.notifyNeighborsOfStateChange(pos, this, false);
+		worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this, false);
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+		if(!worldIn.isRemote)
+		{
+			if(((Boolean) state.getValue(POWERED)).booleanValue())
+			{
+				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)));
+				this.notifyNeighbors(worldIn, pos, (EnumFacing) state.getValue(FACING));
+				worldIn.markBlockRangeForRenderUpdate(pos, pos);
+			}
+		}
+	}
+
+	/**
+	 * Can this block provide power. Only wire currently seems to have this
+	 * change based on its state.
+	 */
+	@Override
+	public boolean canProvidePower(IBlockState state)
+	{
+		return true;
+	}
+
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity)
+	{
+		return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState, Entity entity)
+	{
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
-		
-		if (entity instanceof EntityPlayer) {
-   			EntityPlayer player = (EntityPlayer) entity;
-   			if (player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY && player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots) {
-   				return;
-   			}
-   		}
-		
-		if (!entity.isSneaking()) {
+
+		if(entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) entity;
+			if(player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
+					&& player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots)
+			{
+				return;
+			}
+		}
+
+		if(!entity.isSneaking())
+		{
 			ConveyorHelper.centerBasedOnFacing(true, pos, entity, direction);
-			
-            entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
-            ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
-			
+
+			entity.motionX += this.getSpeed() * direction.getFrontOffsetX();
+			ConveyorHelper.lockSpeed(false, this.getSpeed(), entity, direction);
+
 			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
 
-			if (entity instanceof EntityItem) {
+			if(entity instanceof EntityItem)
+			{
 				final EntityItem item = (EntityItem) entity;
 				item.setAgeToCreativeDespawnTime();
 			}
 		}
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos,
-			IBlockState state, EntityPlayer playerIn, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	{
+		if(!playerIn.isSneaking() && playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY)
+		{
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
-			try {
-				if (!worldIn.isRemote && !grabber.getFilterList().isEmpty()) {
-					if (grabber.getBlacklisted() == false) {
+			try
+			{
+				if(!worldIn.isRemote && !grabber.getFilterList().isEmpty())
+				{
+					if(grabber.getBlacklisted() == false)
+					{
 						playerIn.sendMessage(new TextComponentString("Currently whitelisting: "));
-					} else {
+					}
+					else
+					{
 						playerIn.sendMessage(new TextComponentString("Currently blacklisting: "));
 					}
-					for (String string : grabber.getFilterList()) {
+					for(String string : grabber.getFilterList())
+					{
 						playerIn.sendMessage(new TextComponentString(Class.forName(string).getSimpleName()));
 					}
 				}
-			} catch (ClassNotFoundException e) {
+			}
+			catch (ClassNotFoundException e)
+			{
 				e.printStackTrace();
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY) {
+		}
+		else if(playerIn.getHeldItemMainhand() == ItemStack.EMPTY && playerIn.getHeldItemOffhand() == ItemStack.EMPTY)
+		{
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			grabber.setFilterList(new ArrayList<String>());
-			if (worldIn.isRemote) {
+			if(worldIn.isRemote)
+			{
 				playerIn.sendMessage(new TextComponentString("Cleared all filters."));
 			}
 			return true;
-		} else if (playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench) {
+		}
+		else if(playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench)
+		{
 			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());
-			if (grabber.getBlacklisted() && worldIn.isRemote) {
+			if(grabber.getBlacklisted() && worldIn.isRemote)
+			{
 				playerIn.sendMessage(new TextComponentString("Now blacklisting."));
-			} else if (worldIn.isRemote) {
+			}
+			else if(worldIn.isRemote)
+			{
 				playerIn.sendMessage(new TextComponentString("Now whitelisting."));
 			}
 			return true;
@@ -198,7 +230,8 @@ public class BlockMovingDetectorPath extends BlockPoweredConveyor implements ITi
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
+	public TileEntity createNewTileEntity(World worldIn, int meta)
+	{
 		return new TileEntityDetectorPath();
 	}
 }

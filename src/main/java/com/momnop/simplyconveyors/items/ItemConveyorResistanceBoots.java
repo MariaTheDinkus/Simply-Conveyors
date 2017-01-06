@@ -7,12 +7,12 @@ import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 
 public class ItemConveyorResistanceBoots extends ItemArmor
 {
-    public ItemConveyorResistanceBoots(ArmorMaterial material, int renderIndex, EntityEquipmentSlot slot, String unlocalizedName)
-    {
-        super(material, renderIndex, slot);
-        setRegistryName(unlocalizedName);
-        setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
-        setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
-        setMaxStackSize(1);
-    }
+	public ItemConveyorResistanceBoots(ArmorMaterial material, int renderIndex, EntityEquipmentSlot slot, String unlocalizedName)
+	{
+		super(material, renderIndex, slot);
+		setRegistryName(unlocalizedName);
+		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
+		setMaxStackSize(1);
+	}
 }

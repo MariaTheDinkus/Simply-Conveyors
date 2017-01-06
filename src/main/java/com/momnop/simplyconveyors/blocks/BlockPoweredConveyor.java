@@ -23,47 +23,49 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
 
-public class BlockPoweredConveyor extends Block {
+public class BlockPoweredConveyor extends BlockConveyor
+{
 
-	public static final PropertyDirection FACING = PropertyDirection.create(
-			"facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
-	protected BlockPoweredConveyor(Material materialIn) {
+	protected BlockPoweredConveyor(Material materialIn)
+	{
 		super(materialIn);
 	}
 
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos)
-				.getBlock(), null);
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+	{
+		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock(), null);
 	}
-	
+
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
-			Block blockIn, BlockPos p_189540_5_) {
-		if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_)
+	{
+		if(state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
+		{
 			worldIn.scheduleUpdate(pos, this, 4);
-		} else if (!state.getValue(POWERED) && worldIn.isBlockPowered(pos)) {
+		}
+		else if(!state.getValue(POWERED) && worldIn.isBlockPowered(pos))
+		{
 			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 2);
-			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
-				worldIn.playSound(null, pos,
-						SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
-						SoundCategory.BLOCKS, 1, 1);
+			if(state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath)
+			{
+				worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
 			}
 		}
 	}
-	
+
 	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos,
-			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-			EntityLivingBase placer, EnumHand hand) {
-		if (placer.isSneaking()) {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing());
-		} else {
-			return this.getDefaultState().withProperty(FACING,
-					placer.getHorizontalFacing().getOpposite());
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
+	{
+		if(placer.isSneaking())
+		{
+			return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+		}
+		else
+		{
+			return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 		}
 	}
 
@@ -71,57 +73,63 @@ public class BlockPoweredConveyor extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
+	public IBlockState getStateFromMeta(int meta)
+	{
 		boolean powered = false;
-		if (String.valueOf(meta).length() == 2) {
+		if(String.valueOf(meta).length() == 2)
+		{
 			powered = true;
-		} else {
+		}
+		else
+		{
 			powered = false;
 		}
 
 		int metaNew = 0;
-		if (String.valueOf(meta).length() == 1) {
+		if(String.valueOf(meta).length() == 1)
+		{
 			metaNew = Integer.parseInt(String.valueOf(("" + meta).charAt(0)));
-		} else {
+		}
+		else
+		{
 			metaNew = Integer.parseInt(String.valueOf(("" + meta).charAt(1)));
 		}
 
-		return this.getDefaultState()
-				.withProperty(FACING, EnumFacing.getHorizontal(metaNew))
-				.withProperty(POWERED, powered);
+		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(metaNew)).withProperty(POWERED, powered);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
+	public int getMetaFromState(IBlockState state)
+	{
 		int powered = 0;
-		if (state.getValue(POWERED) == false) {
+		if(state.getValue(POWERED) == false)
+		{
 			powered = 0;
-		} else {
+		}
+		else
+		{
 			powered = 1;
 		}
 
-		return Integer.parseInt(powered + ""
-				+ state.getValue(FACING).getIndex());
+		return Integer.parseInt(powered + "" + state.getValue(FACING).getIndex());
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this,
-				new IProperty[] { FACING, POWERED });
+	protected BlockStateContainer createBlockState()
+	{
+		return new BlockStateContainer(this, new IProperty[] { FACING, POWERED });
 	}
 
-
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state,
-			Random rand) {
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
 		IBlockState blockState = worldIn.getBlockState(pos);
-		if (state.getValue(POWERED) && !worldIn.isBlockPowered(pos)) {
-			worldIn.setBlockState(pos, blockState.withProperty(POWERED, false),
-					2);
-			if (state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath) {
-				worldIn.playSound(null, pos,
-						SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE,
-						SoundCategory.BLOCKS, 1, 1);
+		if(state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
+		{
+			worldIn.setBlockState(pos, blockState.withProperty(POWERED, false), 2);
+			if(state.getBlock() instanceof BlockMovingTrapDoorPath || state.getBlock() instanceof BlockMovingSpikePath)
+			{
+				worldIn.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
 			}
 		}
 	}

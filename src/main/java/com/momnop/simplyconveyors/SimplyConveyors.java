@@ -36,117 +36,169 @@ import com.momnop.simplyconveyors.recipes.RecipeHandler;
 @Mod(name = ModInfo.NAME, modid = ModInfo.MODID, version = ModInfo.VERSION, acceptedMinecraftVersions = "[1.9,1.12)")
 public class SimplyConveyors
 {
-    @SidedProxy(clientSide = "com.momnop.simplyconveyors.proxies.ClientProxy", serverSide = "com.momnop.simplyconveyors.proxies.CommonProxy")
-    public static CommonProxy proxy;
-    
-    @Instance(value = ModInfo.MODID)
-    public static SimplyConveyors INSTANCE;
-    
-    @EventHandler
-	public void onMissingMapping(FMLMissingMappingsEvent event) {
-		for (FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
+	@SidedProxy(clientSide = "com.momnop.simplyconveyors.proxies.ClientProxy", serverSide = "com.momnop.simplyconveyors.proxies.CommonProxy")
+	public static CommonProxy proxy;
+
+	@Instance(value = ModInfo.MODID)
+	public static SimplyConveyors INSTANCE;
+
+	@EventHandler
+	public void onMissingMapping(FMLMissingMappingsEvent event)
+	{
+		for(FMLMissingMappingsEvent.MissingMapping mapping : event.get())
+		{
 			String resourcePath = mapping.resourceLocation.getResourcePath();
-			if (mapping.type == GameRegistry.Type.BLOCK) {
-				if (BlockInfoOld.BACKWARDS_DETECTOR.equals(resourcePath)) {
+			if(mapping.type == GameRegistry.Type.BLOCK)
+			{
+				if(BlockInfoOld.BACKWARDS_DETECTOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockDetectorMovingBackwardsPath);
-				} else if (BlockInfoOld.BACKWARDS_DROPPER.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.BACKWARDS_DROPPER.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockDropperMovingBackwardsPath);
-				} else if (BlockInfoOld.BLOCK_CONVEYOR.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.BLOCK_CONVEYOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockBlockMovingPath);
-				} else if (BlockInfoOld.DETECTOR_CONVEYOR.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.DETECTOR_CONVEYOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockDetectorMovingPath);
-				} else if (BlockInfoOld.DROPPER_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.DROPPER_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockDropperMovingPath);
-				} else if (BlockInfoOld.FAST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FAST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
-				} else if (BlockInfoOld.FAST_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FAST_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastMovingPath);
-				} else if (BlockInfoOld.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastMovingStairPath);
-				} else if (BlockInfoOld.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
-				} else if (BlockInfoOld.FASTEST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FASTEST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
-				} else if (BlockInfoOld.FASTEST_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FASTEST_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastestMovingPath);
-				} else if (BlockInfoOld.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastestMovingStairPath);
-				} else if (BlockInfoOld.FASTEST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.FASTEST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);
-				} else if (BlockInfoOld.GRABBER_CONVEYOR.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.GRABBER_CONVEYOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockGrabberMovingPath);
-				} else if (BlockInfoOld.HOLDING_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.HOLDING_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockHoldingMovingBackwardsPath);
-				} else if (BlockInfoOld.HOLDING_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.HOLDING_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockHoldingMovingPath);
-				} else if (BlockInfoOld.SLOW_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.SLOW_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
-				} else if (BlockInfoOld.SLOW_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.SLOW_MOVING_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockSlowMovingPath);
-				} else if (BlockInfoOld.SLOW_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.SLOW_MOVING_STAIR_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockSlowMovingStairPath);
-				} else if (BlockInfoOld.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
-				} else if (BlockInfoOld.TRANSPORTER_CONVEYOR.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.TRANSPORTER_CONVEYOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockTransporterMovingPath);
-				} else if (BlockInfoOld.TRAPDOOR_CONVEYOR.equals(resourcePath)) {
+				}
+				else if(BlockInfoOld.TRAPDOOR_CONVEYOR.equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsBlocks.blockTrapDoorMovingPath);
 				}
-			} else if (mapping.type == GameRegistry.Type.ITEM) {
-				if ("conveyorWrench".equals(resourcePath)) {
+			}
+			else if(mapping.type == GameRegistry.Type.ITEM)
+			{
+				if("conveyorWrench".equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsItems.wrench);
-				} else if ("entityFilter".equals(resourcePath)) {
+				}
+				else if("entityFilter".equals(resourcePath))
+				{
 					mapping.remap(SimplyConveyorsItems.entityFilter);
 				}
 			}
 		}
 	}
 
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-    	ConfigHandler.init(event.getSuggestedConfigurationFile());
-    	
-        SimplyConveyorsBlocks.load();
-        SimplyConveyorsItems.load();
-        ModEntities.init();
-        proxy.preInitRenders();
-        proxy.initRenders();
-        proxy.initTiles();
-        RecipeHandler.doRecipes();
-        
-        ForgeChunkManager.setForcedChunkLoadingCallback(SimplyConveyors.INSTANCE, null);
-    }
-    
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-    	NetworkRegistry.INSTANCE.registerGuiHandler(SimplyConveyors.INSTANCE, (IGuiHandler) new SimplyConveyorsGuiHandler());
-    	//PacketDispatcher.registerPackets();
-    	GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
-    	GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");
-    	GameRegistry.registerTileEntity(TileEntityDetectorPath.class, "tileEntityDetectorPath");
-    	GameRegistry.registerTileEntity(TileEntityDetectorBackwardsPath.class, "tileEntityDetectorBackwardsPath");
-    	GameRegistry.registerTileEntity(TileEntityTransporterPath.class, "tileEntityTransporterPath");
-        MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
-        if (event.getSide() == Side.CLIENT) {
-        	BlockRenderRegister.registerBlockRenderer();
-        }
-    }
-    
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        
-    }
-    
-    /**
-     * @param event
-     *        The event that triggered the method
-     */
-    @EventHandler
-    public static void serverLoad(FMLServerStartingEvent event)
-    {
-    	
-    }
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
+
+		SimplyConveyorsBlocks.load();
+		SimplyConveyorsItems.load();
+		ModEntities.init();
+		proxy.preInitRenders();
+		proxy.initRenders();
+		proxy.initTiles();
+		RecipeHandler.doRecipes();
+
+		ForgeChunkManager.setForcedChunkLoadingCallback(SimplyConveyors.INSTANCE, null);
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event)
+	{
+		NetworkRegistry.INSTANCE.registerGuiHandler(SimplyConveyors.INSTANCE, (IGuiHandler) new SimplyConveyorsGuiHandler());
+		PacketDispatcher.registerPackets();
+		GameRegistry.registerTileEntity(TileEntityBusStop.class, "tileEntityBusStop");
+		GameRegistry.registerTileEntity(TileEntityGrabberPath.class, "tileEntityGrabberPath");
+		GameRegistry.registerTileEntity(TileEntityDetectorPath.class, "tileEntityDetectorPath");
+		GameRegistry.registerTileEntity(TileEntityDetectorBackwardsPath.class, "tileEntityDetectorBackwardsPath");
+		GameRegistry.registerTileEntity(TileEntityTransporterPath.class, "tileEntityTransporterPath");
+		MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
+		if(event.getSide() == Side.CLIENT)
+		{
+			BlockRenderRegister.registerBlockRenderer();
+		}
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event)
+	{
+
+	}
+
+	/**
+	 * @param event
+	 *            The event that triggered the method
+	 */
+	@EventHandler
+	public static void serverLoad(FMLServerStartingEvent event)
+	{
+
+	}
 }

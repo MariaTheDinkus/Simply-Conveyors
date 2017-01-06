@@ -10,36 +10,37 @@ import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastestMoving
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
 
 public class CommonProxy
-{    
-	public void preInitRenders() {
-		
-	}
-	
-	public void initTiles() 
+{
+	public void preInitRenders()
 	{
-        GameRegistry.registerTileEntity(TileEntitySlowMovingStair.class, "tileEntitySlowMovingStair");
-        GameRegistry.registerTileEntity(TileEntityFastMovingStair.class, "tileEntityFastMovingStair");
-        GameRegistry.registerTileEntity(TileEntityFastestMovingStair.class, "tileEntityFastestMovingStair");
-        GameRegistry.registerTileEntity(TileEntityBlockMovingPath.class, "tileEntityBlockMovingPath");
+
 	}
-	
-    public void initSounds()
-    {
-        
-    }
-    
-    public void initRenders()
-    {
-        
-    }
-    
-    public void initKeybinds()
-    {
-        
-    }
-    
-    public EntityPlayer getPlayerEntity(MessageContext ctx)
-    {
-      return ctx.getServerHandler().playerEntity;
-    }
+
+	public void initTiles()
+	{
+		GameRegistry.registerTileEntity(TileEntitySlowMovingStair.class, "tileEntitySlowMovingStair");
+		GameRegistry.registerTileEntity(TileEntityFastMovingStair.class, "tileEntityFastMovingStair");
+		GameRegistry.registerTileEntity(TileEntityFastestMovingStair.class, "tileEntityFastestMovingStair");
+		GameRegistry.registerTileEntity(TileEntityBlockMovingPath.class, "tileEntityBlockMovingPath");
+	}
+
+	public void initSounds()
+	{
+
+	}
+
+	public void initRenders()
+	{
+
+	}
+
+	public void initKeybinds()
+	{
+
+	}
+
+	public EntityPlayer getPlayerEntity(MessageContext ctx)
+	{
+		return ctx.getServerHandler().playerEntity;
+	}
 }

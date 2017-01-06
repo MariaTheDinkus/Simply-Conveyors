@@ -17,8 +17,9 @@ import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
 
-public class TileEntityDetectorPath extends TileEntity implements ITickable {
-	
+public class TileEntityDetectorPath extends TileEntity implements ITickable
+{
+
 	/**
 	 * This is the name of the class the entity should be filtered to.
 	 */
@@ -27,89 +28,135 @@ public class TileEntityDetectorPath extends TileEntity implements ITickable {
 	private boolean isBlacklisted = false;
 
 	@Override
-	public void update() {
+	public void update()
+	{
 		markDirty();
-		
-		List entities = this.getWorld().getEntitiesWithinAABB(Entity.class,
-				new AxisAlignedBB(pos.getX() - 0, pos.getY(), pos.getZ() - 0,
-						pos.getX() + 1, pos.getY() + 2F, pos.getZ() + 1));
-		
-		for (int i = 0; i < entities.size(); i++) {
+
+		List entities = this.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX() - 0, pos.getY(), pos.getZ() - 0, pos.getX() + 1, pos.getY() + 2F, pos.getZ() + 1));
+
+		for(int i = 0; i < entities.size(); i++)
+		{
 			Object obj = entities.get(i);
-			if (obj instanceof Entity) {
+			if(obj instanceof Entity)
+			{
 				Entity ent = (Entity) obj;
-				try {
-					if (isBlacklisted == false) {
-						if (!entityFilter.isEmpty()) {
-							for (String string : entityFilter) {
-								if (Class.forName(string).isInstance(ent)) {
-									this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
+				try
+				{
+					if(isBlacklisted == false)
+					{
+						if(!entityFilter.isEmpty())
+						{
+							for(String string : entityFilter)
+							{
+								if(Class.forName(string).isInstance(ent))
+								{
+									this.getWorld().setBlockState(
+											this.getPos(),
+											this.getWorld()
+													.getBlockState(this.getPos())
+													.withProperty(((BlockMovingDetectorPath) blockType).FACING,
+															this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING))
+													.withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
 									return;
 								}
 							}
 						}
-					
-						if (entityFilter.isEmpty()) {
-							this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
+
+						if(entityFilter.isEmpty())
+						{
+							this.getWorld().setBlockState(
+									this.getPos(),
+									this.getWorld()
+											.getBlockState(this.getPos())
+											.withProperty(((BlockMovingDetectorPath) blockType).FACING,
+													this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING))
+											.withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
 							return;
 						}
-					} else {
+					}
+					else
+					{
 						boolean isABlacklistedEntity = false;
-						if (!entityFilter.isEmpty()) {
-							for (String string : entityFilter) {
-								if (Class.forName(string).isInstance(ent)) {
+						if(!entityFilter.isEmpty())
+						{
+							for(String string : entityFilter)
+							{
+								if(Class.forName(string).isInstance(ent))
+								{
 									isABlacklistedEntity = true;
 								}
 							}
 						}
-					
-						if (isABlacklistedEntity == false) {
-							this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
+
+						if(isABlacklistedEntity == false)
+						{
+							this.getWorld().setBlockState(
+									this.getPos(),
+									this.getWorld()
+											.getBlockState(this.getPos())
+											.withProperty(((BlockMovingDetectorPath) blockType).FACING,
+													this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING))
+											.withProperty(((BlockMovingDetectorPath) blockType).POWERED, true));
 							return;
 						}
 					}
-				} catch (ClassNotFoundException e) {
+				}
+				catch (ClassNotFoundException e)
+				{
 					e.printStackTrace();
 				}
 			}
 		}
-		this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING)).withProperty(((BlockMovingDetectorPath) blockType).POWERED, false));
+		this.getWorld().setBlockState(
+				this.getPos(),
+				this.getWorld().getBlockState(this.getPos())
+						.withProperty(((BlockMovingDetectorPath) blockType).FACING, this.getWorld().getBlockState(this.getPos()).getValue(((BlockMovingDetectorPath) blockType).FACING))
+						.withProperty(((BlockMovingDetectorPath) blockType).POWERED, false));
 	}
-	
-	public void setBlacklisted(boolean blacklisted) {
+
+	public void setBlacklisted(boolean blacklisted)
+	{
 		isBlacklisted = blacklisted;
 	}
-	
-	public boolean getBlacklisted() {
+
+	public boolean getBlacklisted()
+	{
 		return isBlacklisted;
 	}
 
-	public void addEntityFilter(Class filterClass) {
+	public void addEntityFilter(Class filterClass)
+	{
 		entityFilter.add(filterClass.getName());
 	}
-	
-	public void setEntityFilter(int index, Class filterClass) {
+
+	public void setEntityFilter(int index, Class filterClass)
+	{
 		entityFilter.set(index, filterClass.getName());
 	}
 
-	public String getEntityFilter(int index) {
+	public String getEntityFilter(int index)
+	{
 		return entityFilter.get(index);
 	}
-	
-	public ArrayList<String> getFilterList() {
+
+	public ArrayList<String> getFilterList()
+	{
 		return entityFilter;
 	}
-	
-	public void setFilterList(ArrayList<String> filterList) {
+
+	public void setFilterList(ArrayList<String> filterList)
+	{
 		entityFilter = filterList;
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
 		super.writeToNBT(compound);
 		int i = 0;
 		compound.setInteger("size", entityFilter.size());
-		for (String filter : entityFilter) {
+		for(String filter : entityFilter)
+		{
 			compound.setString("entityFilter" + i, filter);
 			i++;
 		}
@@ -118,33 +165,38 @@ public class TileEntityDetectorPath extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound) {
+	public void readFromNBT(NBTTagCompound compound)
+	{
 		super.readFromNBT(compound);
 		size = compound.getInteger("size");
-		for (int i = 0; i < size; i++) {
+		for(int i = 0; i < size; i++)
+		{
 			entityFilter.add(compound.getString("entityFilter" + i));
 		}
 		isBlacklisted = compound.getBoolean("isBlacklisted");
 	}
 
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
+	public SPacketUpdateTileEntity getUpdatePacket()
+	{
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag() {
+	public NBTTagCompound getUpdateTag()
+	{
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	{
 		readFromNBT(pkt.getNbtCompound());
 	}
-	
+
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos,
-			IBlockState oldState, IBlockState newSate) {
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
+	{
 		return oldState.getBlock() != newSate.getBlock();
 	}
 }
