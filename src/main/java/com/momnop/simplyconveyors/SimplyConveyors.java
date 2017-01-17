@@ -1,17 +1,5 @@
 package com.momnop.simplyconveyors;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ColorizerFoliage;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -28,14 +16,12 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-import com.momnop.furniture.blocks.BlockSofa;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityTransporterPath;
-import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
 import com.momnop.simplyconveyors.client.render.blocks.BlockRenderRegister;
 import com.momnop.simplyconveyors.client.render.guis.SimplyConveyorsGuiHandler;
 import com.momnop.simplyconveyors.config.ConfigHandler;
@@ -197,34 +183,11 @@ public class SimplyConveyors
 		
 		if(event.getSide() == Side.CLIENT)
 		{
-			registerColored(SimplyConveyorsBlocks.blockBrokenRoad);
-			registerColored(SimplyConveyorsBlocks.blockFullRoad);
+			proxy.registerColored(SimplyConveyorsBlocks.blockBrokenRoad);
+			proxy.registerColored(SimplyConveyorsBlocks.blockFullRoad);
 			
 			BlockRenderRegister.registerBlockRenderer();
 		}
-	}
-	
-	public static void registerColored(Block block) {
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor() {
-            @Override
-            public int colorMultiplier(IBlockState iBlockState, IBlockAccess iBlockAccess, BlockPos blockPos, int i) {
-                if(iBlockState != null){
-                	return EnumDyeColor.byMetadata(iBlockState.getValue(BlockConnectingColored.COLOR).getMetadata()).getMapColor().colorValue;
-                }
-                return -1;
-            }
-        }, block);
-		
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-            @Override
-            public int getColorFromItemstack(ItemStack stack, int tintIndex)
-            {
-            	if (stack != ItemStack.EMPTY) {
-            		return EnumDyeColor.byMetadata(stack.getMetadata()).getMapColor().colorValue;
-            	}
-            	return -1;
-            }
-        }, block);
 	}
 
 	@EventHandler

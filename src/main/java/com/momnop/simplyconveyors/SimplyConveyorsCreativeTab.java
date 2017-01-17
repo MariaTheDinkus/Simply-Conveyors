@@ -8,7 +8,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-import com.momnop.aquastuff.blocks.AquaStuffBlocks;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
