@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.blocks.conveyors.special;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
