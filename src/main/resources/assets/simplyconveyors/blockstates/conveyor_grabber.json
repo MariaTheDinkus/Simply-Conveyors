@@ -2,14 +2,15 @@
   "forge_marker": 1,
   "defaults": {
 	"textures": {
-		"top": "simplyconveyors:blocks/conveyor_grabber",
+		"top": "simplyconveyors:blocks/conveyor_fast_on",
 		"side": "blocks/quartz_block_side",
+		"special": "simplyconveyors:blocks/conveyor_grabber",
 		"particle": "blocks/quartz_block_side"
 	},
-	"model": "simplyconveyors:conveyor"
+	"model": "simplyconveyors:conveyor_special"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:conveyor" }],
+    "normal": [{ "model": "simplyconveyors:conveyor_special" }],
     "inventory": [{}],
     "facing": {
       "north": {},

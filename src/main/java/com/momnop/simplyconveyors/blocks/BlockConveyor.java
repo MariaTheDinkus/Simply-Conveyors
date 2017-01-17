@@ -63,17 +63,4 @@ public class BlockConveyor extends BlockHorizontal
 
 	}
 
-	@Override
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-	{
-		if(placer.isSneaking())
-		{
-			return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-		}
-		else
-		{
-			return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-		}
-	}
-
 }

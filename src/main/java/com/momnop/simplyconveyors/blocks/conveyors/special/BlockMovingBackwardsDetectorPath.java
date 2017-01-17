@@ -29,7 +29,7 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
-import com.momnop.simplyconveyors.items.ItemWrench;
+import com.momnop.simplyconveyors.items.ItemBasic;
 
 public class BlockMovingBackwardsDetectorPath extends BlockPoweredConveyor implements ITileEntityProvider
 {
@@ -218,7 +218,7 @@ public class BlockMovingBackwardsDetectorPath extends BlockPoweredConveyor imple
 			}
 			return true;
 		}
-		else if(playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench)
+		else if(playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemBasic)
 		{
 			TileEntityDetectorBackwardsPath grabber = (TileEntityDetectorBackwardsPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());

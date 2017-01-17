@@ -5,11 +5,11 @@
         "0": "simplyconveyors:blocks/conveyor_inside",
         "1": "simplyconveyors:blocks/conveyor_trapdoor_on"
     },
-	"model": "simplyconveyors:conveyor_trapdoor_off"
+	"model": "simplyconveyors:conveyor_trapdoor"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:conveyor_trapdoor_off" }],
-    "inventory": [{}],
+    "normal": [{ "model": "simplyconveyors:conveyor_trapdoor" }],
+    "inventory": [{ "submodel": "simplyconveyors:conveyor_trapdoor_door" }],
     "facing": {
       "north": {},
       "south": {"y": 180},
@@ -22,11 +22,10 @@
 		"true": {
 			"textures": {
 				"1": "simplyconveyors:blocks/conveyor_trapdoor_off"
-			},
-			"model": "simplyconveyors:conveyor_trapdoor_on"
+			}
 		},
 		"false": {
-			
+			"submodel": "simplyconveyors:conveyor_trapdoor_door"
 		}
 	}
   }

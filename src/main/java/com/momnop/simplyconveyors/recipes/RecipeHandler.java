@@ -1,9 +1,12 @@
 package com.momnop.simplyconveyors.recipes;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.config.ConfigHandler;
@@ -83,8 +86,32 @@ public class RecipeHandler
 				Items.GOLDEN_SWORD });
 		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestSpikeMovingPath), new Object[] { SimplyConveyorsBlocks.blockFastestMovingPath, Blocks.DIAMOND_BLOCK,
 				Blocks.LAPIS_BLOCK, Items.DIAMOND_SWORD });
-
-		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.conveyorResistanceBoots), new Object[] { Items.LEATHER_BOOTS, Items.SLIME_BALL });
+		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(SimplyConveyorsItems.conveyorResistanceBoots), new Object[] { Items.LEATHER_BOOTS, "slimeball" }));
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockSlowMobMovingPath, 1), new Object[] { Items.FERMENTED_SPIDER_EYE, SimplyConveyorsBlocks.blockSlowMovingPath });
+		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastMobMovingPath, 1), new Object[] { Items.FERMENTED_SPIDER_EYE, SimplyConveyorsBlocks.blockFastMovingPath });
+		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsBlocks.blockFastestMobMovingPath, 1), new Object[] { Items.FERMENTED_SPIDER_EYE, SimplyConveyorsBlocks.blockFastestMovingPath });
+		
+		addColorRecipes(SimplyConveyorsBlocks.blockBrokenRoad);
+		addColorRecipes(SimplyConveyorsBlocks.blockFullRoad);
+		
+		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockAsphault, 8), new Object[] { "BBB", "BDB", "BBB", 'B', new ItemStack(Blocks.STONE, 1, 0), 'D', new ItemStack(Items.COAL, 1, 0) });
+		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockConcrete, 8), new Object[] { "BBB", "BDB", "BBB", 'B', new ItemStack(Blocks.STONE, 1, 0), 'D', new ItemStack(Blocks.DIRT, 1, 0) });
+		
+		for (int i = 0; i < 15; i++) {
+			GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockBrokenRoad, 8, i), new Object[] { "D D", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.blockAsphault), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+		}
+		
+		for (int i = 0; i < 15; i++) {
+			GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.blockFullRoad, 8, i), new Object[] { "DDD", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.blockAsphault), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+		}
+	}
+	
+	public static void addColorRecipes(Block block) {
+		for (int i = 0; i < 15; i++) {
+			GameRegistry.addRecipe(new ItemStack(block, 8, i), new Object[] { "BBB", "BDB", "BBB", 'B', new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+		}
 	}
 
 	public static void addInverseRecipe(ItemStack input, ItemStack output)

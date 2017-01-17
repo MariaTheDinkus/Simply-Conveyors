@@ -28,7 +28,7 @@ import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
-import com.momnop.simplyconveyors.items.ItemWrench;
+import com.momnop.simplyconveyors.items.ItemBasic;
 
 public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntityProvider
 {
@@ -156,7 +156,7 @@ public class BlockMovingGrabberPath extends BlockConveyor implements ITileEntity
 			}
 			return true;
 		}
-		else if(playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemWrench)
+		else if(playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemBasic)
 		{
 			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
 			grabber.setBlacklisted(!grabber.getBlacklisted());

@@ -1,12 +1,15 @@
 package com.momnop.simplyconveyors.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import com.momnop.simplyconveyors.SimplyConveyorsRoadTab;
 import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMobMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingBackwardsPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStairPath;
@@ -26,6 +29,7 @@ import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPat
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
+import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
 import com.momnop.simplyconveyors.info.BlockInfo;
 
 public class SimplyConveyorsBlocks
@@ -43,8 +47,18 @@ public class SimplyConveyorsBlocks
 	public static Block blockTrapDoorMovingPath;
 	public static Block blockSlowSpongeMovingPath, blockFastSpongeMovingPath, blockFastestSpongeMovingPath;
 	public static Block blockSlowSpikeMovingPath, blockFastSpikeMovingPath, blockFastestSpikeMovingPath;
+	
+	public static Block blockSlowMobMovingPath, blockFastMobMovingPath, blockFastestMobMovingPath;
 
 	public static Block busStop;
+	
+	public static Block blockAsphault;
+	public static Block blockConcrete;
+	public static Block blockBrokenRoad;
+	public static Block blockFullRoad;
+	
+	public static ItemBlock itemBlockBrokenRoad;
+	public static ItemBlock itemBlockFullRoad;
 
 	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 1F / 16F, 1F);
 	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 15F / 16F, 0F, 1F, 1F, 1F);
@@ -56,6 +70,7 @@ public class SimplyConveyorsBlocks
 	public static void load()
 	{
 		loadBus();
+		loadRoads();
 		loadConveyors();
 	}
 
@@ -64,6 +79,22 @@ public class SimplyConveyorsBlocks
 		busStop = new BlockBusStop("bus_stop");
 
 		register(busStop);
+	}
+	
+	public static void loadRoads() {
+		blockAsphault = new BlockNormal(Material.ROCK, 1.5F, SoundType.STONE, "asphault", SimplyConveyorsRoadTab.INSTANCE);
+		blockConcrete = new BlockNormal(Material.ROCK, 1.5F, SoundType.STONE, "concrete", SimplyConveyorsRoadTab.INSTANCE);
+		
+		blockBrokenRoad = new BlockConnectingColored(Material.ROCK, 1.5F, SoundType.STONE, "road_broken");
+		itemBlockBrokenRoad = new ItemBlockVariants(blockBrokenRoad);
+		
+		blockFullRoad = new BlockConnectingColored(Material.ROCK, 1.5F, SoundType.STONE, "road_full");
+		itemBlockFullRoad = new ItemBlockVariants(blockFullRoad);
+		
+		register(blockAsphault);
+		register(blockConcrete);
+		register(blockBrokenRoad, itemBlockBrokenRoad);
+		register(blockFullRoad, itemBlockFullRoad);
 	}
 
 	public static void loadConveyors()
@@ -102,6 +133,10 @@ public class SimplyConveyorsBlocks
 		blockSlowSpongeMovingPath = new BlockMovingFoamPath(tier1Speed, Material.ROCK, "conveyor_foam_slow");
 		blockFastSpongeMovingPath = new BlockMovingFoamPath(tier2Speed, Material.ROCK, "conveyor_foam_fast");
 		blockFastestSpongeMovingPath = new BlockMovingFoamPath(tier3Speed, Material.ROCK, "conveyor_foam_fastest");
+		
+		blockSlowMobMovingPath = new BlockMobMovingPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
+		blockFastMobMovingPath = new BlockMobMovingPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
+		blockFastestMobMovingPath = new BlockMobMovingPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
 
 		blockSlowSpikeMovingPath = new BlockMovingSpikePath(tier1Speed, Material.ROCK, "conveyor_spike_slow");
 		blockFastSpikeMovingPath = new BlockMovingSpikePath(tier2Speed, Material.ROCK, "conveyor_spike_fast");
@@ -141,6 +176,10 @@ public class SimplyConveyorsBlocks
 		register(blockSlowSpongeMovingPath);
 		register(blockFastSpongeMovingPath);
 		register(blockFastestSpongeMovingPath);
+		
+		register(blockSlowMobMovingPath);
+		register(blockFastMobMovingPath);
+		register(blockFastestMobMovingPath);
 
 		register(blockSlowSpikeMovingPath);
 		register(blockFastSpikeMovingPath);
@@ -150,6 +189,13 @@ public class SimplyConveyorsBlocks
 	public static void register(Block b)
 	{
 		ItemBlock ib = new ItemBlock(b);
+		GameRegistry.register(b);
+		ib.setRegistryName(b.getRegistryName());
+		GameRegistry.register(ib);
+	}
+	
+	public static void register(Block b, ItemBlock ib)
+	{
 		GameRegistry.register(b);
 		ib.setRegistryName(b.getRegistryName());
 		GameRegistry.register(ib);

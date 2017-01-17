@@ -4,9 +4,9 @@ import net.minecraft.item.Item;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 
-public class ItemWrench extends Item
+public class ItemBasic extends Item
 {
-	public ItemWrench(String unlocalizedName)
+	public ItemBasic(String unlocalizedName)
 	{
 		super();
 		setRegistryName(unlocalizedName);

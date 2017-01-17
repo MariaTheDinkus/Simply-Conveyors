@@ -4,10 +4,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumFacing;
@@ -18,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.blocks.BlockPoweredConveyor;
@@ -112,8 +117,20 @@ public class BlockMovingSpikePath extends BlockPoweredConveyor
 		}
 		else if(!entity.isSneaking() && (entity instanceof EntityLivingBase) && blockState.getValue(POWERED))
 		{
-			entity.setPosition(pos.getX() + 0.5, (pos.getY()) + (1F / 16F), pos.getZ() + 0.5);
-
+			if (entity instanceof EntityEnderman) {
+				entity.setInWeb();
+			} else {
+				if (entity instanceof EntityPlayer) {
+					if (((EntityPlayer) entity).capabilities.isCreativeMode || ((EntityPlayer) entity).capabilities.isFlying) {
+						
+					} else {
+						entity.setPosition(pos.getX() + 0.5, (pos.getY()) + (1F / 16F), pos.getZ() + 0.5);
+					}
+				} else {
+					entity.setPosition(pos.getX() + 0.5, (pos.getY()) + (1F / 16F), pos.getZ() + 0.5);
+				}
+			}
+			
 			if(world.getTotalWorldTime() % 20 == 0 && speed != 0.25F && speed != 0.5F)
 			{
 				entity.attackEntityFrom(DamageSource.GENERIC, 6);

@@ -45,16 +45,24 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs
 		addItem(SimplyConveyorsItems.entityFilter);
 		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
 
-		addItem(SimplyConveyorsItems.busStopBook);
-		addItem(SimplyConveyorsItems.busTicket);
+//		addItem(SimplyConveyorsItems.busStopBook);
+//		addItem(SimplyConveyorsItems.busTicket);
 
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingPath);
 
-		// addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
-		// addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
-		// addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+		
+		addBlock(SimplyConveyorsBlocks.blockSlowMobMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastMobMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestMobMovingPath);
+
+		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
+		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
 
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingStairPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingStairPath);
@@ -68,15 +76,11 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs
 		addBlock(SimplyConveyorsBlocks.blockFastDownMovingVerticalPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath);
 
-		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
-
 		addBlock(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
 		addBlock(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
 		addBlock(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
 
-		addBlock(SimplyConveyorsBlocks.busStop);
+//		addBlock(SimplyConveyorsBlocks.busStop);
 	}
 
 	private void addItem(Item item)

@@ -18,7 +18,7 @@ public class SimplyConveyorsItems
 
 	public static void load()
 	{
-		wrench = new ItemWrench(ItemInfo.CONVEYOR_WRENCH_UNLOCALIZED_NAME);
+		wrench = new ItemBasic(ItemInfo.CONVEYOR_WRENCH_UNLOCALIZED_NAME);
 		entityFilter = new ItemEntityFilter("entity_filter");
 		busStopBook = new ItemBusStopBook("bus_stop_book");
 		busTicket = new ItemBusTicket("bus_ticket");

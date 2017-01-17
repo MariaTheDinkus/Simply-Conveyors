@@ -76,6 +76,8 @@ public class BlockMovingFoamPath extends BlockPoweredConveyor
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState blockState, Entity entity)
 	{
 		final EnumFacing direction = blockState.getValue(FACING).getOpposite();
+		
+		entity.fallDistance = 0;
 
 		if(entity instanceof EntityPlayer)
 		{
@@ -96,8 +98,6 @@ public class BlockMovingFoamPath extends BlockPoweredConveyor
 
 			entity.motionZ += this.getSpeed() * direction.getFrontOffsetZ();
 			ConveyorHelper.lockSpeed(true, this.getSpeed(), entity, direction);
-
-			entity.attackEntityFrom(DamageSource.FALL, -1 * (entity.fallDistance - 3));
 
 			if(entity instanceof EntityItem)
 			{

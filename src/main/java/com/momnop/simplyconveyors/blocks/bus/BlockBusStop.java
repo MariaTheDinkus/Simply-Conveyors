@@ -24,7 +24,7 @@ import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
 import com.momnop.simplyconveyors.entity.EntityBus;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.items.ItemBusTicket;
-import com.momnop.simplyconveyors.items.ItemWrench;
+import com.momnop.simplyconveyors.items.ItemBasic;
 
 public class BlockBusStop extends Block implements ITileEntityProvider
 {
@@ -116,7 +116,7 @@ public class BlockBusStop extends Block implements ITileEntityProvider
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if(worldIn.isRemote && playerIn.getHeldItem(hand) != ItemStack.EMPTY && playerIn.getHeldItem(hand).getItem() instanceof ItemWrench
+		if(worldIn.isRemote && playerIn.getHeldItem(hand) != ItemStack.EMPTY && playerIn.getHeldItem(hand).getItem() instanceof ItemBasic
 				&& !(playerIn.getHeldItem(hand).getItem() instanceof ItemBusTicket))
 		{
 			playerIn.openGui(SimplyConveyors.INSTANCE, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());

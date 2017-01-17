@@ -1,8 +1,11 @@
 package com.momnop.simplyconveyors.client.render.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,6 +30,9 @@ public final class BlockRenderRegister
 		register(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
 		register(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
 		register(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
+		register(SimplyConveyorsBlocks.blockSlowMobMovingPath);
+		register(SimplyConveyorsBlocks.blockFastMobMovingPath);
+		register(SimplyConveyorsBlocks.blockFastestMobMovingPath);
 		register(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
 		register(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
 		register(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
@@ -61,12 +67,30 @@ public final class BlockRenderRegister
 		register(SimplyConveyorsBlocks.blockTrapDoorMovingPath);
 
 		register(SimplyConveyorsBlocks.busStop);
+		
+		register(SimplyConveyorsBlocks.blockAsphault);
+		register(SimplyConveyorsBlocks.blockConcrete);
+		
+		registerColored(SimplyConveyorsBlocks.blockBrokenRoad);
+		registerColored(SimplyConveyorsBlocks.blockFullRoad);
+	}
+	
+	public static void registerColored(Block block) {
+		for (int i = 0; i < 16; i++) {
+			register(block, i);
+		}
 	}
 
 	public static void register(Block block)
 	{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(ModInfo.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
+	}
+	
+	public static void register(Block block, int meta)
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+				.register(Item.getItemFromBlock(block), meta, new ModelResourceLocation(ModInfo.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
 	}
 
 	public static void register(Item item)

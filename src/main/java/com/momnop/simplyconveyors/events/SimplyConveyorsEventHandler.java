@@ -13,11 +13,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,18 +27,20 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.momnop.simplyconveyors.blocks.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMobMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingFoamPath;
 import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
+import com.momnop.simplyconveyors.items.ItemBasic;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;
 import com.momnop.simplyconveyors.items.ItemEntityFilter;
-import com.momnop.simplyconveyors.items.ItemWrench;
 
 public class SimplyConveyorsEventHandler
 {
@@ -48,7 +52,7 @@ public class SimplyConveyorsEventHandler
 		Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
 		if(block instanceof BlockMovingPath || block instanceof BlockConveyor)
 		{
-			if(block instanceof BlockHorizontal && event.getEntityPlayer().getHeldItem(event.getHand()) != null && event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemWrench)
+			if(block instanceof BlockHorizontal && event.getEntityPlayer().getHeldItem(event.getHand()) != null && event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemBasic)
 			{
 				BlockHorizontal blockHorizontal = (BlockHorizontal) block;
 				if(!event.getEntityPlayer().isSneaking())
@@ -316,6 +320,13 @@ public class SimplyConveyorsEventHandler
 			// }
 		}
 	}
+	
+	@SubscribeEvent
+	public void onEntityHurt(LivingHurtEvent event) {
+		if (event.getSource() == DamageSource.FALL && event.getEntityLiving().getEntityWorld().getBlockState(event.getEntityLiving().getPosition()).getBlock() instanceof BlockMovingFoamPath) {
+			event.setAmount(0);
+		}
+	}
 
 	@SubscribeEvent
 	public void tooltips(ItemTooltipEvent event)
@@ -328,21 +339,41 @@ public class SimplyConveyorsEventHandler
 		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMovingSpikePath)
 		{
 			BlockMovingSpikePath spike = (BlockMovingSpikePath) Block.getBlockFromItem(event.getItemStack().getItem());
+			
+			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+				if(spike.getSpeed() >= 0.125F)
+				{
+					event.getToolTip().add(TextFormatting.BLUE + "Drops normal loot.");
+				}
+				if(spike.getSpeed() >= 0.25F)
+				{
+					event.getToolTip().add(TextFormatting.BLUE + "Drops experience.");
+				}
+				if(spike.getSpeed() >= 0.5F)
+				{
+					event.getToolTip().add(TextFormatting.BLUE + "Drops player-only loot.");
+				}
+			} else {
+				event.getToolTip().add("Press " + TextFormatting.WHITE + "Shift " + TextFormatting.GRAY + "to see more information.");
+			}
+			
 			if(spike.getSpeed() == 0.125F)
 			{
-				event.getToolTip().add("Drops non player-only items.");
-				event.getToolTip().add(" 6 Attack Damage");
+				event.getToolTip().add(TextFormatting.BLUE + "+6 Attack Damage");
 			}
 			if(spike.getSpeed() == 0.25F)
 			{
-				event.getToolTip().add("Drops non player-only items and experience orbs.");
-				event.getToolTip().add(" 6 Attack Damage");
+				event.getToolTip().add(TextFormatting.BLUE + "+6 Attack Damage");
 			}
 			if(spike.getSpeed() == 0.5F)
 			{
-				event.getToolTip().add("Drops player-only items, non player-only items, and experience orbs.");
-				event.getToolTip().add(" 7 Attack Damage");
+				event.getToolTip().add(TextFormatting.BLUE + "+7 Attack Damage");
 			}
+		}
+		
+		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemBlock && Block.getBlockFromItem(event.getItemStack().getItem()) instanceof BlockMobMovingPath)
+		{
+			event.getToolTip().add("Allows mobs to spawn on the conveyor.");
 		}
 	}
 
