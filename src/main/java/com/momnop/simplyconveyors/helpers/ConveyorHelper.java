@@ -2,6 +2,7 @@ package com.momnop.simplyconveyors.helpers;
 
 import javax.annotation.Nullable;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
