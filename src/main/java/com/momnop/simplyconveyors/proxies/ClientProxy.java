@@ -1,10 +1,19 @@
 package com.momnop.simplyconveyors.proxies;
 
+import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -73,5 +82,28 @@ public class ClientProxy extends CommonProxy
 
 			return renderer;
 		}
+	}
+
+	public void registerColored(Block block) {
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor() {
+			@Override
+			public int colorMultiplier(IBlockState iBlockState, IBlockAccess iBlockAccess, BlockPos blockPos, int i) {
+				if(iBlockState != null){
+					return EnumDyeColor.byMetadata(iBlockState.getValue(BlockConnectingColored.COLOR).getMetadata()).getMapColor().colorValue;
+				}
+				return -1;
+			}
+		}, block);
+
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex)
+			{
+				if (stack != ItemStack.EMPTY) {
+					return EnumDyeColor.byMetadata(stack.getMetadata()).getMapColor().colorValue;
+				}
+				return -1;
+			}
+		}, block);
 	}
 }

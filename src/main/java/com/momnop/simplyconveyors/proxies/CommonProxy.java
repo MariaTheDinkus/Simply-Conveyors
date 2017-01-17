@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.proxies;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -36,6 +37,10 @@ public class CommonProxy
 
 	public void initKeybinds()
 	{
+
+	}
+
+	public void registerColored(Block block) {
 
 	}
 
