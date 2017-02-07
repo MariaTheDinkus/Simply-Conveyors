@@ -19,12 +19,8 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityGrabberPath;
+import com.momnop.simplyconveyors.client.RenderRegistry;
+import com.momnop.simplyconveyors.info.ModInfo;
 
 public class ItemEntityFilter extends Item
 {
@@ -34,8 +30,10 @@ public class ItemEntityFilter extends Item
 		super();
 		setRegistryName(unlocalizedName);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
-		setUnlocalizedName(this.getRegistryName().toString().replace("simplyconveyors:", ""));
+		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		setMaxStackSize(1);
+		SimplyConveyorsItems.register(this);
+		RenderRegistry.registry.add(this);
 	}
 
 	public void setFilter(ItemStack stack, Class filterClass)
@@ -97,63 +95,6 @@ public class ItemEntityFilter extends Item
 			return ActionResult.newResult(EnumActionResult.PASS, playerIn.getHeldItem(hand));
 		}
 		return ActionResult.newResult(EnumActionResult.FAIL, playerIn.getHeldItem(hand));
-	}
-
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
-		if(worldIn.getBlockState(pos).getBlock() instanceof BlockMovingGrabberPath)
-		{
-			TileEntityGrabberPath grabber = (TileEntityGrabberPath) worldIn.getTileEntity(pos);
-			try
-			{
-				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
-				if(!worldIn.isRemote)
-				{
-					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
-				}
-			}
-			catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			return EnumActionResult.PASS;
-		}
-		else if(worldIn.getBlockState(pos).getBlock() instanceof BlockMovingDetectorPath)
-		{
-			TileEntityDetectorPath grabber = (TileEntityDetectorPath) worldIn.getTileEntity(pos);
-			try
-			{
-				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
-				if(!worldIn.isRemote)
-				{
-					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
-				}
-			}
-			catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			return EnumActionResult.PASS;
-		}
-		else if(worldIn.getBlockState(pos).getBlock() instanceof BlockMovingBackwardsDetectorPath)
-		{
-			TileEntityDetectorBackwardsPath grabber = (TileEntityDetectorBackwardsPath) worldIn.getTileEntity(pos);
-			try
-			{
-				grabber.addEntityFilter(Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")));
-				if(!worldIn.isRemote)
-				{
-					playerIn.sendMessage(new TextComponentString("Now filtering: " + Class.forName(playerIn.getHeldItem(hand).getTagCompound().getString("filter")).getSimpleName()));
-				}
-			}
-			catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			return EnumActionResult.PASS;
-		}
-		return EnumActionResult.FAIL;
 	}
 
 	@Override

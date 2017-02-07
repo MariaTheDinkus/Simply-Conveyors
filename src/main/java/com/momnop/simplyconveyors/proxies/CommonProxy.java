@@ -1,51 +1,28 @@
 package com.momnop.simplyconveyors.proxies;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityBlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastMovingStair;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntityFastestMovingStair;
-import com.momnop.simplyconveyors.blocks.conveyors.tiles.TileEntitySlowMovingStair;
+import net.minecraft.item.Item;
 
 public class CommonProxy
 {
-	public void preInitRenders()
-	{
+	public void registerModels() {
+		
+	}
+	
+	public void registerWoolColored(Block block) {
 
 	}
-
-	public void initTiles()
-	{
-		GameRegistry.registerTileEntity(TileEntitySlowMovingStair.class, "tileEntitySlowMovingStair");
-		GameRegistry.registerTileEntity(TileEntityFastMovingStair.class, "tileEntityFastMovingStair");
-		GameRegistry.registerTileEntity(TileEntityFastestMovingStair.class, "tileEntityFastestMovingStair");
-		GameRegistry.registerTileEntity(TileEntityBlockMovingPath.class, "tileEntityBlockMovingPath");
+	
+	public void registerFoliageColored(Block block) {
+		
+	}
+	
+	public void registerTierColor(Item item) {
+		
 	}
 
-	public void initSounds()
+	public void registerFilterColor(Item item)
 	{
-
-	}
-
-	public void initRenders()
-	{
-
-	}
-
-	public void initKeybinds()
-	{
-
-	}
-
-	public void registerColored(Block block) {
-
-	}
-
-	public EntityPlayer getPlayerEntity(MessageContext ctx)
-	{
-		return ctx.getServerHandler().playerEntity;
+		
 	}
 }

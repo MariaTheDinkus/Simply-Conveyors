@@ -2,15 +2,19 @@
   "forge_marker": 1,
   "defaults": {
 	"textures": {
-		"top": "simplyconveyors:blocks/conveyor_off",
-		"side": "blocks/iron_block",
-		"particle": "blocks/iron_block"
-	},
+        "0": "simplyconveyors:blocks/conveyor_inside",
+        "1": "simplyconveyors:blocks/conveyor_slow_on"
+    },
 	"model": "simplyconveyors:conveyor"
   },
   "variants": {
     "normal": [{ "model": "simplyconveyors:conveyor" }],
-    "inventory": [{}],
+    "inventory": [{  
+		"submodel": {
+			"guard1": { "model": "simplyconveyors:guard" },
+			"guard2": { "model": "simplyconveyors:guard", "y": 180 }
+		}
+	}],
     "facing": {
       "north": {},
       "south": {"y": 180},
@@ -21,12 +25,28 @@
     },
 	"powered": {
 		"true": {
-			
+			"textures": {
+				"1": "simplyconveyors:blocks/conveyor_off"
+			}
 		},
 		"false": {
-			"textures": {
-				"top": "simplyconveyors:blocks/conveyor_slow_on"
-			}
+			
+		}
+	},
+	"left": {
+		"true": {
+		
+		},
+		"false": {
+			"submodel": "simplyconveyors:guard"
+		}
+	},
+	"right": {
+		"true": {
+		
+		},
+		"false": {
+			"submodel": "simplyconveyors:guard", "y": 180
 		}
 	}
   }

@@ -1,109 +1,137 @@
 package com.momnop.simplyconveyors.proxies;
 
-import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import com.momnop.simplyconveyors.blocks.bus.tiles.TileEntityBusStop;
-import com.momnop.simplyconveyors.client.render.entity.RenderBlock;
-import com.momnop.simplyconveyors.client.render.tiles.TileEntityBusStopRenderer;
-import com.momnop.simplyconveyors.entity.EntityBlock;
+import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
+import com.momnop.simplyconveyors.client.RenderRegistry;
+import com.momnop.simplyconveyors.helpers.CodeHelper;
+import com.momnop.simplyconveyors.items.ItemEntityFilter;
 
 public class ClientProxy extends CommonProxy
 {
-
-	public void preInitRenders()
+	@Override
+	public void registerModels()
 	{
-		registerEntityRenderer(EntityBlock.class, RenderBlock.class);
+		RenderRegistry.registerRenderers();
 	}
 
-	public void initSounds()
+	@Override
+	public void registerWoolColored(Block block)
 	{
-
-	}
-
-	public void initRenders()
-	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBusStop.class, new TileEntityBusStopRenderer());
-	}
-
-	public void initKeybinds()
-	{
-
-	}
-
-	public EntityPlayer getPlayerEntity(MessageContext ctx)
-	{
-		return ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx);
-	}
-
-	private static <E extends Entity> void registerEntityRenderer(Class<E> entityClass, Class<? extends Render<E>> renderClass)
-	{
-		RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<E>(renderClass));
-	}
-
-	private static class EntityRenderFactory<E extends Entity> implements IRenderFactory<E>
-	{
-		private Class<? extends Render<E>> renderClass;
-
-		private EntityRenderFactory(Class<? extends Render<E>> renderClass)
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor()
 		{
-			this.renderClass = renderClass;
-		}
-
-		@Override
-		public Render<E> createRenderFor(RenderManager manager)
-		{
-			Render<E> renderer = null;
-
-			try
-			{
-				renderer = renderClass.getConstructor(RenderManager.class).newInstance(manager);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-
-			return renderer;
-		}
-	}
-
-	public void registerColored(Block block) {
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor() {
 			@Override
-			public int colorMultiplier(IBlockState iBlockState, IBlockAccess iBlockAccess, BlockPos blockPos, int i) {
-				if(iBlockState != null){
+			public int colorMultiplier(IBlockState iBlockState, IBlockAccess iBlockAccess, BlockPos blockPos, int i)
+			{
+				if(iBlockState != null)
+				{
 					return EnumDyeColor.byMetadata(iBlockState.getValue(BlockConnectingColored.COLOR).getMetadata()).getMapColor().colorValue;
 				}
 				return -1;
 			}
 		}, block);
 
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor()
+		{
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				if (stack != ItemStack.EMPTY) {
+				if(stack != ItemStack.EMPTY)
+				{
 					return EnumDyeColor.byMetadata(stack.getMetadata()).getMapColor().colorValue;
 				}
 				return -1;
 			}
 		}, block);
+	}
+	
+	@Override
+	public void registerFoliageColored(Block block) {
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor()
+		{
+			@Override
+			public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int i)
+			{
+				if (worldIn != null && state != null && pos != null) {
+					return worldIn.getBiome(pos).getFoliageColorAtPos(pos);
+				}
+				return -1;
+			}
+		}, block);
+
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor()
+		{
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex)
+			{
+				if (stack != ItemStack.EMPTY) {
+					return Minecraft.getMinecraft().world.getBiome(Minecraft.getMinecraft().player.getPosition()).getFoliageColorAtPos(Minecraft.getMinecraft().player.getPosition());
+				}
+				return -1;
+			}
+		}, block);
+	}
+
+	@Override
+	public void registerTierColor(Item item)
+	{
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor()
+		{
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex)
+			{
+				if(stack != ItemStack.EMPTY)
+				{
+					return CodeHelper.getTierColor(stack.getMetadata());
+				}
+				return -1;
+			}
+		}, item);
+	}
+
+	@Override
+	public void registerFilterColor(Item item)
+	{
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor()
+		{
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex)
+			{
+				if(stack.hasTagCompound() && stack != ItemStack.EMPTY && stack.getItem() instanceof ItemEntityFilter)
+				{
+					// NBTTagCompound compound = stack.getTagCompound();
+					// String filter = compound.getString("filter");
+					// Class<Entity> entityClass = null;
+					// try
+					// {
+					// entityClass = (Class<Entity>) Class.forName(filter);
+					// }
+					// catch (ClassNotFoundException e)
+					// {
+					// e.printStackTrace();
+					// }
+					//
+					// if(entityClass != null)
+					// {
+					// if
+					// (EntityList.ENTITY_EGGS.containsKey(EntityRegistry.getEntry(entityClass).getRegistryName()))
+					// {
+					// return
+					// EntityList.ENTITY_EGGS.get(EntityRegistry.getEntry(entityClass).getRegistryName()).primaryColor;
+					// }
+					// }
+				}
+				return -1;
+			}
+		}, item);
 	}
 }

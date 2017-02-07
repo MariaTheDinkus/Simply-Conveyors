@@ -3,199 +3,111 @@ package com.momnop.simplyconveyors.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 import com.momnop.simplyconveyors.SimplyConveyorsRoadTab;
-import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMobMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingBackwardsPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingFastestStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingSlowStairPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalDownPath;
-import com.momnop.simplyconveyors.blocks.conveyors.normal.BlockMovingVerticalPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockBlockMovingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsDropperPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingBackwardsHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDetectorPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingDropperPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingFoamPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingGrabberPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingHoldingPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingSpikePath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTransporterPath;
-import com.momnop.simplyconveyors.blocks.conveyors.special.BlockMovingTrapDoorPath;
+import com.momnop.simplyconveyors.blocks.advanced.BlockFlatAdvancedConveyor;
+import com.momnop.simplyconveyors.blocks.advanced.BlockInverseAdvancedConveyor;
+import com.momnop.simplyconveyors.blocks.base.BlockFlatConveyor;
+import com.momnop.simplyconveyors.blocks.base.BlockFoliageColored;
+import com.momnop.simplyconveyors.blocks.base.BlockInverseConveyor;
+import com.momnop.simplyconveyors.blocks.base.BlockNormal;
+import com.momnop.simplyconveyors.blocks.base.BlockSpeed;
+import com.momnop.simplyconveyors.blocks.base.BlockVerticalConveyor;
+import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
 import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
-import com.momnop.simplyconveyors.info.BlockInfo;
+import com.momnop.simplyconveyors.blocks.roads.ItemBlockVariants;
 
 public class SimplyConveyorsBlocks
 {
-	public static Block blockSlowMovingPath, blockSlowMovingVerticalPath, blockFastMovingPath, blockHoldingMovingPath, blockFastMovingVerticalPath, blockFastestMovingPath,
-			blockFastestMovingVerticalPath, blockSlowMovingStairPath, blockFastMovingStairPath, blockFastestMovingStairPath;
-	public static Block blockSlowDownMovingVerticalPath, blockFastDownMovingVerticalPath, blockFastestDownMovingVerticalPath;
-	public static Block blockSlowMovingBackwardsPath, blockFastMovingBackwardsPath, blockFastestMovingBackwardsPath, blockHoldingMovingBackwardsPath, blockDropperMovingBackwardsPath,
-			blockDetectorMovingBackwardsPath;
-	public static Block blockDropperMovingPath;
-	public static Block blockGrabberMovingPath;
-	public static Block blockBlockMovingPath;
-	public static Block blockDetectorMovingPath;
-	public static Block blockTransporterMovingPath;
-	public static Block blockTrapDoorMovingPath;
-	public static Block blockSlowSpongeMovingPath, blockFastSpongeMovingPath, blockFastestSpongeMovingPath;
-	public static Block blockSlowSpikeMovingPath, blockFastSpikeMovingPath, blockFastestSpikeMovingPath;
+	public static SimplyConveyorsCreativeTab tab = SimplyConveyorsCreativeTab.INSTANCE;
+	public static SimplyConveyorsRoadTab roads = SimplyConveyorsRoadTab.INSTANCE;
 	
-	public static Block blockSlowMobMovingPath, blockFastMobMovingPath, blockFastestMobMovingPath;
-
-	public static Block busStop;
+	public static Block conveyor_slow, conveyor_intermediate, conveyor_fast;
 	
-	public static Block blockAsphault;
-	public static Block blockConcrete;
-	public static Block blockBrokenRoad;
-	public static Block blockFullRoad;
+	public static Block conveyor_vertical_slow, conveyor_vertical_intermediate, conveyor_vertical_fast;
+	public static Block conveyor_vertical_slow_down, conveyor_vertical_intermediate_down, conveyor_vertical_fast_down;
 	
-	public static ItemBlock itemBlockBrokenRoad;
-	public static ItemBlock itemBlockFullRoad;
-
-	public static final AxisAlignedBB CONVEYOR_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 1F / 16F, 1F);
-	public static final AxisAlignedBB UPSIDE_DOWN_CONVEYOR_AABB = new AxisAlignedBB(0F, 15F / 16F, 0F, 1F, 1F, 1F);
-
+	public static Block conveyor_inverse_slow, conveyor_inverse_intermediate, conveyor_inverse_fast;
+	
+	public static Block conveyor_advanced_slow, conveyor_advanced_intermediate, conveyor_advanced_fast;
+	
+	public static Block conveyor_advanced_inverse_slow, conveyor_advanced_inverse_intermediate, conveyor_advanced_inverse_fast;
+	
+	public static Block conveyor_modular;
+	
+	public static Block asphault;
+	public static Block concrete;
+	public static Block mossy_concrete;
+	
+	public static Block road_broken;
+	public static Block road_full;
+	
+	public static ItemBlock variants_broken;
+	public static ItemBlock variants_full;
+	
 	private static final double tier1Speed = 0.125F;
 	private static final double tier2Speed = 0.25F;
 	private static final double tier3Speed = 0.5F;
-
-	public static void load()
-	{
-		loadBus();
-		loadRoads();
-		loadConveyors();
-	}
-
-	public static void loadBus()
-	{
-		busStop = new BlockBusStop("bus_stop");
-
-		register(busStop);
+	
+	public static void load() {
+		loadBlocks();
 	}
 	
-	public static void loadRoads() {
-		blockAsphault = new BlockNormal(Material.ROCK, 1.5F, SoundType.STONE, "asphault", SimplyConveyorsRoadTab.INSTANCE);
-		blockConcrete = new BlockNormal(Material.ROCK, 1.5F, SoundType.STONE, "concrete", SimplyConveyorsRoadTab.INSTANCE);
-		
-		blockBrokenRoad = new BlockConnectingColored(Material.ROCK, 1.5F, SoundType.STONE, "road_broken");
-		itemBlockBrokenRoad = new ItemBlockVariants(blockBrokenRoad);
-		
-		blockFullRoad = new BlockConnectingColored(Material.ROCK, 1.5F, SoundType.STONE, "road_full");
-		itemBlockFullRoad = new ItemBlockVariants(blockFullRoad);
-		
-		register(blockAsphault);
-		register(blockConcrete);
-		register(blockBrokenRoad, itemBlockBrokenRoad);
-		register(blockFullRoad, itemBlockFullRoad);
-	}
-
-	public static void loadConveyors()
-	{
-		blockSlowMovingPath = new BlockMovingPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_PATH_UNLOCALIZED_NAME);
-		blockFastMovingPath = new BlockMovingPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_PATH_UNLOCALIZED_NAME);
-		blockFastestMovingPath = new BlockMovingPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_PATH_UNLOCALIZED_NAME);
-		blockDropperMovingPath = new BlockMovingDropperPath(tier2Speed, Material.ROCK, BlockInfo.DROPPER_MOVING_PATH_UNLOCALIZED_NAME);
-		blockHoldingMovingPath = new BlockMovingHoldingPath(tier2Speed, Material.ROCK, BlockInfo.HOLDING_MOVING_PATH_UNLOCALIZED_NAME);
-		blockBlockMovingPath = new BlockBlockMovingPath(tier2Speed, Material.ROCK, "conveyor_block");
-		blockDetectorMovingPath = new BlockMovingDetectorPath(tier2Speed, Material.ROCK, "conveyor_detector");
-		blockTrapDoorMovingPath = new BlockMovingTrapDoorPath(tier2Speed, Material.ROCK, "conveyor_trapdoor");
-
-		blockSlowMovingVerticalPath = new BlockMovingVerticalPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);
-		blockFastMovingVerticalPath = new BlockMovingVerticalPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);
-		blockFastestMovingVerticalPath = new BlockMovingVerticalPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME);
-
-		blockSlowDownMovingVerticalPath = new BlockMovingVerticalDownPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME + "_down");
-		blockFastDownMovingVerticalPath = new BlockMovingVerticalDownPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME + "_down");
-		blockFastestDownMovingVerticalPath = new BlockMovingVerticalDownPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_VERTICAL_PATH_UNLOCALIZED_NAME + "_down");
-
-		blockSlowMovingBackwardsPath = new BlockMovingBackwardsPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
-		blockFastMovingBackwardsPath = new BlockMovingBackwardsPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
-		blockFastestMovingBackwardsPath = new BlockMovingBackwardsPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
-		blockHoldingMovingBackwardsPath = new BlockMovingBackwardsHoldingPath(Material.ROCK, BlockInfo.HOLDING_MOVING_BACKWARDS_PATH_UNLOCALIZED_NAME);
-		blockDropperMovingBackwardsPath = new BlockMovingBackwardsDropperPath(tier2Speed, Material.ROCK, "conveyor_backwards_dropper");
-		blockDetectorMovingBackwardsPath = new BlockMovingBackwardsDetectorPath(tier2Speed, Material.ROCK, "conveyor_backwards_detector");
-
-		blockSlowMovingStairPath = new BlockMovingSlowStairPath(Material.ROCK, BlockInfo.SLOW_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
-		blockFastMovingStairPath = new BlockMovingFastStairPath(Material.ROCK, BlockInfo.FAST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
-		blockFastestMovingStairPath = new BlockMovingFastestStairPath(Material.ROCK, BlockInfo.FASTEST_MOVING_STAIR_PATH_UNLOCALIZED_NAME);
-
-		blockGrabberMovingPath = new BlockMovingGrabberPath(tier2Speed, Material.ROCK, "conveyor_grabber");
-		blockTransporterMovingPath = new BlockMovingTransporterPath(tier2Speed, Material.ROCK, "conveyor_transporter");
-
-		blockSlowSpongeMovingPath = new BlockMovingFoamPath(tier1Speed, Material.ROCK, "conveyor_foam_slow");
-		blockFastSpongeMovingPath = new BlockMovingFoamPath(tier2Speed, Material.ROCK, "conveyor_foam_fast");
-		blockFastestSpongeMovingPath = new BlockMovingFoamPath(tier3Speed, Material.ROCK, "conveyor_foam_fastest");
-		
-		blockSlowMobMovingPath = new BlockMobMovingPath(tier1Speed, Material.ROCK, BlockInfo.SLOW_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
-		blockFastMobMovingPath = new BlockMobMovingPath(tier2Speed, Material.ROCK, BlockInfo.FAST_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
-		blockFastestMobMovingPath = new BlockMobMovingPath(tier3Speed, Material.ROCK, BlockInfo.FASTEST_MOVING_PATH_UNLOCALIZED_NAME + "_mob");
-
-		blockSlowSpikeMovingPath = new BlockMovingSpikePath(tier1Speed, Material.ROCK, "conveyor_spike_slow");
-		blockFastSpikeMovingPath = new BlockMovingSpikePath(tier2Speed, Material.ROCK, "conveyor_spike_fast");
-		blockFastestSpikeMovingPath = new BlockMovingSpikePath(tier3Speed, Material.ROCK, "conveyor_spike_fastest");
-
-		register(blockSlowMovingPath);
-		register(blockFastMovingPath);
-		register(blockFastestMovingPath);
-		register(blockDropperMovingPath);
-		register(blockHoldingMovingPath);
-		register(blockDetectorMovingPath);
-		register(blockTrapDoorMovingPath);
-
-		register(blockSlowMovingVerticalPath);
-		register(blockFastMovingVerticalPath);
-		register(blockFastestMovingVerticalPath);
-
-		register(blockSlowDownMovingVerticalPath);
-		register(blockFastDownMovingVerticalPath);
-		register(blockFastestDownMovingVerticalPath);
-
-		register(blockSlowMovingBackwardsPath);
-		register(blockFastMovingBackwardsPath);
-		register(blockFastestMovingBackwardsPath);
-		register(blockHoldingMovingBackwardsPath);
-		register(blockDropperMovingBackwardsPath);
-		register(blockDetectorMovingBackwardsPath);
-
-		register(blockSlowMovingStairPath);
-		register(blockFastMovingStairPath);
-		register(blockFastestMovingStairPath);
-
-		register(blockGrabberMovingPath);
-		register(blockBlockMovingPath);
-		register(blockTransporterMovingPath);
-
-		register(blockSlowSpongeMovingPath);
-		register(blockFastSpongeMovingPath);
-		register(blockFastestSpongeMovingPath);
-		
-		register(blockSlowMobMovingPath);
-		register(blockFastMobMovingPath);
-		register(blockFastestMobMovingPath);
-
-		register(blockSlowSpikeMovingPath);
-		register(blockFastSpikeMovingPath);
-		register(blockFastestSpikeMovingPath);
-	}
-
-	public static void register(Block b)
-	{
-		ItemBlock ib = new ItemBlock(b);
+    public static void loadBlocks()
+    {
+    	conveyor_slow = new BlockFlatConveyor("conveyor_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_intermediate = new BlockFlatConveyor("conveyor_intermediate", tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_fast = new BlockFlatConveyor("conveyor_fast", tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	conveyor_vertical_slow = new BlockVerticalConveyor("conveyor_vertical_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_vertical_intermediate = new BlockVerticalConveyor("conveyor_vertical_intermediate", tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_vertical_fast = new BlockVerticalConveyor("conveyor_vertical_fast", tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	conveyor_vertical_slow_down = new BlockVerticalConveyor("conveyor_vertical_slow_down", -tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, conveyor_vertical_slow, tab);
+    	conveyor_vertical_intermediate_down = new BlockVerticalConveyor("conveyor_vertical_intermediate_down", -tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, conveyor_vertical_intermediate, tab);
+    	conveyor_vertical_fast_down = new BlockVerticalConveyor("conveyor_vertical_fast_down", -tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, conveyor_vertical_fast, tab);
+    
+    	conveyor_inverse_slow = new BlockInverseConveyor("conveyor_inverse_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_inverse_intermediate = new BlockInverseConveyor("conveyor_inverse_intermediate", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_inverse_fast = new BlockInverseConveyor("conveyor_inverse_fast", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	conveyor_advanced_slow = new BlockFlatAdvancedConveyor("conveyor_advanced_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_advanced_intermediate = new BlockFlatAdvancedConveyor("conveyor_advanced_intermediate", tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_advanced_fast = new BlockFlatAdvancedConveyor("conveyor_advanced_fast", tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	conveyor_advanced_inverse_slow = new BlockInverseAdvancedConveyor("conveyor_advanced_inverse_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_advanced_inverse_intermediate = new BlockInverseAdvancedConveyor("conveyor_advanced_inverse_intermediate", tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_advanced_inverse_fast = new BlockInverseAdvancedConveyor("conveyor_advanced_inverse_fast", tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	conveyor_modular = new BlockFlatModularConveyor("conveyor_modular", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	asphault = new BlockSpeed("asphault", Material.ROCK, 1.5F, SoundType.STONE, roads);
+    	concrete = new BlockSpeed("concrete", Material.ROCK, 1.5F, SoundType.STONE, roads);
+    	mossy_concrete = new BlockFoliageColored("mossy_concrete", Material.ROCK, 1.5F, SoundType.STONE, roads);
+    	
+    	road_broken = new BlockConnectingColored("road_broken", Material.ROCK, 1.5F, SoundType.STONE, roads);
+    	road_full = new BlockConnectingColored("road_full", Material.ROCK, 1.5F, SoundType.STONE, roads);
+    	
+    	variants_broken = new ItemBlockVariants(road_broken);
+    	variants_full = new ItemBlockVariants(road_full);
+    	
+    	register(road_broken, variants_broken);
+    	register(road_full, variants_full);
+    }
+    
+    public static void register(Block b) {
+    	ItemBlock ib = new ItemBlock(b);
 		GameRegistry.register(b);
 		ib.setRegistryName(b.getRegistryName());
 		GameRegistry.register(ib);
 	}
-	
-	public static void register(Block b, ItemBlock ib)
-	{
+    
+    public static void register(Block b, ItemBlock ib) {
 		GameRegistry.register(b);
 		ib.setRegistryName(b.getRegistryName());
 		GameRegistry.register(ib);

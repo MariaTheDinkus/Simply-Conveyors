@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -26,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,8 +35,8 @@ public class BlockConnectingColored extends BlockConnecting {
 
 	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
 	
-    public BlockConnectingColored(Material materialIn, float hardness, SoundType type, String unlocalizedName) {
-		super(materialIn, hardness, type, unlocalizedName);
+    public BlockConnectingColored(String unlocalizedName, Material materialIn, float hardness, SoundType type, CreativeTabs tab) {
+		super(unlocalizedName, materialIn, hardness, type, tab);
 		
 		this.setDefaultState(this.getDefaultState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}
@@ -60,7 +62,7 @@ public class BlockConnectingColored extends BlockConnecting {
     @Override
     public BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] { EAST, NORTH, SOUTH, WEST, COLOR });
+        return new BlockStateContainer(this, new IProperty[] { EAST, NORTH, SOUTH, WEST, COLOR, NONE });
     }
     
     @SideOnly(Side.CLIENT)

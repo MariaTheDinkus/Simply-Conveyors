@@ -1,0 +1,34 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"all": "simplyconveyors:blocks/concrete",
+			"overlay": "simplyconveyors:blocks/moss"
+		},
+		"model": "cube_all"
+	},
+	"variants": {
+		"normal": [{ 
+			"model": "cube_all",
+			"submodel": {
+				"side1": { "model": "simplyconveyors:overlay", "x": 90 },
+				"side2": { "model": "simplyconveyors:overlay", "x": 180 },
+				"side3": { "model": "simplyconveyors:overlay", "x": 270 },
+				"side4": { "model": "simplyconveyors:overlay" },
+				"side5": { "model": "simplyconveyors:overlay", "y": 90, "x": 90 },
+				"side6": { "model": "simplyconveyors:overlay", "y": 90, "x": 270 }
+			}
+		}],
+		
+		"inventory": [{  
+			"submodel": {
+				"side1": { "model": "simplyconveyors:overlay", "x": 90 },
+				"side2": { "model": "simplyconveyors:overlay", "x": 180 },
+				"side3": { "model": "simplyconveyors:overlay", "x": 270 },
+				"side4": { "model": "simplyconveyors:overlay" },
+				"side5": { "model": "simplyconveyors:overlay", "y": 90, "x": 90 },
+				"side6": { "model": "simplyconveyors:overlay", "y": 90, "x": 270 }
+			}	
+		}]
+	}
+}

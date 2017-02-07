@@ -2,15 +2,15 @@ package com.momnop.simplyconveyors;
 
 import java.util.List;
 
+import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.info.ModInfo;
+import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-
-import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.info.ModInfo;
-import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 public class SimplyConveyorsCreativeTab extends CreativeTabs
 {
@@ -20,13 +20,13 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs
 
 	public SimplyConveyorsCreativeTab()
 	{
-		super(ModInfo.MODID);
+		super(ModInfo.MOD_ID);
 	}
 
 	@Override
 	public ItemStack getIconItemStack()
 	{
-		return new ItemStack(SimplyConveyorsBlocks.blockSlowMovingPath);
+		return new ItemStack(SimplyConveyorsBlocks.conveyor_slow);
 	}
 
 	@Override
@@ -41,45 +41,38 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs
 		this.list = list;
 
 		addItem(SimplyConveyorsItems.wrench);
-		addItem(SimplyConveyorsItems.entityFilter);
-		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
-
-//		addItem(SimplyConveyorsItems.busStopBook);
-//		addItem(SimplyConveyorsItems.busTicket);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowSpongeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastSpongeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestSpongeMovingPath);
 		
-		addBlock(SimplyConveyorsBlocks.blockSlowMobMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMobMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMobMovingPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastSpikeMovingPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestSpikeMovingPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingStairPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingStairPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingStairPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingVerticalPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowDownMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastDownMovingVerticalPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestDownMovingVerticalPath);
-
-		addBlock(SimplyConveyorsBlocks.blockSlowMovingBackwardsPath);
-		addBlock(SimplyConveyorsBlocks.blockFastMovingBackwardsPath);
-		addBlock(SimplyConveyorsBlocks.blockFastestMovingBackwardsPath);
-
-//		addBlock(SimplyConveyorsBlocks.busStop);
+		addItem(SimplyConveyorsItems.entityFilter);
+		
+		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
+		
+		addItem(SimplyConveyorsItems.roller);
+		
+		addItem(SimplyConveyorsItems.dropper_module);
+		
+		addItem(SimplyConveyorsItems.sponge_module);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_fast);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_vertical_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_vertical_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_vertical_fast);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_inverse_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_inverse_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_inverse_fast);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_fast);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_fast);
+		
+		addBlock(SimplyConveyorsBlocks.conveyor_modular);
 	}
 
 	private void addItem(Item item)

@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
 	"textures": {
-		"top": "simplyconveyors:blocks/conveyor_off",
+		"top": "simplyconveyors:blocks/conveyor_slow_on",
 		"side": "simplyconveyors:blocks/conveyor_slow_side",
         "particle": "simplyconveyors:blocks/conveyor_slow_side"
     },
@@ -21,12 +21,12 @@
     },
 	"powered": {
 		"true": {
-			
+			"textures": {
+				"top": "simplyconveyors:blocks/conveyor_off"
+			}
 		},
 		"false": {
-			"textures": {
-				"top": "simplyconveyors:blocks/conveyor_slow_on"
-			}
+			
 		}
 	}
   }

@@ -1,0 +1,33 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"textures": {
+		"top": "simplyconveyors:blocks/conveyor_intermediate_on",
+		"side": "simplyconveyors:blocks/conveyor_intermediate_side",
+        "particle": "simplyconveyors:blocks/conveyor_intermediate_side"
+    },
+    "model": "simplyconveyors:conveyor_vertical_down"
+  },
+  "variants": {
+    "normal": [{ "model": "simplyconveyors:conveyor_vertical_down" }],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+	"powered": {
+		"true": {
+			"textures": {
+				"top": "simplyconveyors:blocks/conveyor_off"
+			}
+		},
+		"false": {
+			
+		}
+	}
+  }
+}

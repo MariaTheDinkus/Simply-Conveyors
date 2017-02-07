@@ -11,10 +11,10 @@
     "normal": [{ "model": "cube_all" }],
     "inventory": [{  
 		"submodel": {
-			"line1": { "model": "simplyconveyors:road_overlay", "y": 90 },
-			"line2": { "model": "simplyconveyors:road_overlay" },
-			"line3": { "model": "simplyconveyors:road_overlay", "y": 180 },
-			"line4": { "model": "simplyconveyors:road_overlay", "y": -90 }
+			"line1": { "model": "simplyconveyors:overlay", "y": 90 },
+			"line2": { "model": "simplyconveyors:overlay" },
+			"line3": { "model": "simplyconveyors:overlay", "y": 180 },
+			"line4": { "model": "simplyconveyors:overlay", "y": -90 }
 		}
 	}],
 	
@@ -37,39 +37,51 @@
 		"black": {}
 	},
 	
+	"none": {
+		"true": {
+			"submodel": {
+				"line1": { "model": "simplyconveyors:overlay", "y": 90 },
+				"line2": { "model": "simplyconveyors:overlay" },
+				"line3": { "model": "simplyconveyors:overlay", "y": 180 },
+				"line4": { "model": "simplyconveyors:overlay", "y": -90 }
+			}
+		},
+		"false": {}
+	},
+	
 	"east=false,north=false,south=false,west=false": [{
 		"submodel": {
-			"line1": { "model": "simplyconveyors:road_overlay", "y": 90 },
-			"line2": { "model": "simplyconveyors:road_overlay" },
-			"line3": { "model": "simplyconveyors:road_overlay", "y": 180 },
-			"line4": { "model": "simplyconveyors:road_overlay", "y": -90 }
+			"line1": { "model": "simplyconveyors:overlay", "y": 90 },
+			"line2": { "model": "simplyconveyors:overlay" },
+			"line3": { "model": "simplyconveyors:overlay", "y": 180 },
+			"line4": { "model": "simplyconveyors:overlay", "y": -90 }
 		}
 	}],
 	
 	"east": {
 		"true": {
-			"submodel": "simplyconveyors:road_overlay", "y": 90
+			"submodel": "simplyconveyors:overlay", "y": 90
 		},
 		"false": {}
 	},
 	
 	"north": {
 		"true": {
-			"submodel": "simplyconveyors:road_overlay"
+			"submodel": "simplyconveyors:overlay"
 		},
 		"false": {}
 	},
 	
 	"south": {
 		"true": {
-			"submodel": "simplyconveyors:road_overlay", "y": 180 
+			"submodel": "simplyconveyors:overlay", "y": 180 
 		},
 		"false": {}
 	},
 	
 	"west": {
 		"true": {
-			"submodel": "simplyconveyors:road_overlay", "y": -90
+			"submodel": "simplyconveyors:overlay", "y": -90
 		},
 		"false": {}
 	}

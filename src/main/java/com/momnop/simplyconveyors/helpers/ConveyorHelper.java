@@ -2,56 +2,33 @@ package com.momnop.simplyconveyors.helpers;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class ConveyorHelper
 {
-	public static double getEntityPosFromFacing(boolean inverse, BlockPos pos, Entity entity, EnumFacing enumFacing)
+	public static void pushEntity(Entity entity, BlockPos pos, double speed, EnumFacing facing, boolean center)
 	{
-		if(enumFacing == EnumFacing.SOUTH && inverse == false || enumFacing == EnumFacing.NORTH && inverse == false || enumFacing == EnumFacing.WEST && inverse == true
-				|| enumFacing == EnumFacing.EAST && inverse == true)
-		{
-			return entity.posX;
-		}
-		else if(enumFacing == EnumFacing.SOUTH && inverse == true || enumFacing == EnumFacing.NORTH && inverse == true || enumFacing == EnumFacing.WEST && inverse == false
-				|| enumFacing == EnumFacing.EAST && inverse == false)
-		{
-			return entity.posZ;
-		}
-		return 0;
-	}
+		entity.motionX += speed * facing.getFrontOffsetX();
+		entity.motionZ += speed * facing.getFrontOffsetZ();
 
-	public static void centerBasedOnFacing(boolean additive, BlockPos pos, Entity entity, EnumFacing enumFacing)
-	{
-		if(additive == true)
+		if(speed * facing.getFrontOffsetX() > 0)
 		{
-			if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX)
-			{
-				if(entity.posX > pos.getX() + .55)
-				{
-					entity.motionX += -0.1F;
-				}
-				else if(entity.posX < pos.getX() + .45)
-				{
-					entity.motionX += 0.1F;
-				}
-				else
-				{
-					entity.motionX = 0;
-				}
-			}
-			else if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ)
+			if(center)
 			{
 				if(entity.posZ > pos.getZ() + .55)
 				{
@@ -66,25 +43,124 @@ public class ConveyorHelper
 					entity.motionZ = 0;
 				}
 			}
+
+			if(entity.motionX > speed)
+			{
+				entity.motionX = speed;
+			}
 		}
-		else if(additive == false)
+		else if(speed * facing.getFrontOffsetX() < 0)
 		{
-			if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX)
+			if(center)
+			{
+				if(entity.posZ > pos.getZ() + .55)
+				{
+					entity.motionZ += -0.1F;
+				}
+				else if(entity.posZ < pos.getZ() + .45)
+				{
+					entity.motionZ += 0.1F;
+				}
+				else
+				{
+					entity.motionZ = 0;
+				}
+			}
+
+			if(entity.motionX < -speed)
+			{
+				entity.motionX = -speed;
+			}
+		}
+
+		if(speed * facing.getFrontOffsetZ() > 0)
+		{
+			if(center)
 			{
 				if(entity.posX > pos.getX() + .55)
 				{
-					entity.motionX = -0.1F;
+					entity.motionX += -0.1F;
 				}
 				else if(entity.posX < pos.getX() + .45)
 				{
-					entity.motionX = 0.1F;
+					entity.motionX += 0.1F;
 				}
 				else
 				{
 					entity.motionX = 0;
 				}
 			}
-			else if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ)
+
+			if(entity.motionZ > speed)
+			{
+				entity.motionZ = speed;
+			}
+		}
+		else if(speed * facing.getFrontOffsetZ() < 0)
+		{
+			if(center)
+			{
+				if(entity.posX > pos.getX() + .55)
+				{
+					entity.motionX += -0.1F;
+				}
+				else if(entity.posX < pos.getX() + .45)
+				{
+					entity.motionX += 0.1F;
+				}
+				else
+				{
+					entity.motionX = 0;
+				}
+			}
+
+			if(entity.motionZ < -speed)
+			{
+				entity.motionZ = -speed;
+			}
+		}
+	}
+
+	public static void pushEntityVertical(Entity entity, BlockPos pos, double speed, EnumFacing facing, boolean vertical, boolean center)
+	{
+		entity.motionY = 0;
+
+		entity.motionY += speed;
+
+		if(vertical)
+		{
+			entity.motionX += 0.1F * facing.getFrontOffsetX();
+			entity.motionZ += 0.1F * facing.getFrontOffsetZ();
+
+			if(entity.motionX > 0.1F)
+			{
+				entity.motionX = 0.1F;
+			}
+
+			if(entity.motionZ > 0.1F)
+			{
+				entity.motionZ = 0.1F;
+			}
+		}
+
+		if(speed > 0)
+		{
+			if(entity.motionY > speed)
+			{
+				entity.motionY = speed;
+			}
+		}
+		else if(speed < 0)
+		{
+			if(entity.motionY < speed)
+			{
+				entity.motionY = speed;
+			}
+		}
+
+		if(speed * facing.getFrontOffsetX() > 0)
+		{
+			if(center)
 			{
 				if(entity.posZ > pos.getZ() + .55)
 				{
@@ -98,118 +174,162 @@ public class ConveyorHelper
 				{
 					entity.motionZ = 0;
 				}
-			}
-		}
-	}
 
-	public static void centerBasedOnFacing(double speed, boolean additive, BlockPos pos, Entity entity, EnumFacing enumFacing)
-	{
-		if(additive == true)
-		{
-			if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX)
-			{
-				if(entity.posX > pos.getX() + .55)
-				{
-					entity.motionX += -speed;
-				}
-				else if(entity.posX < pos.getX() + .45)
-				{
-					entity.motionX += speed;
-				}
-				else
-				{
-					entity.motionX = 0;
-				}
-			}
-			else if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ)
-			{
-				if(entity.posZ > pos.getZ() + .55)
-				{
-					entity.motionZ += -speed;
-				}
-				else if(entity.posZ < pos.getZ() + .45)
-				{
-					entity.motionZ += speed;
-				}
-				else
-				{
-					entity.motionZ = 0;
-				}
-			}
-		}
-		else if(additive == false)
-		{
-			if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posX)
-			{
-				if(entity.posX > pos.getX() + .55)
-				{
-					entity.motionX = -speed;
-				}
-				else if(entity.posX < pos.getX() + .45)
-				{
-					entity.motionX = speed;
-				}
-				else
-				{
-					entity.motionX = 0;
-				}
-			}
-			else if(getEntityPosFromFacing(false, pos, entity, enumFacing) == entity.posZ)
-			{
-				if(entity.posZ > pos.getZ() + .55)
-				{
-					entity.motionZ = -speed;
-				}
-				else if(entity.posZ < pos.getZ() + .45)
-				{
-					entity.motionZ = speed;
-				}
-				else
-				{
-					entity.motionZ = 0;
-				}
-			}
-		}
-	}
-
-	public static void lockSpeed(boolean z, double speed, Entity entity, EnumFacing direction)
-	{
-		if(z == true)
-		{
-			if(speed * direction.getFrontOffsetZ() > 0)
-			{
-				if(entity.motionZ > speed)
-				{
-					entity.motionZ = speed;
-				}
-			}
-			else if(speed * direction.getFrontOffsetZ() < 0)
-			{
-				if(entity.motionZ < -speed)
-				{
-					entity.motionZ = -speed;
-				}
-			}
-		}
-		else if(z == false)
-		{
-			if(speed * direction.getFrontOffsetX() > 0)
-			{
 				if(entity.motionX > speed)
 				{
 					entity.motionX = speed;
 				}
 			}
-			else if(speed * direction.getFrontOffsetX() < 0)
+		}
+		else if(speed * facing.getFrontOffsetX() < 0)
+		{
+			if(center)
 			{
+				if(entity.posZ > pos.getZ() + .55)
+				{
+					entity.motionZ = -0.1F;
+				}
+				else if(entity.posZ < pos.getZ() + .45)
+				{
+					entity.motionZ = 0.1F;
+				}
+				else
+				{
+					entity.motionZ = 0;
+				}
+
 				if(entity.motionX < -speed)
 				{
 					entity.motionX = -speed;
 				}
 			}
 		}
-	}
 
+		if(speed * facing.getFrontOffsetZ() > 0)
+		{
+			if(center)
+			{
+				if(entity.posX > pos.getX() + .55)
+				{
+					entity.motionX = -0.1F;
+				}
+				else if(entity.posX < pos.getX() + .45)
+				{
+					entity.motionX = 0.1F;
+				}
+				else
+				{
+					entity.motionX = 0;
+				}
+
+				if(entity.motionZ > speed)
+				{
+					entity.motionZ = speed;
+				}
+			}
+		}
+		else if(speed * facing.getFrontOffsetZ() < 0)
+		{
+			if(center)
+			{
+				if(entity.posX > pos.getX() + .55)
+				{
+					entity.motionX = -0.1F;
+				}
+				else if(entity.posX < pos.getX() + .45)
+				{
+					entity.motionX = 0.1F;
+				}
+				else
+				{
+					entity.motionX = 0;
+				}
+
+				if(entity.motionZ < -speed)
+				{
+					entity.motionZ = -speed;
+				}
+			}
+		}
+	}
+	
+	public static void speedupPlayer(World world, Entity entity) {
+		double velocity = Math.sqrt(entity.motionX * entity.motionX + entity.motionZ * entity.motionZ);
+
+		if (!(entity instanceof EntityPlayerSP))
+			return;
+
+		EntityPlayerSP player = (EntityPlayerSP) entity;
+
+		if (Math.abs(player.movementInput.moveForward) < 0.75f && Math.abs(player.movementInput.moveStrafe) < 0.75f)
+			return;
+
+		if (player.movementInput.moveForward >= 0.75F) {
+			player.moveRelative(0, 1, 0.075F);
+		}
+		
+		if (player.movementInput.moveStrafe >= 0.75F) {
+			player.moveRelative(1, 0, 0.075F);
+		}
+		
+		if (player.movementInput.moveForward <= -0.75F) {
+			player.moveRelative(0, 1, -0.075F);
+		}
+		
+		if (player.movementInput.moveStrafe <= -0.75F) {
+			player.moveRelative(1, 0, -0.075F);
+		}
+	}
+	
+	public static void insert(EnumFacing facing, EnumFacing inventory, BlockPos pos, Entity entity) {
+		TileEntity inventoryTile;
+		EnumFacing inventoryDir = facing;
+		
+		World world = entity.getEntityWorld();
+
+		double distX = Math.abs(pos.offset(facing).getX() + .5 - entity.posX);
+		double distZ = Math.abs(pos.offset(facing).getZ() + .5 - entity.posZ);
+		double treshold = .9;
+		boolean contact = facing.getAxis() == Axis.Z ? distZ < treshold : distX < treshold;
+
+		inventoryTile = world.getTileEntity(pos.offset(inventory));
+		contact = Math.abs(facing.getAxis() == Axis.Z ? (pos.getZ() + .5 - entity.posZ) : (pos.getX() + .5 - entity.posX)) < .2;
+		inventoryDir = EnumFacing.DOWN;
+
+		if(!world.isRemote && inventoryTile instanceof IInventory)
+		{
+			if(contact && inventoryTile != null)
+			{
+				ItemStack stack = ((EntityItem) entity).getEntityItem();
+				if(stack != ItemStack.EMPTY)
+				{
+					if(TileEntityFurnace.isItemFuel(stack))
+					{
+						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
+						if(ret == ItemStack.EMPTY)
+							entity.setDead();
+						else if(ret.getCount() < stack.getCount())
+							((EntityItem) entity).setEntityItemStack(ret);
+					}
+					else if(!TileEntityFurnace.isItemFuel(stack))
+					{
+						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
+						if(ret == ItemStack.EMPTY)
+							entity.setDead();
+						else if(ret.getCount() < stack.getCount())
+							((EntityItem) entity).setEntityItemStack(ret);
+					}
+				}
+			}
+			else if(contact && world.isAirBlock(pos.offset(inventory)))
+			{
+				entity.motionX = 0;
+				entity.motionZ = 0;
+				entity.setPosition(pos.getX() + .5, pos.getY() - .5, pos.getZ() + .5);
+			}
+		}
+	}
+	
 	public static boolean canInsertStackIntoInventory(TileEntity inventory, ItemStack stack, EnumFacing side)
 	{
 		if(stack != ItemStack.EMPTY && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))

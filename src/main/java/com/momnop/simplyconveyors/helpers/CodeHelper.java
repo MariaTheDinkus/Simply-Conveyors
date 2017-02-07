@@ -2,6 +2,8 @@ package com.momnop.simplyconveyors.helpers;
 
 import java.util.Random;
 
+import net.minecraft.block.material.MapColor;
+
 public class CodeHelper
 {
   public static int getRangedRandom(int min, int max)
@@ -16,6 +18,18 @@ public class CodeHelper
 	} else {
 		return false;
 	}
+  }
+  
+  public static int getTierColor(int metadata) {
+	  switch(metadata) {
+	  case 0:
+		  return MapColor.IRON.colorValue;
+	  case 1:
+		  return MapColor.GOLD.colorValue;
+	  case 2:
+		  return MapColor.DIAMOND.colorValue;
+	  }
+	return -1;
   }
 }
 

@@ -23,7 +23,7 @@ public class SimplyConveyorsRoadTab extends CreativeTabs
 
 	public SimplyConveyorsRoadTab()
 	{
-		super(ModInfo.MODID + "_roads");
+		super(ModInfo.MOD_ID + "_roads");
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class SimplyConveyorsRoadTab extends CreativeTabs
 		if (Minecraft.getMinecraft().world.getTotalWorldTime() % 20 == 0) {
 			meta = CodeHelper.getRangedRandom(0, 14	);
 		}
-		return new ItemStack(SimplyConveyorsBlocks.blockBrokenRoad, 1, meta);
+		return new ItemStack(SimplyConveyorsBlocks.road_broken, 1, meta);
 	}
 
 	@Override
@@ -46,10 +46,11 @@ public class SimplyConveyorsRoadTab extends CreativeTabs
 	{
 		this.list = list;
 		
-		addBlock(SimplyConveyorsBlocks.blockAsphault);
-		addBlock(SimplyConveyorsBlocks.blockConcrete);
-		addBlock(SimplyConveyorsBlocks.blockBrokenRoad);
-		addBlock(SimplyConveyorsBlocks.blockFullRoad);
+		addBlock(SimplyConveyorsBlocks.asphault);
+		addBlock(SimplyConveyorsBlocks.concrete);
+		addBlock(SimplyConveyorsBlocks.mossy_concrete);
+		addBlock(SimplyConveyorsBlocks.road_broken);
+		addBlock(SimplyConveyorsBlocks.road_full);
 	}
 
 	private void addItem(Item item)
