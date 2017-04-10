@@ -12,8 +12,8 @@
     "normal": [{ "model": "simplyconveyors:conveyor_inverse" }],
     "inventory": [{  
 		"submodel": {
-			"guard1": { "model": "simplyconveyors:advanced_guard", "x": 180 },
-			"guard2": { "model": "simplyconveyors:advanced_guard", "x": 180, "y": 180 }
+			"guard1": { "model": "simplyconveyors:guard", "x": 180 },
+			"guard2": { "model": "simplyconveyors:guard", "x": 180, "y": 180 }
 		}
 	}],
     "facing": {
@@ -39,7 +39,7 @@
 		
 		},
 		"false": {
-			"submodel": "simplyconveyors:advanced_guard", "x": 180
+			"submodel": "simplyconveyors:guard", "x": 180
 		}
 	},
 	"right": {
@@ -47,7 +47,15 @@
 		
 		},
 		"false": {
-			"submodel": "simplyconveyors:advanced_guard", "x": 180, "y": 180
+			"submodel": "simplyconveyors:guard", "x": 180, "y": 180
+		}
+	},
+	"back": {
+		"true": {
+		
+		},
+		"false": {
+			"submodel": "simplyconveyors:guard", "x": 180, "y": -90
 		}
 	}
   }

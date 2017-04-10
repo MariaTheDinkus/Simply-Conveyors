@@ -1,8 +1,28 @@
 itemGroup.simplyconveyors=Simply Conveyors - Normal
+itemGroup.simplyconveyors_special=Simply Conveyors - Orientations
+itemGroup.simplyconveyors_roads=Simply Conveyors - Roads
 
 item.conveyor_wrench.name=Conveyor Wrench
 item.entity_filter.name=Entity Filter
 item.conveyor_resistance_boots.name=Conveyor Resistance Boots
+
+item.black_leather.name=Black Leather
+
+item.track.name=Track
+item.sponge_track.name=Spongy Track
+item.webbed_track.name=Webbed Track
+
+item.roller.iron.name=Iron Roller
+item.roller.gold.name=Gold Roller
+item.roller.diamond.name=Diamond Roller
+
+item.dropper_module.name=Dropper Module
+item.transporter_module.name=Input I/O Module
+item.holding_module.name=Holding Module
+
+item.iron_spike_module.name=Iron Spikes Module
+item.gold_spike_module.name=Gold Spikes Module
+item.diamond_spike_module.name=Diamond Spikes Module
 
 tile.conveyor_slow.name=Slow Conveyor
 tile.conveyor_intermediate.name=Intermediate Conveyor
@@ -16,15 +36,28 @@ tile.conveyor_vertical_fast_down.name=Fast Reverse Vertical Conveyor
 tile.conveyor_inverse_slow.name=Slow Inverse Conveyor
 tile.conveyor_inverse_intermediate.name=Intermediate Inverse Conveyor
 tile.conveyor_inverse_fast.name=Fast Inverse Conveyor
+tile.conveyor_advanced_slow.name=Advanced Slow Conveyor
+tile.conveyor_advanced_intermediate.name=Advanced Intermediate Conveyor
+tile.conveyor_advanced_fast.name=Advanced Fast Conveyor
+tile.conveyor_advanced_inverse_slow.name=Advanced Slow Inverse Conveyor
+tile.conveyor_advanced_inverse_intermediate.name=Advanced Intermediate Inverse Conveyor
+tile.conveyor_advanced_inverse_fast.name=Advanced Fast Inverse Conveyor
+tile.conveyor_modular_slow.name=Modular Slow Conveyor
+tile.conveyor_modular_intermediate.name=Modular Intermediate Conveyor
+tile.conveyor_modular_fast.name=Modular Fast Conveyor
 tile.conveyor_stair_slow.name=Slow Conveyor Ramp
 tile.conveyor_stair_intermediate.name=Intermediate Conveyor Ramp
 tile.conveyor_stair_fast.name=Fast Conveyor Ramp
 tile.conveyor_stair_slow_down.name=Slow Downwards Conveyor Ramp
 tile.conveyor_stair_intermediate_down.name=Intermediate Downwards Conveyor Ramp
 tile.conveyor_stair_fast_down.name=Fast Downwards Conveyor Ramp
+tile.conveyor_modular_inverse_slow.name=Modular Slow Inverse Conveyor
+tile.conveyor_modular_inverse_intermediate.name=Modular Intermediate Inverse Conveyor
+tile.conveyor_modular_inverse_fast.name=Modular Fast Inverse Conveyor
 
 tile.asphault.name=Asphault
 tile.concrete.name=Concrete
+tile.mossy_concrete.name=Mossy Concrete
 
 tile.road_broken.white.name=White Broken Road
 tile.road_broken.orange.name=Orange Broken Road

@@ -4,7 +4,7 @@
 	"textures": {
         "0": "simplyconveyors:blocks/conveyor_inside",
         "1": "simplyconveyors:blocks/conveyor_intermediate_on",
-		"2": "simplyconveyors:blocks/conveyor_guard"
+		"2": "simplyconveyors:blocks/conveyor_guard_modular"
     },
 	"model": "simplyconveyors:conveyor"
   },

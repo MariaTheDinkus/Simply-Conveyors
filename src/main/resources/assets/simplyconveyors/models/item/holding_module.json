@@ -2,6 +2,6 @@
     "parent": "item/generated",
     "textures": {
 		"layer0": "simplyconveyors:items/module",
-		"layer1": "simplyconveyors:items/dropper_module"
+		"layer1": "simplyconveyors:items/holding_module"
     }
 }

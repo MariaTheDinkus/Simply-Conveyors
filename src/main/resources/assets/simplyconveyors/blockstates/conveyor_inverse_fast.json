@@ -3,7 +3,8 @@
   "defaults": {
 	"textures": {
         "0": "simplyconveyors:blocks/conveyor_inside",
-        "1": "simplyconveyors:blocks/conveyor_fast_on"
+        "1": "simplyconveyors:blocks/conveyor_fast_on",
+		"2": "simplyconveyors:blocks/conveyor_guard"
     },
 	"model": "simplyconveyors:conveyor_inverse"
   },
@@ -47,6 +48,14 @@
 		},
 		"false": {
 			"submodel": "simplyconveyors:guard", "x": 180, "y": 180
+		}
+	},
+	"back": {
+		"true": {
+		
+		},
+		"false": {
+			"submodel": "simplyconveyors:guard", "x": 180, "y": -90
 		}
 	}
   }

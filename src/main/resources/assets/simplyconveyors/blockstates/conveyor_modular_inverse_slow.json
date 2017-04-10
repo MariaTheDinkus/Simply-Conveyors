@@ -3,17 +3,17 @@
   "defaults": {
 	"textures": {
         "0": "simplyconveyors:blocks/conveyor_inside",
-        "1": "simplyconveyors:blocks/conveyor_intermediate_on",
-		"2": "simplyconveyors:blocks/conveyor_guard"
+        "1": "simplyconveyors:blocks/conveyor_slow_on",
+		"2": "simplyconveyors:blocks/conveyor_guard_modular"
     },
-	"model": "simplyconveyors:conveyor"
+	"model": "simplyconveyors:conveyor_inverse"
   },
   "variants": {
-    "normal": [{ "model": "simplyconveyors:conveyor" }],
+    "normal": [{ "model": "simplyconveyors:conveyor_inverse" }],
     "inventory": [{  
 		"submodel": {
-			"guard1": { "model": "simplyconveyors:guard" },
-			"guard2": { "model": "simplyconveyors:guard", "y": 180 }
+			"guard1": { "model": "simplyconveyors:guard", "x": 180 },
+			"guard2": { "model": "simplyconveyors:guard", "x": 180, "y": 180 }
 		}
 	}],
     "facing": {
@@ -39,7 +39,7 @@
 		
 		},
 		"false": {
-			"submodel": "simplyconveyors:guard"
+			"submodel": "simplyconveyors:guard", "x": 180
 		}
 	},
 	"right": {
@@ -47,7 +47,7 @@
 		
 		},
 		"false": {
-			"submodel": "simplyconveyors:guard", "y": 180
+			"submodel": "simplyconveyors:guard", "x": 180, "y": 180
 		}
 	},
 	"back": {
@@ -55,7 +55,7 @@
 		
 		},
 		"false": {
-			"submodel": "simplyconveyors:guard", "y": -90
+			"submodel": "simplyconveyors:guard", "x": 180, "y": -90
 		}
 	}
   }
