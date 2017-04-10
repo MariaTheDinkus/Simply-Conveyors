@@ -46,33 +46,39 @@ public class SimplyConveyorsCreativeTab extends CreativeTabs
 		
 		addItem(SimplyConveyorsItems.conveyorResistanceBoots);
 		
+		addItem(SimplyConveyorsItems.black_leather);
+		
 		addItem(SimplyConveyorsItems.roller);
 		
 		addItem(SimplyConveyorsItems.dropper_module);
+		addItem(SimplyConveyorsItems.transporter_module);
+		addItem(SimplyConveyorsItems.holding_module);
 		
-		addItem(SimplyConveyorsItems.sponge_module);
+		addItem(SimplyConveyorsItems.iron_spike_module);
+		addItem(SimplyConveyorsItems.gold_spike_module);
+		addItem(SimplyConveyorsItems.diamond_spike_module);
+		
+		addItem(SimplyConveyorsItems.track);
+		
+		addItem(SimplyConveyorsItems.sponge_track);
+		addItem(SimplyConveyorsItems.webbed_track);
 		
 		addBlock(SimplyConveyorsBlocks.conveyor_slow);
 		addBlock(SimplyConveyorsBlocks.conveyor_intermediate);
 		addBlock(SimplyConveyorsBlocks.conveyor_fast);
 		
-		addBlock(SimplyConveyorsBlocks.conveyor_vertical_slow);
-		addBlock(SimplyConveyorsBlocks.conveyor_vertical_intermediate);
-		addBlock(SimplyConveyorsBlocks.conveyor_vertical_fast);
-		
-		addBlock(SimplyConveyorsBlocks.conveyor_inverse_slow);
-		addBlock(SimplyConveyorsBlocks.conveyor_inverse_intermediate);
-		addBlock(SimplyConveyorsBlocks.conveyor_inverse_fast);
-		
 		addBlock(SimplyConveyorsBlocks.conveyor_advanced_slow);
 		addBlock(SimplyConveyorsBlocks.conveyor_advanced_intermediate);
 		addBlock(SimplyConveyorsBlocks.conveyor_advanced_fast);
 		
-		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_slow);
-		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_intermediate);
-		addBlock(SimplyConveyorsBlocks.conveyor_advanced_inverse_fast);
+		addBlock(SimplyConveyorsBlocks.conveyor_modular_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_modular_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_modular_fast);
 		
-		addBlock(SimplyConveyorsBlocks.conveyor_modular);
+//		addBlock(SimplyConveyorsBlocks.bus_stop);
+		
+//		addItem(SimplyConveyorsItems.bus_book);
+//		addItem(SimplyConveyorsItems.bus_ticket);
 	}
 
 	private void addItem(Item item)

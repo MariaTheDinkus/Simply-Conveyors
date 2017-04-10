@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -18,8 +19,14 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
+import com.momnop.simplyconveyors.api.IPassive;
 import com.momnop.simplyconveyors.api.ItemModule;
+import com.momnop.simplyconveyors.api.ItemTrack;
 import com.momnop.simplyconveyors.blocks.base.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.base.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
@@ -37,6 +44,14 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	@Override
 	public void update()
 	{
+		int x = this.getPos().getX();
+		int y = this.getPos().getY();
+		int z = this.getPos().getZ();
+		List<Entity> entities = this.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1));
+		
+		markDirty();
+		
+		// Modules
 		for(int i = 0; i < 3; i++)
 		{
 			if(getStackInSlot(i) != ItemStack.EMPTY && getStackInSlot(i).getItem() instanceof ItemModule)
@@ -51,17 +66,40 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 					{
 						conveyorType = EnumFacing.DOWN;
 					}
-
-					int x = this.getPos().getX();
-					int y = this.getPos().getY();
-					int z = this.getPos().getZ();
-
-					List<Entity> entities = this.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1));
-
-					for(Entity entity : entities)
-					{
-						upgrade.update(this, state.getValue(BlockPoweredConveyor.POWERED), state.getValue(BlockConveyor.FACING), conveyorType, entity);
+					
+					if (upgrade instanceof IPassive) {
+						((IPassive)upgrade).passiveUpdate(this, state.getValue(BlockPoweredConveyor.POWERED), state.getValue(BlockConveyor.FACING), conveyorType);
+						for(Entity entity : entities)
+						{
+							upgrade.update(this, state.getValue(BlockPoweredConveyor.POWERED), state.getValue(BlockConveyor.FACING), conveyorType, entity);
+						}
+					} else {
+						for(Entity entity : entities)
+						{
+							upgrade.update(this, state.getValue(BlockPoweredConveyor.POWERED), state.getValue(BlockConveyor.FACING), conveyorType, entity);
+						}
 					}
+				}
+			}
+		}
+		
+		// Track
+		if(getStackInSlot(3) != ItemStack.EMPTY && getStackInSlot(3).getItem() instanceof ItemTrack)
+		{
+			ItemTrack upgrade = (ItemTrack) getStackInSlot(3).getItem();
+			if(this.getWorld().getBlockState(this.getPos()).getBlock() == this.blockType)
+			{
+				IBlockState state = this.getWorld().getBlockState(this.getPos());
+
+				EnumFacing conveyorType = null;
+				if(this.blockType instanceof BlockFlatModularConveyor)
+				{
+					conveyorType = EnumFacing.DOWN;
+				}
+
+				for(Entity entity : entities)
+				{
+					upgrade.update(this, state.getValue(BlockPoweredConveyor.POWERED), state.getValue(BlockConveyor.FACING), conveyorType, entity);
 				}
 			}
 		}
@@ -82,7 +120,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	@Override
 	public int getSizeInventory()
 	{
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -274,6 +312,113 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
 	{
 		return oldState.getBlock() != newState.getBlock();
+	}
+	
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	{
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return true;
+
+		return super.hasCapability(capability, facing);
+	}
+
+	IItemHandler insertionHandler = new ConveyorInventoryHandler(this);
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	{
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return (T) insertionHandler;
+		return super.getCapability(capability, facing);
+	}
+
+	public static class ConveyorInventoryHandler implements IItemHandlerModifiable
+	{
+		TileModularConveyor conveyor;
+
+		public ConveyorInventoryHandler(TileModularConveyor conveyor)
+		{
+			this.conveyor = conveyor;
+		}
+
+		@Override
+		public int getSlots()
+		{
+			return 1;
+		}
+
+		@Override
+		public int getSlotLimit(int slot)
+		{
+			return 64;
+		}
+
+		@Override
+		public ItemStack getStackInSlot(int slot)
+		{
+			List<EntityItem> list = conveyor.getWorld().getEntitiesWithinAABB(
+					EntityItem.class,
+					new AxisAlignedBB(conveyor.getPos().getX(), conveyor.getPos().getY(), conveyor.getPos().getZ(), conveyor.getPos().getX() + 1, conveyor.getPos().getY() + 1, conveyor.getPos()
+							.getZ() + 1));
+			if(!list.isEmpty())
+			{
+				for(EntityItem item : list)
+				{
+					if(item.getEntityItem() != ItemStack.EMPTY)
+					{
+						return item.getEntityItem();
+					}
+				}
+			}
+			return ItemStack.EMPTY;
+		}
+
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
+		{
+			if(!simulate)
+			{
+				EntityItem entity = new EntityItem(conveyor.getWorld(), conveyor.getPos().getX() + .5, conveyor.getPos().getY() + .1875, conveyor.getPos().getZ() + .5, stack.copy());
+				entity.motionX = 0;
+				entity.motionY = 0;
+				entity.motionZ = 0;
+				conveyor.getWorld().spawnEntity(entity);
+			}
+			return ItemStack.EMPTY;
+		}
+
+		@Override
+		public ItemStack extractItem(int slot, int amount, boolean simulate)
+		{
+			List<EntityItem> list = conveyor.getWorld().getEntitiesWithinAABB(
+					EntityItem.class,
+					new AxisAlignedBB(conveyor.getPos().getX(), conveyor.getPos().getY(), conveyor.getPos().getZ(), conveyor.getPos().getX() + 1, conveyor.getPos().getY() + 1, conveyor.getPos()
+							.getZ() + 1));
+			if(!list.isEmpty() && !conveyor.getWorld().isRemote)
+			{
+				for(EntityItem item : list)
+				{
+					if(item.getEntityItem() != ItemStack.EMPTY)
+					{
+						ItemStack stack = item.getEntityItem().copy();
+						stack.setCount(amount);
+						if (!simulate && item.getEntityItem().getCount() != 1) {
+							item.getEntityItem().setCount(item.getEntityItem().getCount() - amount);
+						} else if (!simulate) {
+							item.setDead();
+						}
+						return stack;
+					}
+				}
+			}
+			return ItemStack.EMPTY;
+		}
+
+		@Override
+		public void setStackInSlot(int slot, ItemStack stack)
+		{
+		}
 	}
 
 }

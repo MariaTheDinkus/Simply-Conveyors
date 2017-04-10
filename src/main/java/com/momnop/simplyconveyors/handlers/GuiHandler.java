@@ -9,7 +9,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.client.gui.GuiBusBook;
 import com.momnop.simplyconveyors.client.gui.GuiModularConveyor;
+import com.momnop.simplyconveyors.client.gui.GuiSetNameBusStop;
+import com.momnop.simplyconveyors.client.gui.GuiSetNameTicket;
 import com.momnop.simplyconveyors.inventory.ContainerModularConveyor;
 
 public class GuiHandler implements IGuiHandler
@@ -17,18 +20,27 @@ public class GuiHandler implements IGuiHandler
     public static HashMap guiScreens = new HashMap();
     public static HashMap containers = new HashMap();
 
-    private static void initGuiScreens(EntityPlayer player, World world, TileEntity tileEntity)
+    private static void initGuiScreens(EntityPlayer player, World world, BlockPos pos, TileEntity tileEntity)
     {
-        guiScreens.put(0, new GuiModularConveyor(new ContainerModularConveyor(player.inventory, (TileModularConveyor) tileEntity)));
+        guiScreens.put(0, new GuiModularConveyor(player.inventory, (TileModularConveyor) tileEntity));
         
-        containers.put(0, new ContainerModularConveyor(player.inventory, (TileModularConveyor) tileEntity));
+        guiScreens.put(1, new GuiBusBook());
+        
+        guiScreens.put(2, new GuiSetNameBusStop(pos, world));
+        
+        guiScreens.put(3, new GuiSetNameTicket(player.getHeldItemMainhand()));
+    }
+    
+    private static void initContainers(EntityPlayer player, World world, BlockPos pos, TileEntity tileEntity)
+    {
+    	containers.put(0, new ContainerModularConveyor(player.inventory, (TileModularConveyor) tileEntity));
     }
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world,
                                       int x, int y, int z)
     {
-        initGuiScreens(player, world, world.getTileEntity(new BlockPos(x, y, z)));
+        initContainers(player, world, new BlockPos(x, y, z), world.getTileEntity(new BlockPos(x, y, z)));
 
         if(containers.containsKey(ID))
         {
@@ -42,7 +54,7 @@ public class GuiHandler implements IGuiHandler
     public Object getClientGuiElement(int ID, EntityPlayer player, World world,
                                       int x, int y, int z)
     {
-        initGuiScreens(player, world, world.getTileEntity(new BlockPos(x, y, z)));
+        initGuiScreens(player, world, new BlockPos(x, y, z), world.getTileEntity(new BlockPos(x, y, z)));
 
         if(guiScreens.containsKey(ID))
         {

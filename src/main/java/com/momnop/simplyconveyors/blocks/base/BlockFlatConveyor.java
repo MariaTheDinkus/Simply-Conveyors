@@ -10,7 +10,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -24,29 +26,32 @@ import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockFlatConveyor extends BlockPoweredConveyor
 {
+	public static final PropertyBool BACK = PropertyBool.create("back");
 	public static final PropertyBool LEFT = PropertyBool.create("left");
 	public static final PropertyBool RIGHT = PropertyBool.create("right");
 	
-	public double speed;
-	
 	public BlockFlatConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
-		super(unlocalizedName, material, hardness, type, tab);
+		super(unlocalizedName, speed, material, hardness, type, tab);
 		setDefaultState(this.getDefaultState().withProperty(LEFT, false).withProperty(RIGHT, false));
-		
-		this.speed = speed;
 	}
 	
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] { FACING, POWERED, LEFT, RIGHT });
+		return new BlockStateContainer(this, new IProperty[] { FACING, POWERED, BACK, LEFT, RIGHT });
 	}
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		IBlockState newState = state;
+		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).getOpposite())).getBlock() != Blocks.AIR) {
+			newState = newState.withProperty(BACK, true);
+		} else {
+			newState = newState.withProperty(BACK, false);
+		}
+		
 		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockFlatConveyor) {
 			newState = newState.withProperty(LEFT, true);
 		} else {
@@ -72,6 +77,12 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return new AxisAlignedBB(0, 0, 0, 1, (1F / 16F), 1);
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
+		return new AxisAlignedBB(0, 0, 0, 1, (0.25F / 16F), 1);
 	}
 	
 	@Override
@@ -106,15 +117,15 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 		}
 		
 		if (!state.getValue(POWERED) && !entityIn.isSneaking()) {
-			if (entityIn instanceof EntityItem) {
+			if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) {
 				Block block = worldIn.getBlockState(pos.add(state.getValue(FACING).getDirectionVec())).getBlock();
 				if(block instanceof BlockVerticalConveyor)
 				{
-					entityIn.setPosition(entityIn.posX, entityIn.posY + 0.25F, entityIn.posZ);
+					entityIn.setPosition(entityIn.posX, entityIn.posY + 0.3F, entityIn.posZ);
 				}
 			}
 			
-			ConveyorHelper.pushEntity(entityIn, pos, speed, facing, true);
+			ConveyorHelper.pushEntity(entityIn, pos, getSpeed(), facing, true);
 		}
 	}
 }

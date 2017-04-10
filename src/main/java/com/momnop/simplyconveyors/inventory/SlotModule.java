@@ -23,6 +23,9 @@ public class SlotModule extends Slot
 			for (int i = 0; i < 3; i++) {
 				if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY && this.inventory.getStackInSlot(i).getItem() instanceof ItemModule) {
 					ItemModule otherSlot = (ItemModule) this.inventory.getStackInSlot(i).getItem();
+					if (otherSlot == stack.getItem()) {
+						return false;
+					}
 					if (!otherSlot.isCompatible(upgrade) || !upgrade.isCompatible(otherSlot)) {
 						return false;
 					}

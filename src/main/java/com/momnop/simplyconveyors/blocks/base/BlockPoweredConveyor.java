@@ -18,9 +18,9 @@ public class BlockPoweredConveyor extends BlockConveyor
 {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
-	public BlockPoweredConveyor(String unlocalizedName, Material material, float hardness, SoundType type, CreativeTabs tab)
+	public BlockPoweredConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
-		super(unlocalizedName, material, hardness, type, tab);
+		super(unlocalizedName, speed, material, hardness, type, tab);
 		setDefaultState(this.getDefaultState().withProperty(POWERED, false));
 	}
 	

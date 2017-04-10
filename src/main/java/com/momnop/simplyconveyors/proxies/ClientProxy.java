@@ -5,14 +5,21 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
+import com.momnop.simplyconveyors.blocks.tiles.TileBusStop;
+import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.client.RenderRegistry;
+import com.momnop.simplyconveyors.client.render.tiles.TileBusStopRenderer;
+import com.momnop.simplyconveyors.client.render.tiles.TileModularConveyorRenderer;
 import com.momnop.simplyconveyors.helpers.CodeHelper;
 import com.momnop.simplyconveyors.items.ItemEntityFilter;
 
@@ -22,6 +29,9 @@ public class ClientProxy extends CommonProxy
 	public void registerModels()
 	{
 		RenderRegistry.registerRenderers();
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileBusStop.class, new TileBusStopRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileModularConveyor.class, new TileModularConveyorRenderer());
 	}
 
 	@Override
@@ -133,5 +143,11 @@ public class ClientProxy extends CommonProxy
 				return -1;
 			}
 		}, item);
+	}
+	
+	@Override
+	public EntityPlayer getPlayerEntity(MessageContext ctx)
+	{
+		return ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx);
 	}
 }

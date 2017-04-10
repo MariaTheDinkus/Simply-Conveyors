@@ -120,6 +120,35 @@ public class ConveyorHelper
 			}
 		}
 	}
+	
+	public static void centerEntity(Entity entity, BlockPos pos)
+	{
+		if(entity.posZ > pos.getZ() + .55)
+		{
+			entity.motionZ += -0.1F;
+		}
+		else if(entity.posZ < pos.getZ() + .45)
+		{
+			entity.motionZ += 0.1F;
+		}
+		else
+		{
+			entity.motionZ = 0;
+		}
+		
+		if(entity.posX > pos.getX() + .55)
+		{
+			entity.motionX += -0.1F;
+		}
+		else if(entity.posX < pos.getX() + .45)
+		{
+			entity.motionX += 0.1F;
+		}
+		else
+		{
+			entity.motionX = 0;
+		}
+	}
 
 	public static void pushEntityVertical(Entity entity, BlockPos pos, double speed, EnumFacing facing, boolean vertical, boolean center)
 	{
@@ -330,6 +359,49 @@ public class ConveyorHelper
 		}
 	}
 	
+	public static void insertToFacing(EnumFacing facing, EnumFacing inventory, BlockPos pos, Entity entity) {
+		TileEntity inventoryTile;
+		EnumFacing inventoryDir = facing;
+		
+		World world = entity.getEntityWorld();
+
+		double distX = Math.abs(pos.offset(facing).getX() + .5 - entity.posX);
+		double distZ = Math.abs(pos.offset(facing).getZ() + .5 - entity.posZ);
+		double treshold = .9;
+		boolean contact = facing.getAxis() == Axis.Z ? distZ < treshold : distX < treshold;
+
+		inventoryTile = world.getTileEntity(pos.offset(facing));
+		contact = Math.abs(facing.getAxis() == Axis.Z ? (pos.getZ() + .5 - entity.posZ) : (pos.getX() + .5 - entity.posX)) < .2;
+		inventoryDir = EnumFacing.UP;
+
+		if(!world.isRemote && inventoryTile instanceof IInventory)
+		{
+			if(inventoryTile != null)
+			{
+				ItemStack stack = ((EntityItem) entity).getEntityItem();
+				if(stack != ItemStack.EMPTY)
+				{
+					if(TileEntityFurnace.isItemFuel(stack))
+					{
+						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
+						if(ret == ItemStack.EMPTY)
+							entity.setDead();
+						else if(ret.getCount() < stack.getCount())
+							((EntityItem) entity).setEntityItemStack(ret);
+					}
+					else if(!TileEntityFurnace.isItemFuel(stack))
+					{
+						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
+						if(ret == ItemStack.EMPTY)
+							entity.setDead();
+						else if(ret.getCount() < stack.getCount())
+							((EntityItem) entity).setEntityItemStack(ret);
+					}
+				}
+			}
+		}
+	}
+	
 	public static boolean canInsertStackIntoInventory(TileEntity inventory, ItemStack stack, EnumFacing side)
 	{
 		if(stack != ItemStack.EMPTY && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
@@ -380,66 +452,62 @@ public class ConveyorHelper
 	}
 
 	/**
-	 * Insert the specified stack to the specified inventory and return any
-	 * leftover items
-	 */
-	private static ItemStack insertStack(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side)
-	{
-		ItemStack itemstack = inventoryIn.getStackInSlot(index);
+     * Insert the specified stack to the specified inventory and return any leftover items
+     */
+    private static ItemStack insertStack(IInventory inventoryIn, ItemStack index, int side, EnumFacing p_174916_4_)
+    {
+        ItemStack itemstack = inventoryIn.getStackInSlot(side);
 
-		if(canInsertItemInSlot(inventoryIn, stack, index, side))
-		{
-			boolean flag = false;
+        if (canInsertItemInSlot(inventoryIn, index, side, p_174916_4_))
+        {
+            boolean flag = false;
+            boolean flag1 = inventoryIn.isEmpty();
 
-			if(itemstack == ItemStack.EMPTY)
-			{
-				// Forge: BUGFIX: Again, make things respect max stack sizes.
-				int max = Math.min(stack.getMaxStackSize(), inventoryIn.getInventoryStackLimit());
-				if(max >= stack.getCount())
-				{
-					inventoryIn.setInventorySlotContents(index, stack);
-					stack = ItemStack.EMPTY;
-				}
-				else
-				{
-					inventoryIn.setInventorySlotContents(index, stack.splitStack(max));
-				}
-				flag = true;
-			}
-			else if(canCombine(itemstack, stack))
-			{
-				// Forge: BUGFIX: Again, make things respect max stack sizes.
-				int max = Math.min(stack.getMaxStackSize(), inventoryIn.getInventoryStackLimit());
-				if(max > itemstack.getCount())
-				{
-					int i = max - itemstack.getCount();
-					int j = Math.min(stack.getCount(), i);
-					stack.setCount(stack.getCount() - j);
-					stack.setCount(itemstack.getCount() + j);
-					flag = j > 0;
-				}
-			}
+            if (itemstack.isEmpty())
+            {
+                inventoryIn.setInventorySlotContents(side, index);
+                index = ItemStack.EMPTY;
+                flag = true;
+            }
+            else if (canCombine(itemstack, index))
+            {
+                int i = index.getMaxStackSize() - itemstack.getCount();
+                int j = Math.min(index.getCount(), i);
+                index.shrink(j);
+                itemstack.grow(j);
+                flag = j > 0;
+            }
 
-			if(flag)
-			{
-				if(inventoryIn instanceof TileEntityHopper)
-				{
-					TileEntityHopper tileentityhopper = (TileEntityHopper) inventoryIn;
+            if (flag)
+            {
+                if (flag1 && inventoryIn instanceof TileEntityHopper)
+                {
+                    TileEntityHopper tileentityhopper1 = (TileEntityHopper)inventoryIn;
 
-					if(tileentityhopper.mayTransfer())
-					{
-						tileentityhopper.setTransferCooldown(8);
-					}
+                    if (!tileentityhopper1.mayTransfer())
+                    {
+                        int k = 0;
 
-					inventoryIn.markDirty();
-				}
+                        if (inventoryIn != null && inventoryIn instanceof TileEntityHopper)
+                        {
+                            TileEntityHopper tileentityhopper = (TileEntityHopper)inventoryIn;
 
-				inventoryIn.markDirty();
-			}
-		}
+                            if (tileentityhopper1.mayTransfer())
+                            {
+                                k = 1;
+                            }
+                        }
 
-		return stack;
-	}
+                        tileentityhopper1.setTransferCooldown(8 - k);
+                    }
+                }
+
+                inventoryIn.markDirty();
+            }
+        }
+
+        return index;
+    }
 
 	/**
 	 * Attempts to place the passed stack in the inventory, using as many slots

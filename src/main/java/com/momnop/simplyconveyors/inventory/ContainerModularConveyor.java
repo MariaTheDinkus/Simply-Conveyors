@@ -6,8 +6,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 
-import com.momnop.simplyconveyors.api.ItemModule;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 
 public class ContainerModularConveyor extends Container
@@ -22,11 +22,17 @@ public class ContainerModularConveyor extends Container
         
         this.tileEntity = tile;
         
-        this.inventory = (IInventory) tile;
+        if (tile instanceof IInventory) {
+        	this.inventory = (IInventory) tile;
+        } else {
+        	this.inventory = null;
+        }
 
-        this.addSlotToContainer(new SlotModule(this.inventory, 0, 56, 35));
-        this.addSlotToContainer(new SlotModule(this.inventory, 1, 80, 35));
-        this.addSlotToContainer(new SlotModule(this.inventory, 2, 104, 35));
+        this.addSlotToContainer(new SlotModule(this.inventory, 0, 56, 28));
+        this.addSlotToContainer(new SlotModule(this.inventory, 1, 80, 28));
+        this.addSlotToContainer(new SlotModule(this.inventory, 2, 104, 28));
+        
+        this.addSlotToContainer(new SlotTrack(this.inventory, 3, 80, 52));
 
         addPlayerSlots(playerInventory);
     }
@@ -55,6 +61,6 @@ public class ContainerModularConveyor extends Container
     @Override
     public boolean canInteractWith(EntityPlayer player)
     {
-    	return tileEntity.isUsableByPlayer(player);
+    	return ((TileModularConveyor) tileEntity).isUsableByPlayer(player);
     }
 }

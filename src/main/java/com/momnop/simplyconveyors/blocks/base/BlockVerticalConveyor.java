@@ -34,24 +34,21 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 	public static final PropertyBool LEFT = PropertyBool.create("left");
 	public static final PropertyBool RIGHT = PropertyBool.create("right");
 	
-	public double speed;
 	public Item item;
 	public Block block;
 	
 	public BlockVerticalConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
-		super(unlocalizedName, material, hardness, type, tab);
+		super(unlocalizedName, speed, material, hardness, type, tab);
 		
-		this.speed = speed;
 		this.item = Item.getItemFromBlock(this);
 		this.block = this;
 	}
 	
 	public BlockVerticalConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, Block droppedItem, CreativeTabs tab)
 	{
-		super(unlocalizedName, material, hardness, type, tab);
+		super(unlocalizedName, speed, material, hardness, type, tab);
 		
-		this.speed = speed;
 		this.item = Item.getItemFromBlock(droppedItem);
 		this.block = droppedItem;
 	}
@@ -85,7 +82,7 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 	{
 		EnumFacing facing = state.getValue(FACING);
 		
-		if (speed < 0) {
+		if (this.getSpeed() < 0) {
 			entityIn.fallDistance = 0;
 		}
 		
@@ -104,11 +101,11 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 		}
 		
 		if (!state.getValue(POWERED) && !entityIn.isSneaking()) {
-			if (speed < 0 && worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() instanceof BlockFlatConveyor) {
+			if (this.getSpeed() < 0 && worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() instanceof BlockFlatConveyor) {
 				Vec3i directionVec = facing.getOpposite().getDirectionVec();
 				entityIn.setPosition(entityIn.posX + (directionVec.getX() * 0.1F), entityIn.posY + (directionVec.getY() * 0.1F), entityIn.posZ + (directionVec.getZ() * 0.1F));
 			} else {
-				ConveyorHelper.pushEntityVertical(entityIn, pos, speed, facing, true, true);
+				ConveyorHelper.pushEntityVertical(entityIn, pos, this.getSpeed(), facing, true, true);
 			}
 		}
 	}

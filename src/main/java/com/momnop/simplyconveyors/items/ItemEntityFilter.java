@@ -77,7 +77,11 @@ public class ItemEntityFilter extends Item
 		{
 			try
 			{
-				tooltip.add("Filter: " + TextFormatting.WHITE + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName());
+				if (!stack.getTagCompound().getString("filter").equals("net.minecraft.entity.Entity")) {
+					tooltip.add("Filter: " + TextFormatting.WHITE + Class.forName(stack.getTagCompound().getString("filter")).getSimpleName());
+				} else {
+					tooltip.add("Filter: " + TextFormatting.WHITE + "Empty");
+				}
 			}
 			catch (ClassNotFoundException e)
 			{

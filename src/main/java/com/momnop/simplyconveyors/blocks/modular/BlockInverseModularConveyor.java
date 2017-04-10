@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.blocks.modular;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,13 +16,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
-import com.momnop.simplyconveyors.blocks.base.BlockFlatConveyor;
+import com.momnop.simplyconveyors.blocks.base.BlockInverseConveyor;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.network.MessageModularConveyor;
+import com.momnop.simplyconveyors.network.PacketDispatcher;
 
-public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITileEntityProvider
+public class BlockInverseModularConveyor extends BlockInverseConveyor implements ITileEntityProvider
 {
-
-	public BlockFlatModularConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
+	public BlockInverseModularConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
 		super(unlocalizedName, speed, material, hardness, type, tab);
 	}
@@ -31,7 +33,7 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 	{
 		return new TileModularConveyor();
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
@@ -40,16 +42,16 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 		}
 		return true;
 	}
-
+	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
-		if(tileentity instanceof IInventory)
-		{
-			InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
-		}
-		super.breakBlock(worldIn, pos, state);
+        if (tileentity instanceof IInventory)
+        {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
+        }
+        super.breakBlock(worldIn, pos, state);
 	}
 }

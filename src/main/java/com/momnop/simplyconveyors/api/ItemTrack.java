@@ -15,12 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
-public class ItemModule extends Item implements IModule
+public class ItemTrack extends Item implements ITrack
 {
 	public ArrayList<String> incompatibles = new ArrayList<String>();
-	private EnumModule enumModule;
+	private EnumTrack enumTrack;
 	
-	public ItemModule(String unlocalizedName, EnumModule enumModule)
+	public ItemTrack(String unlocalizedName, EnumTrack enumTrack)
 	{
 		super();
 		setRegistryName(unlocalizedName);
@@ -29,11 +29,11 @@ public class ItemModule extends Item implements IModule
 		setMaxStackSize(1);
 		SimplyConveyorsItems.register(this);
 		RenderRegistry.registry.add(this);
-		this.enumModule = enumModule;
+		this.enumTrack = enumTrack;
 	}
 	
-	public EnumModule getEnumModule() {
-		return enumModule;
+	public EnumTrack getEnumTrack() {
+		return enumTrack;
 	}
 
 	@Override
@@ -41,20 +41,4 @@ public class ItemModule extends Item implements IModule
 	{
 		
 	}
-
-	@Override
-	public boolean isCompatible(ItemModule upgrade)
-	{
-		return true;
-	}
-	
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
-	{
-		isCompatible(this);
-		tooltip.add("Incompatible with:");
-		for (String string : incompatibles) {
-			tooltip.add(string);
-		}
-	} 
 }

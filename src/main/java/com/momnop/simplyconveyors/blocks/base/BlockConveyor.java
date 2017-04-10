@@ -20,11 +20,17 @@ import com.momnop.interdictionaryarts.info.ModInfo;
 public class BlockConveyor extends BlockNormal
 {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	private double speed = 0;
 	
-	public BlockConveyor(String unlocalizedName, Material material, float hardness, SoundType type, CreativeTabs tab)
+	public BlockConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
 		super(unlocalizedName, material, hardness, type, tab);
 		setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.NORTH));
+		this.speed = speed;
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 	@Override

@@ -1,19 +1,19 @@
-package com.momnop.simplyconveyors.items.upgrades;
+package com.momnop.simplyconveyors.items.modules;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
+import com.momnop.simplyconveyors.api.EnumModule;
 import com.momnop.simplyconveyors.api.ItemModule;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
-public class ItemSpongeModule extends ItemModule
+public class ItemHoldingModule extends ItemModule
 {
 
-	public ItemSpongeModule(String unlocalizedName)
+	public ItemHoldingModule(String unlocalizedName, EnumModule enumModule)
 	{
-		super(unlocalizedName);
+		super(unlocalizedName, enumModule);
 	}
 	
 	@Override
@@ -29,7 +29,12 @@ public class ItemSpongeModule extends ItemModule
 	@Override
 	public void update(TileEntity tile, boolean powered, EnumFacing facing, EnumFacing conveyorType, Entity entityIn)
 	{
-		entityIn.fallDistance = 0;
+		if (powered && !entityIn.isSneaking()) {
+			entityIn.motionX = 0;
+			entityIn.motionZ = 0;
+			
+			ConveyorHelper.centerEntity(entityIn, tile.getPos());
+		}
 	}
 	
 }
