@@ -56,9 +56,9 @@ public class SimplyConveyorsItems
 		sponge_track = new ItemSpongeTrack("sponge_track", EnumTrack.SPONGE);
 		webbed_track = new ItemWebbedTrack("webbed_track", EnumTrack.WEBBED);
 		
-		bus_book = new ItemBusStopBook("bus_book");
+//		bus_book = new ItemBusStopBook("bus_book");
 		
-		bus_ticket = new ItemBusTicket("bus_ticket");
+//		bus_ticket = new ItemBusTicket("bus_ticket");
 		
 		black_leather = new ItemBasic("black_leather", 64);
 		
@@ -67,6 +67,30 @@ public class SimplyConveyorsItems
 		diamond_spike_module = new ItemSpikeModule("diamond_spike_module", EnumModule.SPIKEDIAMOND, 7, false, true);
 		
 		transporter_module = new ItemTransporterModule("transporter_module", EnumModule.TRANSPORTER);
+		
+		register(wrench);
+		
+		register(conveyorResistanceBoots);
+		
+		register(roller);
+		
+		register(entityFilter);
+		
+		register(dropper_module);
+		register(holding_module);
+		
+		register(track);
+		
+		register(sponge_track);
+		register(webbed_track);
+		
+		register(black_leather);
+		
+		register(iron_spike_module);
+		register(gold_spike_module);
+		register(diamond_spike_module);
+		
+		register(transporter_module);
 	}
 
 	public static void register(Item b)

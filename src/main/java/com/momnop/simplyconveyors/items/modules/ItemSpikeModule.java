@@ -22,6 +22,7 @@ import org.lwjgl.input.Keyboard;
 import com.momnop.simplyconveyors.api.EnumModule;
 import com.momnop.simplyconveyors.api.ItemModule;
 import com.momnop.simplyconveyors.blocks.base.BlockConveyor;
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
@@ -82,7 +83,7 @@ public class ItemSpikeModule extends ItemModule
 		World worldIn = tile.getWorld();
 		
 		if (powered) {
-			if(!entityIn.isSneaking() && (entityIn instanceof EntityLivingBase))
+			if(!entityIn.isSneaking() && ConfigHandler.stopWhileSneaking && (entityIn instanceof EntityLivingBase) || !ConfigHandler.stopWhileSneaking && (entityIn instanceof EntityLivingBase))
 			{
 				if (entityIn instanceof EntityEnderman) {
 					entityIn.setInWeb();

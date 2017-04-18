@@ -24,4 +24,10 @@ public class SlotTrack extends Slot
 		return false;
 	}
 	
+	@Override
+	public int getSlotStackLimit()
+	{
+		return 1;
+	}
+	
 }

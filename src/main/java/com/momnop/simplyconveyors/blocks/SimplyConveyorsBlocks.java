@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
@@ -15,12 +16,14 @@ import com.momnop.simplyconveyors.blocks.base.BlockFlatConveyor;
 import com.momnop.simplyconveyors.blocks.base.BlockFoliageColored;
 import com.momnop.simplyconveyors.blocks.base.BlockInverseConveyor;
 import com.momnop.simplyconveyors.blocks.base.BlockSpeed;
+import com.momnop.simplyconveyors.blocks.base.BlockStairConveyor;
+import com.momnop.simplyconveyors.blocks.base.BlockUpgradeCrate;
 import com.momnop.simplyconveyors.blocks.base.BlockVerticalConveyor;
-import com.momnop.simplyconveyors.blocks.bus.BlockBusStop;
 import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
 import com.momnop.simplyconveyors.blocks.modular.BlockInverseModularConveyor;
 import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
 import com.momnop.simplyconveyors.blocks.roads.ItemBlockVariants;
+import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 public class SimplyConveyorsBlocks
 {
@@ -29,6 +32,8 @@ public class SimplyConveyorsBlocks
 	public static SimplyConveyorsRoadTab roads = SimplyConveyorsRoadTab.INSTANCE;
 	
 	public static Block conveyor_slow, conveyor_intermediate, conveyor_fast;
+	
+	public static Block conveyor_stair_slow, conveyor_stair_intermediate, conveyor_stair_fast;
 	
 	public static Block conveyor_vertical_slow, conveyor_vertical_intermediate, conveyor_vertical_fast;
 	public static Block conveyor_vertical_slow_down, conveyor_vertical_intermediate_down, conveyor_vertical_fast_down;
@@ -54,6 +59,8 @@ public class SimplyConveyorsBlocks
 	public static ItemBlock variants_full;
 	
 	public static Block bus_stop;
+	
+	public static Block upgrade_conveyor_fastest, upgrade_conveyor_dropper, upgrade_conveyor_holding, upgrade_conveyor_vertical_fastest, upgrade_conveyor_vertical_fastest_down, upgrade_conveyor_backwards_slow, upgrade_conveyor_backwards_fast, upgrade_conveyor_backwards_fastest, upgrade_conveyor_backwards_holding, upgrade_conveyor_stair_fastest, upgrade_conveyor_transporter, upgrade_conveyor_foam_slow, upgrade_conveyor_foam_fast, upgrade_conveyor_foam_fastest, upgrade_conveyor_spike_slow, upgrade_conveyor_spike_fast, upgrade_conveyor_spike_fastest;
 	
 	private static final double tier1Speed = 0.125F;
 	private static final double tier2Speed = 0.25F;
@@ -107,10 +114,72 @@ public class SimplyConveyorsBlocks
     	variants_broken = new ItemBlockVariants(road_broken);
     	variants_full = new ItemBlockVariants(road_full);
     	
-    	bus_stop = new BlockBusStop("bus_stop", Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	conveyor_stair_slow = new BlockStairConveyor("conveyor_stair_slow", tier1Speed, Material.ROCK, 1.5F, SoundType.STONE, special);
+    	conveyor_stair_intermediate = new BlockStairConveyor("conveyor_stair_intermediate", tier2Speed, Material.ROCK, 1.5F, SoundType.STONE, special);
+    	conveyor_stair_fast = new BlockStairConveyor("conveyor_stair_fast", tier3Speed, Material.ROCK, 1.5F, SoundType.STONE, special);
+    	
+//    	bus_stop = new BlockBusStop("bus_stop", Material.ROCK, 1.5F, SoundType.STONE, tab);
+    	
+    	register(conveyor_slow);
+    	register(conveyor_intermediate);
+    	register(conveyor_fast);
+    	
+    	register(conveyor_vertical_slow);
+    	register(conveyor_vertical_intermediate);
+    	register(conveyor_vertical_fast);
+    	
+    	register(conveyor_vertical_slow_down);
+    	register(conveyor_vertical_intermediate_down);
+    	register(conveyor_vertical_fast_down);
+    	
+    	register(conveyor_inverse_slow);
+    	register(conveyor_inverse_intermediate);
+    	register(conveyor_inverse_fast);
+    	
+    	register(conveyor_advanced_slow);
+    	register(conveyor_advanced_intermediate);
+    	register(conveyor_advanced_fast);
+    	
+    	register(conveyor_advanced_inverse_slow);
+    	register(conveyor_advanced_inverse_intermediate);
+    	register(conveyor_advanced_inverse_fast);
+    	
+    	register(conveyor_modular_slow);
+    	register(conveyor_modular_intermediate);
+    	register(conveyor_modular_fast);
+    	
+    	register(conveyor_modular_inverse_slow);
+    	register(conveyor_modular_inverse_intermediate);
+    	register(conveyor_modular_inverse_fast);
+    	
+    	register(asphault);
+    	register(concrete);
+    	register(mossy_concrete);
     	
     	register(road_broken, variants_broken);
     	register(road_full, variants_full);
+    	
+    	register(conveyor_stair_slow);
+    	register(conveyor_stair_intermediate);
+    	register(conveyor_stair_fast);
+    	
+    	upgrade_conveyor_fastest = new BlockUpgradeCrate("upgrade_conveyor_fastest", conveyor_fast);
+    	upgrade_conveyor_dropper = new BlockUpgradeCrate("upgrade_conveyor_dropper", SimplyConveyorsItems.dropper_module, true);
+    	upgrade_conveyor_holding = new BlockUpgradeCrate("upgrade_conveyor_holding", SimplyConveyorsItems.holding_module, true);
+    	upgrade_conveyor_vertical_fastest = new BlockUpgradeCrate("upgrade_conveyor_vertical_fastest", conveyor_vertical_fast);
+    	upgrade_conveyor_vertical_fastest_down = new BlockUpgradeCrate("upgrade_conveyor_vertical_fastest_down", conveyor_vertical_fast_down);
+    	upgrade_conveyor_backwards_slow = new BlockUpgradeCrate("upgrade_conveyor_backwards_slow", conveyor_inverse_slow);
+    	upgrade_conveyor_backwards_fast = new BlockUpgradeCrate("upgrade_conveyor_backwards_fast", conveyor_inverse_intermediate);
+    	upgrade_conveyor_backwards_fastest = new BlockUpgradeCrate("upgrade_conveyor_backwards_fastest", conveyor_inverse_fast);
+    	upgrade_conveyor_stair_fastest = new BlockUpgradeCrate("upgrade_conveyor_stair_fastest", conveyor_stair_fast);
+    	upgrade_conveyor_backwards_holding = new BlockUpgradeCrate("upgrade_conveyor_backwards_holding", SimplyConveyorsItems.holding_module, true);
+    	upgrade_conveyor_transporter = new BlockUpgradeCrate("upgrade_conveyor_transporter", SimplyConveyorsItems.transporter_module, true);
+    	upgrade_conveyor_foam_slow = new BlockUpgradeCrate("upgrade_conveyor_foam_slow", SimplyConveyorsItems.sponge_track, true);
+    	upgrade_conveyor_foam_fast = new BlockUpgradeCrate("upgrade_conveyor_foam_fast", SimplyConveyorsItems.sponge_track, true);
+    	upgrade_conveyor_foam_fastest = new BlockUpgradeCrate("upgrade_conveyor_foam_fastest", SimplyConveyorsItems.sponge_track, true);
+    	upgrade_conveyor_spike_slow = new BlockUpgradeCrate("upgrade_conveyor_spike_slow", SimplyConveyorsItems.iron_spike_module, true);
+    	upgrade_conveyor_spike_fast = new BlockUpgradeCrate("upgrade_conveyor_spike_fast", SimplyConveyorsItems.gold_spike_module, true);
+    	upgrade_conveyor_spike_fastest = new BlockUpgradeCrate("upgrade_conveyor_spike_fastest", SimplyConveyorsItems.diamond_spike_module, true);
     }
     
     public static void register(Block b) {

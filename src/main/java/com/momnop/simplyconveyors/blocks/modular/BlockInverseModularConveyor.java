@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -16,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
+import com.momnop.simplyconveyors.api.ItemModule;
+import com.momnop.simplyconveyors.api.ItemTrack;
 import com.momnop.simplyconveyors.blocks.base.BlockInverseConveyor;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.network.MessageModularConveyor;
@@ -37,6 +40,51 @@ public class BlockInverseModularConveyor extends BlockInverseConveyor implements
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
+		ItemStack heldItem = playerIn.getHeldItem(hand);
+		if (heldItem != null && !playerIn.isSneaking()) {
+			TileModularConveyor conveyor = (TileModularConveyor) worldIn.getTileEntity(pos);
+			if (heldItem.getItem() instanceof ItemModule) {
+				for (int i = 0; i < 3; i++) {
+					if (conveyor.getStackInSlot(i) == ItemStack.EMPTY) {
+						for (int i2 = 0; i2 < 3; i2++) {
+							if (conveyor.getStackInSlot(i2) != ItemStack.EMPTY && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
+								ItemModule moduleInHand = (ItemModule) heldItem.getItem();
+								ItemModule moduleInSlot = (ItemModule) conveyor.getStackInSlot(i2).getItem();
+								
+								if (!moduleInHand.isCompatible(moduleInSlot) || moduleInHand == moduleInSlot) {
+									return false;
+								}
+							}
+						}
+						
+						conveyor.setInventorySlotContents(i, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
+						
+						heldItem.shrink(1);
+						break;
+					}
+				}
+			}
+			
+			if (heldItem.getItem() instanceof ItemTrack) {
+				if (conveyor.getStackInSlot(3) == ItemStack.EMPTY) {
+					for (int i2 = 0; i2 < 3; i2++) {
+						if (conveyor.getStackInSlot(i2) != ItemStack.EMPTY && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
+							ItemModule moduleInHand = (ItemModule) heldItem.getItem();
+							ItemModule moduleInSlot = (ItemModule) conveyor.getStackInSlot(i2).getItem();
+							
+							if (!moduleInHand.isCompatible(moduleInSlot) || moduleInHand == moduleInSlot) {
+								return false;
+							}
+						}
+					}
+					
+					conveyor.setInventorySlotContents(3, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
+					
+					heldItem.shrink(1);
+				}
+			}
+		}
+		
 		if (!worldIn.isRemote && playerIn.isSneaking()) {
 			playerIn.openGui(SimplyConveyors.INSTANCE, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}

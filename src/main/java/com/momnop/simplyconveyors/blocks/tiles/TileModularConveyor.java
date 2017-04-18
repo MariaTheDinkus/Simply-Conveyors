@@ -34,11 +34,11 @@ import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
 public class TileModularConveyor extends TileEntity implements ITickable, IInventory
 {
 
-	public NonNullList<ItemStack> inventory;
+	public NonNullList<ItemStack> inventory = NonNullList.<ItemStack> withSize(this.getSizeInventory(), ItemStack.EMPTY);;
 
 	public TileModularConveyor()
 	{
-		this.inventory = NonNullList.<ItemStack> withSize(this.getSizeInventory(), ItemStack.EMPTY);
+		
 	}
 
 	@Override

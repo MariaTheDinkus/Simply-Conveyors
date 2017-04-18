@@ -50,9 +50,9 @@ public class RecipeHandler
 		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.holding_module), new Object[] { SimplyConveyorsItems.black_leather, Items.SLIME_BALL });
 		GameRegistry.addShapelessRecipe(new ItemStack(SimplyConveyorsItems.transporter_module), new Object[] { SimplyConveyorsItems.black_leather, Blocks.HOPPER, Blocks.HOPPER });
 		
-		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_slow));
-		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_intermediate));
-		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_fast), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_fast), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_fast));
+		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_stair_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_slow));
+		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_stair_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_intermediate));
+		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_fast), new ItemStack(SimplyConveyorsBlocks.conveyor_stair_fast), new ItemStack(SimplyConveyorsBlocks.conveyor_vertical_fast), new ItemStack(SimplyConveyorsBlocks.conveyor_inverse_fast));
 		
 		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_advanced_slow), new ItemStack(SimplyConveyorsBlocks.conveyor_advanced_inverse_slow));
 		addInverseRecipes(new ItemStack(SimplyConveyorsBlocks.conveyor_advanced_intermediate), new ItemStack(SimplyConveyorsBlocks.conveyor_advanced_inverse_intermediate));

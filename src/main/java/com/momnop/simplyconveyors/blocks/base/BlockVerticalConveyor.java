@@ -25,6 +25,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 import com.momnop.simplyconveyors.utils.RotationUtils;
@@ -100,7 +101,7 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 			item.setAgeToCreativeDespawnTime();
 		}
 		
-		if (!state.getValue(POWERED) && !entityIn.isSneaking()) {
+		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
 			if (this.getSpeed() < 0 && worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() instanceof BlockFlatConveyor) {
 				Vec3i directionVec = facing.getOpposite().getDirectionVec();
 				entityIn.setPosition(entityIn.posX + (directionVec.getX() * 0.1F), entityIn.posY + (directionVec.getY() * 0.1F), entityIn.posZ + (directionVec.getZ() * 0.1F));

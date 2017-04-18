@@ -26,8 +26,6 @@ public class ItemTrack extends Item implements ITrack
 		setRegistryName(unlocalizedName);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
-		setMaxStackSize(1);
-		SimplyConveyorsItems.register(this);
 		RenderRegistry.registry.add(this);
 		this.enumTrack = enumTrack;
 	}

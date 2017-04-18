@@ -32,7 +32,6 @@ public class ItemEntityFilter extends Item
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		setMaxStackSize(1);
-		SimplyConveyorsItems.register(this);
 		RenderRegistry.registry.add(this);
 	}
 

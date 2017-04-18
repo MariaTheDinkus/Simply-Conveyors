@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
@@ -116,11 +117,11 @@ public class BlockInverseConveyor extends BlockPoweredConveyor
 			item.setAgeToCreativeDespawnTime();
 		}
 		
-		if (!state.getValue(POWERED) && !entityIn.isSneaking()) {
+		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
 			Block block = worldIn.getBlockState(pos.add(state.getValue(FACING).getDirectionVec())).getBlock();
 			
 			if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) {
-				if(block instanceof BlockVerticalConveyor)
+				if(block instanceof BlockVerticalConveyor || block instanceof BlockStairConveyor)
 				{
 					entityIn.setPositionAndUpdate(entityIn.posX, entityIn.posY + 0.3F, entityIn.posZ);
 				}

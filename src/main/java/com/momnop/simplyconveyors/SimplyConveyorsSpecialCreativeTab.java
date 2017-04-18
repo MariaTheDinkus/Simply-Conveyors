@@ -44,6 +44,10 @@ public class SimplyConveyorsSpecialCreativeTab extends CreativeTabs
 		addBlock(SimplyConveyorsBlocks.conveyor_vertical_intermediate);
 		addBlock(SimplyConveyorsBlocks.conveyor_vertical_fast);
 		
+		addBlock(SimplyConveyorsBlocks.conveyor_stair_slow);
+		addBlock(SimplyConveyorsBlocks.conveyor_stair_intermediate);
+		addBlock(SimplyConveyorsBlocks.conveyor_stair_fast);
+		
 		addBlock(SimplyConveyorsBlocks.conveyor_inverse_slow);
 		addBlock(SimplyConveyorsBlocks.conveyor_inverse_intermediate);
 		addBlock(SimplyConveyorsBlocks.conveyor_inverse_fast);

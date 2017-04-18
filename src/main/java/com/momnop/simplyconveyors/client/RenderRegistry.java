@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.blocks.base.BlockFoliageColored;
+import com.momnop.simplyconveyors.blocks.base.BlockUpgradeCrate;
 import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.ItemTiered;
@@ -54,6 +56,19 @@ public final class RenderRegistry {
 						0,
 						new ModelResourceLocation(ModInfo.MOD_ID + ":"
 								+ block.getUnlocalizedName().substring(5),
+								"inventory"));
+	}
+	
+	public static void register(Block block, String unlocalizedName) {
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(block),
+						0,
+						new ModelResourceLocation(ModInfo.MOD_ID + ":"
+								+ unlocalizedName,
 								"inventory"));
 	}
 

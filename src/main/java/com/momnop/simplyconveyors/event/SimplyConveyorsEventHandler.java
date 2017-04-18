@@ -41,6 +41,7 @@ import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
 import com.momnop.simplyconveyors.blocks.modular.BlockInverseModularConveyor;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.helpers.BusStopManager;
 import com.momnop.simplyconveyors.info.ModInfo;
 import com.momnop.simplyconveyors.items.ItemBusStopBook;
@@ -187,7 +188,7 @@ public class SimplyConveyorsEventHandler
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if(mc.player.isSneaking())
+		if(mc.player.isSneaking() && ConfigHandler.compass)
 		{
 			if(event.getType() != ElementType.ALL)
 			{

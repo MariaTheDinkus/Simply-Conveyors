@@ -13,10 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.blocks.tiles.TileBusStop;
 import com.momnop.simplyconveyors.client.render.RenderHelper;
-import com.momnop.simplyconveyors.network.MessageBusStopData;
-import com.momnop.simplyconveyors.network.PacketDispatcher;
 
 @SideOnly(Side.CLIENT)
 public class GuiSetNameBusStop extends GuiScreen
@@ -84,12 +81,12 @@ public class GuiSetNameBusStop extends GuiScreen
 	{
 		if(!cityBox.getText().isEmpty())
 		{
-			if(world.getTileEntity(pos) instanceof TileBusStop)
-			{
-				TileBusStop busStop = (TileBusStop) world.getTileEntity(pos);
-				busStop.setName(cityBox.getText());
-				PacketDispatcher.sendToAll(new MessageBusStopData(cityBox.getText(), pos));
-			}
+//			if(world.getTileEntity(pos) instanceof TileBusStop)
+//			{
+//				TileBusStop busStop = (TileBusStop) world.getTileEntity(pos);
+//				busStop.setName(cityBox.getText());
+//				PacketDispatcher.sendToAll(new MessageBusStopData(cityBox.getText(), pos));
+//			}
 		}
 		super.onGuiClosed();
 	}

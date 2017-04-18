@@ -55,6 +55,26 @@ tile.conveyor_modular_inverse_slow.name=Modular Slow Inverse Conveyor
 tile.conveyor_modular_inverse_intermediate.name=Modular Intermediate Inverse Conveyor
 tile.conveyor_modular_inverse_fast.name=Modular Fast Inverse Conveyor
 
+tile.upgrade_conveyor_fastest.name=Upgrade Crate: Fastest Conveyor
+tile.upgrade_conveyor_dropper.name=Upgrade Crate: Dropper Conveyor
+tile.upgrade_conveyor_holding.name=Upgrade Crate: Holding Conveyor
+tile.upgrade_conveyor_vertical_fastest.name=Upgrade Crate: Fastest Vertical Conveyor
+tile.upgrade_conveyor_vertical_fastest_down.name=Upgrade Crate: Fastest Vertical Downwards Conveyor
+tile.upgrade_conveyor_backwards_slow.name=Upgrade Crate: Slow Backwards Conveyor
+tile.upgrade_conveyor_backwards_fast.name=Upgrade Crate: Fast Backwards Conveyor
+tile.upgrade_conveyor_backwards_fastest.name=Upgrade Crate: Fastest Backwards Conveyor
+tile.upgrade_conveyor_stair_fastest.name=Upgrade Crate: Fastest Stair Conveyor
+tile.upgrade_conveyor_backwards_holding.name=Upgrade Crate: Backwards Holding Conveyor
+tile.upgrade_conveyor_transporter.name=Upgrade Crate: Transporter Conveyor
+tile.upgrade_conveyor_foam_slow.name=Upgrade Crate: Slow Foam Conveyor
+tile.upgrade_conveyor_foam_fast.name=Upgrade Crate: Fast Foam Conveyor
+tile.upgrade_conveyor_foam_fastest.name=Upgrade Crate: Fastest Foam Conveyor
+tile.upgrade_conveyor_spike_slow.name=Upgrade Crate: Slow Spike Conveyor
+tile.upgrade_conveyor_spike_fast.name=Upgrade Crate: Fast Spike Conveyor
+tile.upgrade_conveyor_spike_fastest.name=Upgrade Crate: Fastest Spike Conveyor
+
+tile.upgrade_crate.name=Upgrade Crate
+
 tile.asphault.name=Asphault
 tile.concrete.name=Concrete
 tile.mossy_concrete.name=Mossy Concrete

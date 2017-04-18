@@ -6,6 +6,7 @@ import net.minecraft.util.EnumFacing;
 
 import com.momnop.simplyconveyors.api.EnumModule;
 import com.momnop.simplyconveyors.api.ItemModule;
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.helpers.ConveyorHelper;
 
 public class ItemHoldingModule extends ItemModule
@@ -29,7 +30,7 @@ public class ItemHoldingModule extends ItemModule
 	@Override
 	public void update(TileEntity tile, boolean powered, EnumFacing facing, EnumFacing conveyorType, Entity entityIn)
 	{
-		if (powered && !entityIn.isSneaking()) {
+		if (powered && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || powered && !ConfigHandler.stopWhileSneaking) {
 			entityIn.motionX = 0;
 			entityIn.motionZ = 0;
 			

@@ -18,7 +18,6 @@ public class BlockNormal extends BlockHorizontal
 		setHardness(hardness);
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
-		SimplyConveyorsBlocks.register(this);
 		RenderRegistry.registry.add(this);
 		setSoundType(type);
 	}

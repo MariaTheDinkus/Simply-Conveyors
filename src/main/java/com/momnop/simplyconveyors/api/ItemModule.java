@@ -26,8 +26,6 @@ public class ItemModule extends Item implements IModule
 		setRegistryName(unlocalizedName);
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
-		setMaxStackSize(1);
-		SimplyConveyorsItems.register(this);
 		RenderRegistry.registry.add(this);
 		this.enumModule = enumModule;
 	}

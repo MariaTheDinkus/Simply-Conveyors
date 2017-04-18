@@ -15,10 +15,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import com.momnop.simplyconveyors.blocks.roads.BlockConnectingColored;
-import com.momnop.simplyconveyors.blocks.tiles.TileBusStop;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.client.RenderRegistry;
-import com.momnop.simplyconveyors.client.render.tiles.TileBusStopRenderer;
 import com.momnop.simplyconveyors.client.render.tiles.TileModularConveyorRenderer;
 import com.momnop.simplyconveyors.helpers.CodeHelper;
 import com.momnop.simplyconveyors.items.ItemEntityFilter;
@@ -30,7 +28,6 @@ public class ClientProxy extends CommonProxy
 	{
 		RenderRegistry.registerRenderers();
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBusStop.class, new TileBusStopRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileModularConveyor.class, new TileModularConveyorRenderer());
 	}
 

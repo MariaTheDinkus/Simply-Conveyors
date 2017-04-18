@@ -7,8 +7,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import com.momnop.simplyconveyors.blocks.tiles.TileBusStop;
-
 public class MessageBusStopData implements IMessage
 {
 	private String name;
@@ -44,11 +42,11 @@ public class MessageBusStopData implements IMessage
 		{
 			if((player != null) && (message != null) && (ctx != null))
 			{
-				if(player.getEntityWorld().getTileEntity(message.pos) instanceof TileBusStop)
-				{
-					TileBusStop busStop = (TileBusStop) player.getEntityWorld().getTileEntity(message.pos);
-					busStop.setName(message.name);
-				}
+//				if(player.getEntityWorld().getTileEntity(message.pos) instanceof TileBusStop)
+//				{
+//					TileBusStop busStop = (TileBusStop) player.getEntityWorld().getTileEntity(message.pos);
+//					busStop.setName(message.name);
+//				}
 			}
 			return null;
 		}

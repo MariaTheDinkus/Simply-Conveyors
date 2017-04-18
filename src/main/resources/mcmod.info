@@ -1,16 +1,14 @@
 [
-    {
-        "modid":"simplyconveyors",
-        "name":"Simply Conveyors",
-        "description":"A conveyor mod loosely based on Extra Utilities conveyors. Has multiple types of conveyors.",
-        "version":"2.0.0",
-        "mcversion":"1.11",
-        "url":"http://www.zundrel.com",
-        "updateUrl":"",
-        "authorList":[
-         "Zundrel"
-        ],
-        "credits":"Zundrel",
-        "screenshots":[]
-    }
+{
+  "modid": "simplyconveyors",
+  "name": "Simply Conveyors & More",
+  "description": "Logistics and item transport go great together. With conveyors, it looks even cooler.",
+  "version": "3.0.3",
+  "mcversion": "1.11",
+  "url": "https://zundrel.com",
+  "updateUrl": "",
+  "authorList": ["Zundrel"],
+  "screenshots": [],
+  "dependencies": ["mod_MinecraftForge"]
+}
 ]

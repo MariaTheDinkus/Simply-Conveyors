@@ -15,7 +15,6 @@ public class ItemBasic extends Item
 		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		setMaxStackSize(maxStackSize);
-		SimplyConveyorsItems.register(this);
 		RenderRegistry.registry.add(this);
 	}
 }

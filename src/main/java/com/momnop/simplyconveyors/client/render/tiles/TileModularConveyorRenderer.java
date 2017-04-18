@@ -61,6 +61,8 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 					
 					GL11.glTranslated(0, ((i + 1) * 0.01F), 0);
 					
+					GL11.glRotated(facing.getHorizontalAngle(), 0, 1, 0);
+					
 					if (enumModule == EnumModule.DROPPER) {
 						if (powered) {
 							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_dropper_off.png"));
@@ -93,12 +95,12 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_diamond.png"));
 						}
 					} else if (enumModule == EnumModule.TRANSPORTER) {
-						GL11.glRotated(facing.getHorizontalAngle(), 0, 1, 0);
-						
 						mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_transporter.png"));
 					}
 					
 					model.renderAll();
+					
+					GL11.glRotated(-facing.getHorizontalAngle(), 0, 1, 0);
 					
 					GL11.glTranslated(0, -((i + 1) * 0.01F), 0);
 					
