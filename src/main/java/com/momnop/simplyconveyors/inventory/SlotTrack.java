@@ -1,13 +1,13 @@
 package com.momnop.simplyconveyors.inventory;
 
-import com.momnop.simplyconveyors.api.ItemModule;
-import com.momnop.simplyconveyors.api.ItemTrack;
-
+import mcjty.lib.compat.CompatSlot;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SlotTrack extends Slot
+import com.momnop.simplyconveyors.api.ItemTrack;
+
+public class SlotTrack extends CompatSlot
 {
 
 	public SlotTrack(IInventory inventoryIn, int index, int xPosition, int yPosition)
@@ -18,7 +18,7 @@ public class SlotTrack extends Slot
 	@Override
 	public boolean isItemValid(ItemStack stack)
 	{	
-		if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemTrack) {
+		if (stack != ItemStackTools.getEmptyStack() && stack.getItem() instanceof ItemTrack) {
 			return true;
 		}
 		return false;

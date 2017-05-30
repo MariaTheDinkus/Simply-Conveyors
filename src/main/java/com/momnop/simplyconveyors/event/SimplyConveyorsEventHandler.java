@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -132,7 +132,7 @@ public class SimplyConveyorsEventHandler
 		{
 			TileModularConveyor modular = (TileModularConveyor) event.getEntityLiving().getEntityWorld().getTileEntity(event.getEntityLiving().getPosition());
 
-			if(modular.getStackInSlot(3) != ItemStack.EMPTY && modular.getStackInSlot(3).getItem() instanceof ItemSpongeTrack)
+			if(modular.getStackInSlot(3) != ItemStackTools.getEmptyStack() && modular.getStackInSlot(3).getItem() instanceof ItemSpongeTrack)
 			{
 				event.setCanceled(true);
 			}
@@ -160,7 +160,7 @@ public class SimplyConveyorsEventHandler
 	
 	@SubscribeEvent
 	public void onTooltipEvent(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock) {
+		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock) {
 			Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 			
 			if (block instanceof BlockFlatAdvancedConveyor || block instanceof BlockInverseAdvancedConveyor) {

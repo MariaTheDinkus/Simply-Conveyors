@@ -2,34 +2,31 @@ package com.momnop.simplyconveyors.items;
 
 import java.util.List;
 
+import mcjty.lib.compat.CompatItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
+import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.client.RenderRegistry;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class ItemEntityFilter extends Item
+public class ItemEntityFilter extends CompatItem
 {
 
 	public ItemEntityFilter(String unlocalizedName)
 	{
 		super();
 		setRegistryName(unlocalizedName);
-		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		setCreativeTab(SimplyConveyors.tabGeneral);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		setMaxStackSize(1);
 		RenderRegistry.registry.add(this);
@@ -54,7 +51,7 @@ public class ItemEntityFilter extends Item
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void clAddInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add("Right click on a mob to set the filter!");
 		tooltip.add("Works with the Grabber Conveyor and Detector Conveyors.");
@@ -88,9 +85,9 @@ public class ItemEntityFilter extends Item
 			}
 		}
 	}
-
+	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
+	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
 		if(playerIn.isSneaking())
 		{

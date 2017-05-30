@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.proxies;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -52,7 +53,7 @@ public class ClientProxy extends CommonProxy
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				if(stack != ItemStack.EMPTY)
+				if(stack != ItemStackTools.getEmptyStack())
 				{
 					return EnumDyeColor.byMetadata(stack.getMetadata()).getMapColor().colorValue;
 				}
@@ -80,7 +81,7 @@ public class ClientProxy extends CommonProxy
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				if (stack != ItemStack.EMPTY) {
+				if (stack != ItemStackTools.getEmptyStack()) {
 					return Minecraft.getMinecraft().world.getBiome(Minecraft.getMinecraft().player.getPosition()).getFoliageColorAtPos(Minecraft.getMinecraft().player.getPosition());
 				}
 				return -1;
@@ -96,7 +97,7 @@ public class ClientProxy extends CommonProxy
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				if(stack != ItemStack.EMPTY)
+				if(stack != ItemStackTools.getEmptyStack())
 				{
 					return CodeHelper.getTierColor(stack.getMetadata());
 				}
@@ -113,7 +114,7 @@ public class ClientProxy extends CommonProxy
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				if(stack.hasTagCompound() && stack != ItemStack.EMPTY && stack.getItem() instanceof ItemEntityFilter)
+				if(stack.hasTagCompound() && stack != ItemStackTools.getEmptyStack() && stack.getItem() instanceof ItemEntityFilter)
 				{
 					// NBTTagCompound compound = stack.getTagCompound();
 					// String filter = compound.getString("filter");

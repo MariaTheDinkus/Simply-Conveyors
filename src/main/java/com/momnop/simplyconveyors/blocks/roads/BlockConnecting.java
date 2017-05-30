@@ -1,10 +1,5 @@
 package com.momnop.simplyconveyors.blocks.roads;
 
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.client.RenderRegistry;
-import com.momnop.simplyconveyors.info.ModInfo;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -13,14 +8,16 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.property.IExtendedBlockState;
 
-public class BlockConnecting extends Block
+import com.momnop.simplyconveyors.blocks.base.BlockSpeed;
+import com.momnop.simplyconveyors.client.RenderRegistry;
+import com.momnop.simplyconveyors.info.ModInfo;
+
+public class BlockConnecting extends BlockSpeed
 {
 
 	public static final PropertyBool NORTH = PropertyBool.create("north");
@@ -31,13 +28,8 @@ public class BlockConnecting extends Block
 
 	public BlockConnecting(String unlocalizedName, Material materialIn, float hardness, SoundType type, CreativeTabs tab)
 	{
-		super(materialIn);
-		setCreativeTab(tab);
-		setHardness(hardness);
-		setRegistryName(unlocalizedName);
-		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
+		super(unlocalizedName, materialIn, hardness, type, tab);
 		setDefaultState(this.getDefaultState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
-		RenderRegistry.registry.add(this);
 	}
 
 	@Override

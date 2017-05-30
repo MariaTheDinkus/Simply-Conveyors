@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.items.modules;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -57,15 +58,22 @@ public class ItemTransporterModule extends ItemModule implements IPassive
 			if(tile2 != null && tile2 instanceof IInventory)
 			{
 				IInventory inventory = (IInventory) tile2;
-				if(!inventory.isEmpty())
+				boolean empty = true;
+				for (int i = 0; i < inventory.getSizeInventory(); i++) {
+					if (inventory.getStackInSlot(i) != ItemStackTools.getEmptyStack()) {
+						empty = false;
+						break;
+					}
+				}
+				if(!empty)
 				{
 					for(int i = 0; i < inventory.getSizeInventory(); i++)
 					{
-						if(inventory.getStackInSlot(i) != ItemStack.EMPTY)
+						if(inventory.getStackInSlot(i) != ItemStackTools.getEmptyStack())
 						{
 							EntityItem entityItem = new EntityItem(tile.getWorld(), tile.getPos().getX() + 0.5F, tile.getPos().getY() + (1F / 16F), tile.getPos().getZ() + 0.5F, new ItemStack(
 									inventory.getStackInSlot(i).getItem(), 1, inventory.getStackInSlot(i).getMetadata()));
-							if(entityItem.getEntityItem() != ItemStack.EMPTY)
+							if(entityItem.getEntityItem() != ItemStackTools.getEmptyStack())
 							{
 								tile.getWorld().spawnEntity(entityItem);
 							}

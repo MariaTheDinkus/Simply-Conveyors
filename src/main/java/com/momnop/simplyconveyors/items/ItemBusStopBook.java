@@ -25,9 +25,9 @@ public class ItemBusStopBook extends ItemBasic
 	{
 		super(unlocalizedName, 1);
 	}
-
+	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void clAddInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		if(!BusStopManager.busStops.isEmpty())
 		{
@@ -58,9 +58,9 @@ public class ItemBusStopBook extends ItemBasic
 			}
 		}
 	}
-
+	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
+	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
 		if(worldIn.isRemote)
 		{

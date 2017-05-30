@@ -23,7 +23,7 @@ public class BlockSpeed extends BlockNormal
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
 	{
 		return new AxisAlignedBB(0, 0, 0, 1, (15.9F / 16F), 1);
 	}

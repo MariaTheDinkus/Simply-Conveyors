@@ -2,6 +2,7 @@ package com.momnop.simplyconveyors.helpers;
 
 import javax.annotation.Nullable;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -330,22 +331,22 @@ public class ConveyorHelper
 			if(contact && inventoryTile != null)
 			{
 				ItemStack stack = ((EntityItem) entity).getEntityItem();
-				if(stack != ItemStack.EMPTY)
+				if(stack != ItemStackTools.getEmptyStack())
 				{
 					if(TileEntityFurnace.isItemFuel(stack))
 					{
 						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
-						if(ret == ItemStack.EMPTY)
+						if(ret == ItemStackTools.getEmptyStack())
 							entity.setDead();
-						else if(ret.getCount() < stack.getCount())
+						else if(ItemStackTools.getStackSize(ret) < ItemStackTools.getStackSize(stack))
 							((EntityItem) entity).setEntityItemStack(ret);
 					}
 					else if(!TileEntityFurnace.isItemFuel(stack))
 					{
 						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
-						if(ret == ItemStack.EMPTY)
+						if(ret == ItemStackTools.getEmptyStack())
 							entity.setDead();
-						else if(ret.getCount() < stack.getCount())
+						else if(ItemStackTools.getStackSize(ret) < ItemStackTools.getStackSize(stack))
 							((EntityItem) entity).setEntityItemStack(ret);
 					}
 				}
@@ -379,22 +380,22 @@ public class ConveyorHelper
 			if(inventoryTile != null)
 			{
 				ItemStack stack = ((EntityItem) entity).getEntityItem();
-				if(stack != ItemStack.EMPTY)
+				if(stack != ItemStackTools.getEmptyStack())
 				{
 					if(TileEntityFurnace.isItemFuel(stack))
 					{
 						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, EnumFacing.DOWN);
-						if(ret == ItemStack.EMPTY)
+						if(ret == ItemStackTools.getEmptyStack())
 							entity.setDead();
-						else if(ret.getCount() < stack.getCount())
+						else if(ItemStackTools.getStackSize(ret) < ItemStackTools.getStackSize(stack))
 							((EntityItem) entity).setEntityItemStack(ret);
 					}
 					else if(!TileEntityFurnace.isItemFuel(stack))
 					{
 						ItemStack ret = ConveyorHelper.putStackInInventoryAllSlots((IInventory) inventoryTile, stack, null);
-						if(ret == ItemStack.EMPTY)
+						if(ret == ItemStackTools.getEmptyStack())
 							entity.setDead();
-						else if(ret.getCount() < stack.getCount())
+						else if(ItemStackTools.getStackSize(ret) < ItemStackTools.getStackSize(stack))
 							((EntityItem) entity).setEntityItemStack(ret);
 					}
 				}
@@ -404,11 +405,11 @@ public class ConveyorHelper
 	
 	public static boolean canInsertStackIntoInventory(TileEntity inventory, ItemStack stack, EnumFacing side)
 	{
-		if(stack != ItemStack.EMPTY && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
+		if(stack != ItemStackTools.getEmptyStack() && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
 		{
 			IItemHandler handler = inventory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			ItemStack temp = ItemHandlerHelper.insertItem(handler, stack.copy(), true);
-			if(temp == ItemStack.EMPTY || temp.getCount() < stack.getCount())
+			if(temp == ItemStackTools.getEmptyStack() || ItemStackTools.getStackSize(temp) < ItemStackTools.getStackSize(stack))
 				return true;
 		}
 		return false;
@@ -416,11 +417,11 @@ public class ConveyorHelper
 
 	public static ItemStack insertStackIntoInventory(TileEntity inventory, ItemStack stack, EnumFacing side)
 	{
-		if(stack != ItemStack.EMPTY && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
+		if(stack != ItemStackTools.getEmptyStack() && inventory != null && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
 		{
 			IItemHandler handler = inventory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			ItemStack temp = ItemHandlerHelper.insertItem(handler, stack.copy(), true);
-			if(temp == ItemStack.EMPTY || temp.getCount() < stack.getCount())
+			if(temp == ItemStackTools.getEmptyStack() || ItemStackTools.getStackSize(temp) < ItemStackTools.getStackSize(stack))
 				return ItemHandlerHelper.insertItem(handler, stack, false);
 		}
 		return stack;
@@ -428,7 +429,7 @@ public class ConveyorHelper
 
 	public static ItemStack insertStackIntoInventory(TileEntity inventory, ItemStack stack, EnumFacing side, boolean simulate)
 	{
-		if(inventory != null && stack != ItemStack.EMPTY && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
+		if(inventory != null && stack != ItemStackTools.getEmptyStack() && inventory.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
 		{
 			IItemHandler handler = inventory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			return ItemHandlerHelper.insertItem(handler, stack.copy(), simulate);
@@ -438,7 +439,7 @@ public class ConveyorHelper
 
 	private static boolean canCombine(ItemStack stack1, ItemStack stack2)
 	{
-		return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.getCount() > stack1.getMaxStackSize() ? false : ItemStack
+		return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (ItemStackTools.getStackSize(stack1) > stack1.getMaxStackSize() ? false : ItemStack
 				.areItemStackTagsEqual(stack1, stack2)));
 	}
 
@@ -461,20 +462,26 @@ public class ConveyorHelper
         if (canInsertItemInSlot(inventoryIn, index, side, p_174916_4_))
         {
             boolean flag = false;
-            boolean flag1 = inventoryIn.isEmpty();
+            boolean flag1 = true;
+			for (int i = 0; i < inventoryIn.getSizeInventory(); i++) {
+				if (inventoryIn.getStackInSlot(i) != ItemStackTools.getEmptyStack()) {
+					flag1 = false;
+					break;
+				}
+			}
 
-            if (itemstack.isEmpty())
+            if (itemstack == ItemStackTools.getEmptyStack())
             {
                 inventoryIn.setInventorySlotContents(side, index);
-                index = ItemStack.EMPTY;
+                index = ItemStackTools.getEmptyStack();
                 flag = true;
             }
             else if (canCombine(itemstack, index))
             {
-                int i = index.getMaxStackSize() - itemstack.getCount();
-                int j = Math.min(index.getCount(), i);
-                index.shrink(j);
-                itemstack.grow(j);
+                int i = index.getMaxStackSize() - ItemStackTools.getStackSize(itemstack);
+                int j = Math.min(ItemStackTools.getStackSize(itemstack), i);
+                ItemStackTools.setStackSize(index, ItemStackTools.getStackSize(index) - 1);
+                ItemStackTools.setStackSize(itemstack, ItemStackTools.getStackSize(itemstack) + 1);
                 flag = j > 0;
             }
 
@@ -520,7 +527,7 @@ public class ConveyorHelper
 			ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
 			int[] aint = isidedinventory.getSlotsForFace(side);
 
-			for(int k = 0; k < aint.length && stack != ItemStack.EMPTY && stack.getCount() > 0; ++k)
+			for(int k = 0; k < aint.length && stack != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(stack) > 0; ++k)
 			{
 				stack = insertStack(inventoryIn, stack, aint[k], side);
 			}
@@ -529,15 +536,15 @@ public class ConveyorHelper
 		{
 			int i = inventoryIn.getSizeInventory();
 
-			for(int j = 0; j < i && stack != ItemStack.EMPTY && stack.getCount() > 0; ++j)
+			for(int j = 0; j < i && stack != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(stack) > 0; ++j)
 			{
 				stack = insertStack(inventoryIn, stack, j, side);
 			}
 		}
 
-		if(stack != ItemStack.EMPTY && stack.getCount() == 0)
+		if(stack != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(stack) == 0)
 		{
-			stack = ItemStack.EMPTY;
+			stack = ItemStackTools.getEmptyStack();
 		}
 
 		return stack;
@@ -556,7 +563,7 @@ public class ConveyorHelper
 			ItemStack itemstack = itemIn.getEntityItem().copy();
 			ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing) null);
 
-			if(itemstack1 != ItemStack.EMPTY && itemstack1.getCount() != 0)
+			if(itemstack1 != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(itemstack1) != 0)
 			{
 				itemIn.setEntityItemStack(itemstack1);
 			}

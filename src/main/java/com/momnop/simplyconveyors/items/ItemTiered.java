@@ -1,14 +1,12 @@
 package com.momnop.simplyconveyors.items;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
 
 public class ItemTiered extends ItemBasic
 {
@@ -42,7 +40,7 @@ public class ItemTiered extends ItemBasic
 	
 	@SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    public void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list)
     {
         for (int i = 0; i < 3; i++) {
         	list.add(new ItemStack(itemIn, 1, i));

@@ -1,10 +1,10 @@
 package com.momnop.simplyconveyors.network;
 
 import io.netty.buffer.ByteBuf;
+import mcjty.lib.tools.ItemStackList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -16,14 +16,14 @@ import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 public class MessageModularConveyor implements IMessage
 {
 	private int inventorySize;
-	private NonNullList<ItemStack> inventory;
+	private ItemStackList inventory;
 	private BlockPos pos;
 
 	public MessageModularConveyor()
 	{
 	}
 
-	public MessageModularConveyor(NonNullList<ItemStack> inventory, BlockPos pos)
+	public MessageModularConveyor(ItemStackList inventory, BlockPos pos)
 	{
 		this.inventorySize = inventory.size();
 		this.inventory = inventory;
@@ -33,7 +33,7 @@ public class MessageModularConveyor implements IMessage
 	public void fromBytes(ByteBuf buf)
 	{
 		inventorySize = buf.readInt();
-		inventory = NonNullList.create();
+		inventory = ItemStackList.create();
 		for (int i = 0; i < inventorySize; i++) {
 			this.inventory.add(ByteBufUtils.readItemStack(buf));
 		}

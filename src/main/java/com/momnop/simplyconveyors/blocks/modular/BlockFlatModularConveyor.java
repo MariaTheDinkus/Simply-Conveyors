@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.blocks.modular;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -36,16 +37,16 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean clOnBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		if (heldItem != null && !playerIn.isSneaking()) {
 			TileModularConveyor conveyor = (TileModularConveyor) worldIn.getTileEntity(pos);
 			if (heldItem.getItem() instanceof ItemModule) {
 				for (int i = 0; i < 3; i++) {
-					if (conveyor.getStackInSlot(i) == ItemStack.EMPTY) {
+					if (conveyor.getStackInSlot(i) == ItemStackTools.getEmptyStack()) {
 						for (int i2 = 0; i2 < 3; i2++) {
-							if (conveyor.getStackInSlot(i2) != ItemStack.EMPTY && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
+							if (conveyor.getStackInSlot(i2) != ItemStackTools.getEmptyStack() && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
 								ItemModule moduleInHand = (ItemModule) heldItem.getItem();
 								ItemModule moduleInSlot = (ItemModule) conveyor.getStackInSlot(i2).getItem();
 								
@@ -57,16 +58,16 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 						
 						conveyor.setInventorySlotContents(i, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
 						
-						heldItem.shrink(1);
+						ItemStackTools.setStackSize(heldItem, ItemStackTools.getStackSize(heldItem) - 1);
 						break;
 					}
 				}
 			}
 			
 			if (heldItem.getItem() instanceof ItemTrack) {
-				if (conveyor.getStackInSlot(3) == ItemStack.EMPTY) {
+				if (conveyor.getStackInSlot(3) == ItemStackTools.getEmptyStack()) {
 					for (int i2 = 0; i2 < 3; i2++) {
-						if (conveyor.getStackInSlot(i2) != ItemStack.EMPTY && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
+						if (conveyor.getStackInSlot(i2) != ItemStackTools.getEmptyStack() && conveyor.getStackInSlot(i2).getItem() instanceof ItemModule) {
 							ItemModule moduleInHand = (ItemModule) heldItem.getItem();
 							ItemModule moduleInSlot = (ItemModule) conveyor.getStackInSlot(i2).getItem();
 							
@@ -78,7 +79,7 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 					
 					conveyor.setInventorySlotContents(3, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
 					
-					heldItem.shrink(1);
+					ItemStackTools.setStackSize(heldItem, ItemStackTools.getStackSize(heldItem) - 1);
 				}
 			}
 		}

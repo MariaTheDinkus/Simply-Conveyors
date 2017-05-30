@@ -2,35 +2,33 @@ package com.momnop.simplyconveyors.blocks.base;
 
 import java.util.Random;
 
+import mcjty.lib.compat.CompatBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.momnop.simplyconveyors.api.ItemModule;
-import com.momnop.simplyconveyors.api.ItemTrack;
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.client.RenderRegistry;
 import com.momnop.simplyconveyors.info.ModInfo;
 
-public class BlockUpgradeCrate extends BlockHorizontal
+public class BlockUpgradeCrate extends CompatBlock
 {
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	private Item item;
@@ -149,7 +147,7 @@ public class BlockUpgradeCrate extends BlockHorizontal
 	}
 
 	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
+	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		if(!placer.isSneaking())
 		{
@@ -160,9 +158,9 @@ public class BlockUpgradeCrate extends BlockHorizontal
 			return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 		}
 	}
-
+	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	protected boolean clOnBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if(!playerIn.isSneaking())
 		{

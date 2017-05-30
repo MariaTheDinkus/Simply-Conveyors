@@ -3,13 +3,11 @@ package com.momnop.simplyconveyors.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.SimplyConveyorsRoadTab;
-import com.momnop.simplyconveyors.SimplyConveyorsSpecialCreativeTab;
+import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.blocks.advanced.BlockFlatAdvancedConveyor;
 import com.momnop.simplyconveyors.blocks.advanced.BlockInverseAdvancedConveyor;
 import com.momnop.simplyconveyors.blocks.base.BlockFlatConveyor;
@@ -27,9 +25,9 @@ import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 
 public class SimplyConveyorsBlocks
 {
-	public static SimplyConveyorsCreativeTab tab = SimplyConveyorsCreativeTab.INSTANCE;
-	public static SimplyConveyorsSpecialCreativeTab special = SimplyConveyorsSpecialCreativeTab.INSTANCE;
-	public static SimplyConveyorsRoadTab roads = SimplyConveyorsRoadTab.INSTANCE;
+	public static CreativeTabs tab = SimplyConveyors.tabGeneral;
+	public static CreativeTabs special = SimplyConveyors.tabSpecial;
+	public static CreativeTabs roads = SimplyConveyors.tabRoads;
 	
 	public static Block conveyor_slow, conveyor_intermediate, conveyor_fast;
 	

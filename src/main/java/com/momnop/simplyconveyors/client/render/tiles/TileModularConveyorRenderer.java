@@ -1,10 +1,9 @@
 package com.momnop.simplyconveyors.client.render.tiles;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelSign;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +17,6 @@ import com.momnop.simplyconveyors.api.ItemModule;
 import com.momnop.simplyconveyors.api.ItemTrack;
 import com.momnop.simplyconveyors.blocks.base.BlockConveyor;
 import com.momnop.simplyconveyors.blocks.base.BlockPoweredConveyor;
-import com.momnop.simplyconveyors.blocks.modular.BlockFlatModularConveyor;
 import com.momnop.simplyconveyors.blocks.modular.BlockInverseModularConveyor;
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.client.model.OverlayModel;
@@ -50,8 +48,12 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 			GL11.glTranslated(x, y + (1F / 16F), z);
 			GL11.glScaled(0.0625, 0.0625, 0.0625);
 			
+			if (te.getBlockType() instanceof BlockInverseModularConveyor) {
+				GL11.glTranslated(0, 14.9375, 0);
+			}
+			
 			for (int i = 0; i <= 2; i++) {
-				if (te.getStackInSlot(i) != ItemStack.EMPTY && te.getStackInSlot(i).getItem() instanceof ItemModule) {
+				if (te.getStackInSlot(i) != ItemStackTools.getEmptyStack() && te.getStackInSlot(i).getItem() instanceof ItemModule) {
 					OverlayModel model = new OverlayModel();
 					
 					ItemModule module = (ItemModule) te.getStackInSlot(i).getItem();
@@ -59,9 +61,17 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 					
 					GL11.glTranslated(0, -(15.99F / 16F), 0);
 					
-					GL11.glTranslated(0, ((i + 1) * 0.01F), 0);
+					if (te.getBlockType() instanceof BlockInverseModularConveyor) {
+						GL11.glTranslated(0, (((2 - i) + 1) * 0.01F), 0);
+					} else {
+						GL11.glTranslated(0, ((i + 1) * 0.01F), 0);
+					}
 					
-					GL11.glRotated(facing.getHorizontalAngle(), 0, 1, 0);
+					if (facing == EnumFacing.WEST || facing == EnumFacing.EAST) {
+						GL11.glRotated(facing.getOpposite().getHorizontalAngle(), 0, 1, 0);
+					} else {
+						GL11.glRotated(facing.getHorizontalAngle(), 0, 1, 0);
+					}
 					
 					if (enumModule == EnumModule.DROPPER) {
 						if (powered) {
@@ -108,7 +118,7 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 				}
 			}
 			
-			if (te.getStackInSlot(3) != ItemStack.EMPTY && te.getStackInSlot(3).getItem() instanceof ItemTrack) {
+			if (te.getStackInSlot(3) != ItemStackTools.getEmptyStack() && te.getStackInSlot(3).getItem() instanceof ItemTrack) {
 				ItemTrack track = (ItemTrack) te.getStackInSlot(3).getItem();
 				EnumTrack enumTrack = track.getEnumTrack();
 				

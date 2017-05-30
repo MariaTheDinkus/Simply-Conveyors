@@ -3,17 +3,16 @@ package com.momnop.simplyconveyors.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.momnop.simplyconveyors.SimplyConveyorsCreativeTab;
-import com.momnop.simplyconveyors.client.RenderRegistry;
-import com.momnop.simplyconveyors.info.ModInfo;
-import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+
+import com.momnop.simplyconveyors.SimplyConveyors;
+import com.momnop.simplyconveyors.client.RenderRegistry;
+import com.momnop.simplyconveyors.info.ModInfo;
 
 public class ItemModule extends Item implements IModule
 {
@@ -24,7 +23,7 @@ public class ItemModule extends Item implements IModule
 	{
 		super();
 		setRegistryName(unlocalizedName);
-		setCreativeTab(SimplyConveyorsCreativeTab.INSTANCE);
+		setCreativeTab(SimplyConveyors.tabGeneral);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		RenderRegistry.registry.add(this);
 		this.enumModule = enumModule;

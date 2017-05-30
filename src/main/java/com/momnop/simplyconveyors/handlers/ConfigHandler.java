@@ -2,8 +2,6 @@ package com.momnop.simplyconveyors.handlers;
 
 import java.io.File;
 
-import com.momnop.currency.info.ConfigInfo;
-
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler

@@ -75,11 +75,11 @@ public class BlockPoweredConveyor extends BlockConveyor
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
 	{
-		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock(), null);
+		this.clOnNeighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock());
 	}
-
+	
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_)
+	public void clOnNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
 	{
 		if(state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
 		{
@@ -90,7 +90,7 @@ public class BlockPoweredConveyor extends BlockConveyor
 			worldIn.setBlockState(pos, state.withProperty(POWERED, true), 2);
 		}
 	}
-
+	
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{

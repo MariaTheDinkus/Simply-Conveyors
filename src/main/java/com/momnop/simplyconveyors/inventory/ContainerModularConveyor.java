@@ -1,12 +1,12 @@
 package com.momnop.simplyconveyors.inventory;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
 
@@ -55,7 +55,7 @@ public class ContainerModularConveyor extends Container
     
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-    	return ItemStack.EMPTY;
+    	return ItemStackTools.getEmptyStack();
     }
     
     @Override

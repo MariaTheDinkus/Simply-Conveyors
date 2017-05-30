@@ -2,31 +2,25 @@ package com.momnop.simplyconveyors.blocks.base;
 
 import java.util.List;
 
-import com.momnop.simplyconveyors.handlers.ConfigHandler;
-import com.momnop.simplyconveyors.helpers.ConveyorHelper;
-import com.momnop.simplyconveyors.helpers.RotationUtils;
-import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import com.momnop.simplyconveyors.handlers.ConfigHandler;
+import com.momnop.simplyconveyors.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.helpers.RotationUtils;
+import com.momnop.simplyconveyors.items.ItemConveyorResistanceBoots;
 
 public class BlockStairConveyor extends BlockPoweredConveyor
 {
@@ -37,13 +31,7 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-	{
-		return null;
-	}
-
-	@Override
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entityIn)
+	public void clAddCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entityIn)
 	{
 		AxisAlignedBB bottom = new AxisAlignedBB((0.1F / 16F), 0F, 0F, 1F, 0.5F, 1F);
 		AxisAlignedBB top = new AxisAlignedBB(0.5F, 0F, 0F, 1F, (15.9F / 16F), 1F);
@@ -69,8 +57,8 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
-					&& player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
+			if(!player.onGround || player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;
 			}

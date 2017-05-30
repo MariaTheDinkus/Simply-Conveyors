@@ -1,6 +1,9 @@
 package com.momnop.simplyconveyors;
 
+import mcjty.lib.compat.CompatCreativeTabs;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -15,6 +18,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.blocks.base.BlockUpgradeCrate;
@@ -29,7 +34,7 @@ import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
 import com.momnop.simplyconveyors.network.PacketDispatcher;
 import com.momnop.simplyconveyors.proxies.CommonProxy;
 
-@Mod(name = ModInfo.NAME, modid = ModInfo.MOD_ID, version = ModInfo.VERSION)
+@Mod(name = ModInfo.NAME, modid = ModInfo.MOD_ID, version = ModInfo.VERSION, acceptedMinecraftVersions = "[1.9,1.12)", dependencies = "required-after:compatlayer")
 public class SimplyConveyors
 {
 	@Instance(value = ModInfo.MOD_ID)
@@ -38,6 +43,30 @@ public class SimplyConveyors
 	@SidedProxy(clientSide = "com.momnop.simplyconveyors.proxies.ClientProxy", serverSide = "com.momnop.simplyconveyors.proxies.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static CreativeTabs tabGeneral = new CompatCreativeTabs(ModInfo.MOD_ID) {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getItem() {
+            return Item.getItemFromBlock(SimplyConveyorsBlocks.conveyor_slow);
+        }
+    };
+    
+    public static CreativeTabs tabRoads = new CompatCreativeTabs(ModInfo.MOD_ID + "_roads") {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getItem() {
+            return Item.getItemFromBlock(SimplyConveyorsBlocks.road_full);
+        }
+    };
+    
+    public static CreativeTabs tabSpecial = new CompatCreativeTabs(ModInfo.MOD_ID + "_special") {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getItem() {
+            return Item.getItemFromBlock(SimplyConveyorsBlocks.conveyor_vertical_slow);
+        }
+    };
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{

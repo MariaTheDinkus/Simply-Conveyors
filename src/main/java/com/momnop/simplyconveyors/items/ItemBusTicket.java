@@ -23,7 +23,7 @@ public class ItemBusTicket extends ItemBasic
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void clAddInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add("Admission for 1");
 		for(int i = 0; i < BusStopManager.busStopsNames.values().size(); i++)
@@ -39,7 +39,7 @@ public class ItemBusTicket extends ItemBasic
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
 		if(worldIn.isRemote && playerIn.isSneaking() && hand.equals(EnumHand.MAIN_HAND))
 		{
