@@ -3,12 +3,12 @@
   "modid": "simplyconveyors",
   "name": "Simply Conveyors & More",
   "description": "Logistics and item transport go great together. With conveyors, it looks even cooler.",
-  "version": "3.0.3",
-  "mcversion": "1.11",
+  "version": "3.0.6",
+  "mcversion": "1.9,1.11",
   "url": "https://zundrel.com",
   "updateUrl": "",
   "authorList": ["Zundrel"],
   "screenshots": [],
-  "dependencies": ["mod_MinecraftForge"]
+  "dependencies": ["mod_MinecraftForge","compatlayer"]
 }
 ]

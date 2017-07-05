@@ -3,6 +3,7 @@ itemGroup.simplyconveyors_special=Simply Conveyors - Orientations
 itemGroup.simplyconveyors_roads=Simply Conveyors - Roads
 
 item.conveyor_wrench.name=Conveyor Wrench
+item.worker_gloves.name=Worker Gloves
 item.entity_filter.name=Entity Filter
 item.conveyor_resistance_boots.name=Conveyor Resistance Boots
 
@@ -45,12 +46,18 @@ tile.conveyor_advanced_inverse_fast.name=Advanced Fast Inverse Conveyor
 tile.conveyor_modular_slow.name=Modular Slow Conveyor
 tile.conveyor_modular_intermediate.name=Modular Intermediate Conveyor
 tile.conveyor_modular_fast.name=Modular Fast Conveyor
-tile.conveyor_stair_slow.name=Slow Conveyor Ramp
-tile.conveyor_stair_intermediate.name=Intermediate Conveyor Ramp
-tile.conveyor_stair_fast.name=Fast Conveyor Ramp
-tile.conveyor_stair_slow_down.name=Slow Downwards Conveyor Ramp
-tile.conveyor_stair_intermediate_down.name=Intermediate Downwards Conveyor Ramp
-tile.conveyor_stair_fast_down.name=Fast Downwards Conveyor Ramp
+tile.conveyor_stair_slow.name=Slow Conveyor Stairs
+tile.conveyor_stair_intermediate.name=Intermediate Conveyor Stairs
+tile.conveyor_stair_fast.name=Fast Conveyor Stairs
+tile.conveyor_stair_slow_down.name=Slow Downwards Conveyor Stairs
+tile.conveyor_stair_intermediate_down.name=Intermediate Downwards Conveyor Stairs
+tile.conveyor_stair_fast_down.name=Fast Downwards Conveyor Stairs
+tile.conveyor_ramp_slow.name=Slow Conveyor Ramp
+tile.conveyor_ramp_intermediate.name=Intermediate Conveyor Ramp
+tile.conveyor_ramp_fast.name=Fast Conveyor Ramp
+tile.conveyor_ramp_slow_down.name=Slow Downwards Conveyor Ramp
+tile.conveyor_ramp_intermediate_down.name=Intermediate Downwards Conveyor Ramp
+tile.conveyor_ramp_fast_down.name=Fast Downwards Conveyor Ramp
 tile.conveyor_modular_inverse_slow.name=Modular Slow Inverse Conveyor
 tile.conveyor_modular_inverse_intermediate.name=Modular Intermediate Inverse Conveyor
 tile.conveyor_modular_inverse_fast.name=Modular Fast Inverse Conveyor
@@ -75,7 +82,7 @@ tile.upgrade_conveyor_spike_fastest.name=Upgrade Crate: Fastest Spike Conveyor
 
 tile.upgrade_crate.name=Upgrade Crate
 
-tile.asphault.name=Asphault
+tile.asphault.name=Asphalt
 tile.concrete.name=Concrete
 tile.mossy_concrete.name=Mossy Concrete
 

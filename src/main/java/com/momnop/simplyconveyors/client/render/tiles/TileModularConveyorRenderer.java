@@ -11,15 +11,14 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.api.EnumModule;
-import com.momnop.simplyconveyors.api.EnumTrack;
-import com.momnop.simplyconveyors.api.ItemModule;
-import com.momnop.simplyconveyors.api.ItemTrack;
-import com.momnop.simplyconveyors.blocks.base.BlockConveyor;
-import com.momnop.simplyconveyors.blocks.base.BlockPoweredConveyor;
-import com.momnop.simplyconveyors.blocks.modular.BlockInverseModularConveyor;
-import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.api.enums.EnumModifierType;
+import com.momnop.simplyconveyors.api.interfaces.IModifier;
 import com.momnop.simplyconveyors.client.model.OverlayModel;
+import com.momnop.simplyconveyors.common.blocks.base.BlockConveyor;
+import com.momnop.simplyconveyors.common.blocks.base.BlockPoweredConveyor;
+import com.momnop.simplyconveyors.common.blocks.modular.BlockInverseModularConveyor;
+import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.common.info.ModInfo;
 
 public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileModularConveyor>
 {
@@ -53,11 +52,10 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 			}
 			
 			for (int i = 0; i <= 2; i++) {
-				if (te.getStackInSlot(i) != ItemStackTools.getEmptyStack() && te.getStackInSlot(i).getItem() instanceof ItemModule) {
+				if (te.getStackInSlot(i) != ItemStackTools.getEmptyStack() && te.getStackInSlot(i).getItem() instanceof IModifier) {
 					OverlayModel model = new OverlayModel();
 					
-					ItemModule module = (ItemModule) te.getStackInSlot(i).getItem();
-					EnumModule enumModule = module.getEnumModule();
+					IModifier module = (IModifier) te.getStackInSlot(i).getItem();
 					
 					GL11.glTranslated(0, -(15.99F / 16F), 0);
 					
@@ -73,42 +71,20 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 						GL11.glRotated(facing.getHorizontalAngle(), 0, 1, 0);
 					}
 					
-					if (enumModule == EnumModule.DROPPER) {
+					GL11.glEnable(GL11.GL_BLEND);
+					if (module.isConductive()) {
 						if (powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_dropper_off.png"));
+							mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_powered" + ".png"));
 						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_dropper_on.png"));
+							mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_unpowered" + ".png"));
 						}
-					} else if (enumModule == EnumModule.HOLDING) {
-						if (powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_holding_on.png"));
-						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_holding_off.png"));
-						}
-						
-					} else if (enumModule == EnumModule.SPIKEIRON) {
-						if (!powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_unextended.png"));
-						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_iron.png"));
-						}
-					} else if (enumModule == EnumModule.SPIKEGOLD) {
-						if (!powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_unextended.png"));
-						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_gold.png"));
-						}
-					} else if (enumModule == EnumModule.SPIKEDIAMOND) {
-						if (!powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_unextended.png"));
-						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spikes_diamond.png"));
-						}
-					} else if (enumModule == EnumModule.TRANSPORTER) {
-						mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/conveyor_transporter.png"));
+					} else {
+						mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + ".png"));
 					}
 					
 					model.renderAll();
+					
+					GL11.glDisable(GL11.GL_BLEND);
 					
 					GL11.glRotated(-facing.getHorizontalAngle(), 0, 1, 0);
 					
@@ -118,21 +94,19 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 				}
 			}
 			
-			if (te.getStackInSlot(3) != ItemStackTools.getEmptyStack() && te.getStackInSlot(3).getItem() instanceof ItemTrack) {
-				ItemTrack track = (ItemTrack) te.getStackInSlot(3).getItem();
-				EnumTrack enumTrack = track.getEnumTrack();
+			if (te.getStackInSlot(3) != ItemStackTools.getEmptyStack() && te.getStackInSlot(3).getItem() instanceof IModifier) {
+				IModifier track = (IModifier) te.getStackInSlot(3).getItem();
 				
 				OverlayModel model = new OverlayModel();
 				
-				if (enumTrack == EnumTrack.SPONGE) {
-					GL11.glEnable(GL11.GL_BLEND);
-					mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/spongy.png"));
-					model.render(null, 0, 0, 0, 0, 0, 1);
-					GL11.glDisable(GL11.GL_BLEND);
-				} else if (enumTrack == EnumTrack.WEBBED) {
-					mc.renderEngine.bindTexture(new ResourceLocation("simplyconveyors:textures/blocks/webbing.png"));
-					model.render(null, 0, 0, 0, 0, 0, 1);
-				}
+				GL11.glEnable(GL11.GL_BLEND);
+				mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/tracks/" + te.getStackInSlot(3).getItem().getUnlocalizedName().substring(5) + ".png"));
+				
+				GL11.glTranslated(0, -0.99, 0);
+				
+				model.renderAll();
+				
+				GL11.glDisable(GL11.GL_BLEND);
 			}
 			
 			GL11.glTranslated(-x, -y - (1F / 16F), -z);

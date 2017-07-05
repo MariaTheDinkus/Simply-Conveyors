@@ -21,18 +21,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.momnop.simplyconveyors.blocks.SimplyConveyorsBlocks;
-import com.momnop.simplyconveyors.blocks.base.BlockUpgradeCrate;
-import com.momnop.simplyconveyors.blocks.tiles.TileAdvancedConveyor;
-import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
-import com.momnop.simplyconveyors.event.SimplyConveyorsEventHandler;
-import com.momnop.simplyconveyors.handlers.ConfigHandler;
-import com.momnop.simplyconveyors.handlers.GuiHandler;
-import com.momnop.simplyconveyors.handlers.RecipeHandler;
-import com.momnop.simplyconveyors.info.ModInfo;
-import com.momnop.simplyconveyors.items.SimplyConveyorsItems;
-import com.momnop.simplyconveyors.network.PacketDispatcher;
-import com.momnop.simplyconveyors.proxies.CommonProxy;
+import com.momnop.simplyconveyors.common.CommonProxy;
+import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.common.blocks.base.BlockUpgradeCrate;
+import com.momnop.simplyconveyors.common.blocks.tiles.TileAdvancedConveyor;
+import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.common.event.SimplyConveyorsEventHandler;
+import com.momnop.simplyconveyors.common.handlers.ConfigHandler;
+import com.momnop.simplyconveyors.common.handlers.GuiHandler;
+import com.momnop.simplyconveyors.common.handlers.RecipeHandler;
+import com.momnop.simplyconveyors.common.info.ModInfo;
+import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
+import com.momnop.simplyconveyors.common.network.PacketDispatcher;
 
 @Mod(name = ModInfo.NAME, modid = ModInfo.MOD_ID, version = ModInfo.VERSION, acceptedMinecraftVersions = "[1.9,1.12)", dependencies = "required-after:compatlayer")
 public class SimplyConveyors
@@ -40,7 +40,7 @@ public class SimplyConveyors
 	@Instance(value = ModInfo.MOD_ID)
 	public static SimplyConveyors INSTANCE;
 
-	@SidedProxy(clientSide = "com.momnop.simplyconveyors.proxies.ClientProxy", serverSide = "com.momnop.simplyconveyors.proxies.CommonProxy")
+	@SidedProxy(clientSide = "com.momnop.simplyconveyors.client.ClientProxy", serverSide = "com.momnop.simplyconveyors.common.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static CreativeTabs tabGeneral = new CompatCreativeTabs(ModInfo.MOD_ID) {

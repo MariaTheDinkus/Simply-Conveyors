@@ -16,8 +16,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.momnop.simplyconveyors.client.render.RenderHelper;
-import com.momnop.simplyconveyors.helpers.BusStopManager;
-import com.momnop.simplyconveyors.info.ModInfo;
+import com.momnop.simplyconveyors.common.helpers.BusStopManager;
+import com.momnop.simplyconveyors.common.info.ModInfo;
 
 @SideOnly(Side.CLIENT)
 public class GuiBusBook extends GuiScreen

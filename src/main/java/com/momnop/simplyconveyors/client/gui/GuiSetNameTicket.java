@@ -13,8 +13,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.momnop.simplyconveyors.client.render.RenderHelper;
-import com.momnop.simplyconveyors.network.MessageBusTicketData;
-import com.momnop.simplyconveyors.network.PacketDispatcher;
+import com.momnop.simplyconveyors.common.network.MessageBusTicketData;
+import com.momnop.simplyconveyors.common.network.PacketDispatcher;
 
 @SideOnly(Side.CLIENT)
 public class GuiSetNameTicket extends GuiScreen

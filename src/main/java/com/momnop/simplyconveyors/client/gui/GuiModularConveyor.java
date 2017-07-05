@@ -1,14 +1,12 @@
 package com.momnop.simplyconveyors.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-import com.momnop.simplyconveyors.blocks.tiles.TileModularConveyor;
-import com.momnop.simplyconveyors.info.ModInfo;
-import com.momnop.simplyconveyors.inventory.ContainerModularConveyor;
+import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
+import com.momnop.simplyconveyors.common.info.ModInfo;
+import com.momnop.simplyconveyors.common.inventory.ContainerModularConveyor;
 
 public class GuiModularConveyor extends GuiContainer
 {

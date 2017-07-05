@@ -1,0 +1,32 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"textures": {
+        "conveyor": "simplyconveyors:blocks/conveyor_slow_on",
+		"wall": "simplyconveyors:blocks/conveyor_guard"
+    },
+	"model": "simplyconveyors:conveyor_ramp_up"
+  },
+  "variants": {
+    "normal": [{ "model": "simplyconveyors:conveyor_ramp_up" }],
+	"inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+	"powered": {
+		"true": {
+			"textures": {
+				"conveyor": "simplyconveyors:blocks/conveyor_off"
+			}
+		},
+		"false": {
+			
+		}
+	}
+  }
+}
