@@ -23,8 +23,6 @@ import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.common.event.SimplyConveyorsEventHandler;
 import com.momnop.simplyconveyors.common.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.common.handlers.GuiHandler;
-import com.momnop.simplyconveyors.common.handlers.RecipeHandler;
-import com.momnop.simplyconveyors.common.handlers.TemporaryRecipeGenerator;
 import com.momnop.simplyconveyors.common.info.ModInfo;
 import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
 import com.momnop.simplyconveyors.common.network.PacketDispatcher;
