@@ -74,12 +74,12 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 					GL11.glEnable(GL11.GL_BLEND);
 					if (module.isConductive()) {
 						if (powered) {
-							mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_powered" + ".png"));
+							mc.renderEngine.bindTexture(new ResourceLocation(module.getModID() + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_powered" + ".png"));
 						} else {
-							mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_unpowered" + ".png"));
+							mc.renderEngine.bindTexture(new ResourceLocation(module.getModID() + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + "_unpowered" + ".png"));
 						}
 					} else {
-						mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + ".png"));
+						mc.renderEngine.bindTexture(new ResourceLocation(module.getModID() + ":textures/blocks/modules/" + te.getStackInSlot(i).getItem().getUnlocalizedName().substring(5) + ".png"));
 					}
 					
 					model.renderAll();
@@ -100,7 +100,7 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 				OverlayModel model = new OverlayModel();
 				
 				GL11.glEnable(GL11.GL_BLEND);
-				mc.renderEngine.bindTexture(new ResourceLocation(ModInfo.MOD_ID + ":textures/blocks/tracks/" + te.getStackInSlot(3).getItem().getUnlocalizedName().substring(5) + ".png"));
+				mc.renderEngine.bindTexture(new ResourceLocation(track.getModID() + ":textures/blocks/tracks/" + te.getStackInSlot(3).getItem().getUnlocalizedName().substring(5) + ".png"));
 				
 				GL11.glTranslated(0, -0.99, 0);
 				

@@ -12,6 +12,7 @@ import com.momnop.simplyconveyors.api.enums.EnumModifierType;
 import com.momnop.simplyconveyors.api.interfaces.IModifier;
 import com.momnop.simplyconveyors.api.interfaces.IUpdatePassive;
 import com.momnop.simplyconveyors.common.helpers.ConveyorHelper;
+import com.momnop.simplyconveyors.common.info.ModInfo;
 import com.momnop.simplyconveyors.common.items.ItemBasic;
 
 public class ItemTransporterModule extends ItemBasic implements IModifier, IUpdatePassive
@@ -35,6 +36,11 @@ public class ItemTransporterModule extends ItemBasic implements IModifier, IUpda
 	@Override
 	public boolean isConductive() {
 		return true;
+	}
+	
+	@Override
+	public String getModID() {
+		return ModInfo.MOD_ID;
 	}
 
 	@Override

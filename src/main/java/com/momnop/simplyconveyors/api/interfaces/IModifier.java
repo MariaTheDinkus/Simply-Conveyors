@@ -32,4 +32,9 @@ public interface IModifier
 	 * Whether or not this accepts redstone.
 	 */
 	public boolean isConductive();
+	
+	/**
+	 * Makes it search for the textures in your own mods resources.
+	 */
+	public String getModID();
 }

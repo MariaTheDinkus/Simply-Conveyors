@@ -12,7 +12,7 @@ public class ItemWorkerGloves extends ItemBasic {
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn,
+	public void clAddInformation(ItemStack stack, EntityPlayer playerIn,
 			List<String> tooltip, boolean advanced) {
 		tooltip.add(TextFormatting.BLUE + "+2 Block Reach Distance While in Offhand");
 		tooltip.add(TextFormatting.DARK_GRAY + "Does not affect attack reach distance.");

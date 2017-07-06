@@ -11,6 +11,7 @@ import net.minecraft.util.text.TextFormatting;
 
 import com.momnop.simplyconveyors.api.enums.EnumModifierType;
 import com.momnop.simplyconveyors.api.interfaces.IModifier;
+import com.momnop.simplyconveyors.common.info.ModInfo;
 import com.momnop.simplyconveyors.common.items.ItemBasic;
 
 public class ItemWebbedTrack extends ItemBasic implements IModifier
@@ -34,6 +35,11 @@ public class ItemWebbedTrack extends ItemBasic implements IModifier
 	@Override
 	public boolean isConductive() {
 		return false;
+	}
+	
+	@Override
+	public String getModID() {
+		return ModInfo.MOD_ID;
 	}
 	
 	@Override
