@@ -58,7 +58,7 @@ public class SimplyConveyorsEventHandler
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event)
 	{
-		if(event.getItemStack() != null && event.getItemStack().getItem() instanceof ItemEntityFilter)
+		if(event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemEntityFilter)
 		{
 			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack().getItem();
 			event.getItemStack().getTagCompound().setString("filter", event.getTarget().getClass().getName());
@@ -191,7 +191,7 @@ public class SimplyConveyorsEventHandler
 			GL11.glPopMatrix();
 		}
 
-		if(mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter)
+		if(mc.player.getHeldItemMainhand() != ItemStack.EMPTY && mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter)
 		{
 			if(event.getType() != ElementType.ALL)
 			{
@@ -231,7 +231,7 @@ public class SimplyConveyorsEventHandler
 			}
 		}
 
-		if(mc.player.getHeldItemOffhand() != null && mc.player.getHeldItemOffhand().getItem() instanceof ItemEntityFilter)
+		if(mc.player.getHeldItemOffhand() != ItemStack.EMPTY && mc.player.getHeldItemOffhand().getItem() instanceof ItemEntityFilter)
 		{
 			if(event.getType() != ElementType.ALL)
 			{
@@ -287,7 +287,7 @@ public class SimplyConveyorsEventHandler
 		EntityPlayer player = event.player;
 		
 		if (player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem() instanceof ItemWorkerGloves) {
-			if (player.getHeldItemMainhand() == null || player.getHeldItemMainhand() != null && !(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) {
+			if (player.getHeldItemMainhand() == ItemStack.EMPTY || player.getHeldItemMainhand() != ItemStack.EMPTY && !(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) {
 				SimplyConveyors.proxy.setExtraReach(player, 2F);
 			}
 		} else {
