@@ -1,7 +1,5 @@
 package com.momnop.simplyconveyors.common.blocks.base;
 
-import mcjty.lib.compat.CompatItemBlock;
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,7 +12,7 @@ import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
 
-public class ItemBlockCrate extends CompatItemBlock
+public class ItemBlockCrate extends ItemBlock
 {
 
 	public ItemBlockCrate(Block block)
@@ -23,7 +21,7 @@ public class ItemBlockCrate extends CompatItemBlock
 	}
 	
 	@Override
-	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
 		ItemStack stack = playerIn.getHeldItem(hand);
 		
@@ -51,7 +49,7 @@ public class ItemBlockCrate extends CompatItemBlock
 				player.inventory.addItemStackToInventory(new ItemStack(item, 1));
 			}
 			
-			player.setHeldItem(hand, new ItemStack(stack.getItem(), ItemStackTools.getStackSize(stack) - 1, stack.getMetadata()));
+			player.setHeldItem(hand, new ItemStack(stack.getItem(), stack.getCount() - 1, stack.getMetadata()));
 			
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		} else if (!worldIn.isRemote && playerIn.isSneaking() && stack != null && stack.getItem() instanceof ItemBlock && Block.getBlockFromItem(stack.getItem()) instanceof BlockUpgradeCrate) {
@@ -65,20 +63,20 @@ public class ItemBlockCrate extends CompatItemBlock
 			
 			if(isSpecial && item != null)
 			{
-				player.inventory.addItemStackToInventory(new ItemStack(item, ItemStackTools.getStackSize(stack)));
+				player.inventory.addItemStackToInventory(new ItemStack(item, stack.getCount()));
 				
-				player.inventory.addItemStackToInventory(new ItemStack(SimplyConveyorsBlocks.conveyor_modular_intermediate, ItemStackTools.getStackSize(stack)));
+				player.inventory.addItemStackToInventory(new ItemStack(SimplyConveyorsBlocks.conveyor_modular_intermediate, stack.getCount()));
 			}
 			else if(!isSpecial && block != null)
 			{
-				player.inventory.addItemStackToInventory(new ItemStack(block, ItemStackTools.getStackSize(stack)));
+				player.inventory.addItemStackToInventory(new ItemStack(block, stack.getCount()));
 			}
 			else if(!isSpecial && item != null)
 			{
-				player.inventory.addItemStackToInventory(new ItemStack(item, ItemStackTools.getStackSize(stack)));
+				player.inventory.addItemStackToInventory(new ItemStack(item, stack.getCount()));
 			}
 			
-			player.setHeldItem(hand, ItemStackTools.getEmptyStack());
+			player.setHeldItem(hand, ItemStack.EMPTY);
 			
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}

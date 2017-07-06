@@ -1,0 +1,43 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_slow"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.your_first_conveyor.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.your_first_conveyor.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": false
+	},
+	"parent": "simplyconveyors:root",
+	"criteria": {
+		"conveyor_slow": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_slow"
+			}
+		},
+		"conveyor_intermediate": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_intermediate"
+			}
+		},
+		"conveyor_fast": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_fast"
+			}
+		}
+	},
+	"requirements": [
+        [
+			"conveyor_slow",
+			"conveyor_intermediate",
+			"conveyor_fast"
+		]
+	]
+}

@@ -1,11 +1,5 @@
 package com.momnop.simplyconveyors.common.blocks.roads;
 
-import java.util.List;
-
-import com.momnop.simplyconveyors.SimplyConveyors;
-
-import mcjty.lib.tools.ItemStackTools;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -23,11 +17,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.momnop.simplyconveyors.SimplyConveyors;
 
 public class BlockConnectingColored extends BlockConnecting {
 
@@ -63,14 +61,13 @@ public class BlockConnectingColored extends BlockConnecting {
         return new BlockStateContainer(this, new IProperty[] { EAST, NORTH, SOUTH, WEST, COLOR, NONE });
     }
     
-    @SideOnly(Side.CLIENT)
     @Override
-    protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> subItems)
     {
     	for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
         {
         	if (enumdyecolor != EnumDyeColor.BLACK) {
-        		subItems.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
+        		subItems.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
         	}
         }
     }
@@ -82,9 +79,9 @@ public class BlockConnectingColored extends BlockConnecting {
     }
     
     @Override
-    public MapColor getMapColor(IBlockState state)
-    {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMapColor();
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn,
+    		BlockPos pos) {
+    	return MapColor.getBlockColor(((EnumDyeColor)state.getValue(COLOR)));
     }
     
     @Override
@@ -94,14 +91,16 @@ public class BlockConnectingColored extends BlockConnecting {
     }
     
     @Override
-    protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-    	if (placer.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && placer.getHeldItemMainhand().getItem() == Item.getItemFromBlock(this)) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos,
+    		EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+    		EntityLivingBase placer, EnumHand hand) {
+    	if (placer.getHeldItemMainhand() != ItemStack.EMPTY && placer.getHeldItemMainhand().getItem() == Item.getItemFromBlock(this)) {
     		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(placer.getHeldItem(EnumHand.MAIN_HAND).getMetadata()));
-    	} else if (placer.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && placer.getHeldItemOffhand().getItem() == Item.getItemFromBlock(this)) {
+    	} else if (placer.getHeldItemMainhand() != ItemStack.EMPTY && placer.getHeldItemOffhand().getItem() == Item.getItemFromBlock(this)) {
     		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(placer.getHeldItem(EnumHand.OFF_HAND).getMetadata()));
     	}
-		return super.clGetStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+    	return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta,
+    			placer, hand);
     }
     
     @Override

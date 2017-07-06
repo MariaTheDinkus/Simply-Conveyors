@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.common.items.modules;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -65,7 +64,7 @@ public class ItemTransporterModule extends ItemBasic implements IModifier, IUpda
 				IInventory inventory = (IInventory) tile2;
 				boolean empty = true;
 				for (int i = 0; i < inventory.getSizeInventory(); i++) {
-					if (inventory.getStackInSlot(i) != ItemStackTools.getEmptyStack()) {
+					if (inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 						empty = false;
 						break;
 					}
@@ -74,11 +73,11 @@ public class ItemTransporterModule extends ItemBasic implements IModifier, IUpda
 				{
 					for(int i = 0; i < inventory.getSizeInventory(); i++)
 					{
-						if(inventory.getStackInSlot(i) != ItemStackTools.getEmptyStack())
+						if(inventory.getStackInSlot(i) != ItemStack.EMPTY)
 						{
 							EntityItem entityItem = new EntityItem(tile.getWorld(), tile.getPos().getX() + 0.5F, tile.getPos().getY() + (1F / 16F), tile.getPos().getZ() + 0.5F, new ItemStack(
 									inventory.getStackInSlot(i).getItem(), 1, inventory.getStackInSlot(i).getMetadata()));
-							if(entityItem.getEntityItem() != ItemStackTools.getEmptyStack())
+							if(entityItem.getItem() != ItemStack.EMPTY)
 							{
 								tile.getWorld().spawnEntity(entityItem);
 							}

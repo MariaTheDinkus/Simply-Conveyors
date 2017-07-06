@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockPoweredConveyor extends BlockConveyor
@@ -75,12 +76,12 @@ public class BlockPoweredConveyor extends BlockConveyor
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
 	{
-		this.clOnNeighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock());
+		this.neighborChanged(state, worldIn, pos, worldIn.getBlockState(pos).getBlock(), null);
 	}
 	
 	@Override
-	public void clOnNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
-	{
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos,
+			Block blockIn, BlockPos fromPos) {
 		if(state.getValue(POWERED) && !worldIn.isBlockPowered(pos))
 		{
 			worldIn.scheduleUpdate(pos, this, 4);

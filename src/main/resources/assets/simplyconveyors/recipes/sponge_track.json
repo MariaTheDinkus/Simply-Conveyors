@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "simplyconveyors:sponge_track"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:track"
+    },
+    {
+      "item": "minecraft:sponge",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

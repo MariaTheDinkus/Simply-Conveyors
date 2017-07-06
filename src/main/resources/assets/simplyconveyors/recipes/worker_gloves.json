@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "simplyconveyors:worker_gloves"
+  },
+  "pattern": [
+    "LLL",
+    "LYL",
+    " L "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Y": {
+      "item": "minecraft:dye",
+      "data": 11
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

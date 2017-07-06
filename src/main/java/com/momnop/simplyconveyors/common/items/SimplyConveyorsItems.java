@@ -1,10 +1,17 @@
 package com.momnop.simplyconveyors.common.items;
 
+import java.util.ArrayList;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.item.ItemBlock;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
+import com.momnop.simplyconveyors.common.blocks.base.BlockBasic;
 import com.momnop.simplyconveyors.common.items.modules.ItemDropperModule;
 import com.momnop.simplyconveyors.common.items.modules.ItemHoldingModule;
 import com.momnop.simplyconveyors.common.items.modules.ItemSpikeModule;
@@ -14,6 +21,9 @@ import com.momnop.simplyconveyors.common.items.tracks.ItemWebbedTrack;
 
 public class SimplyConveyorsItems
 {
+	public static IForgeRegistry<Item> registry;
+	public static ArrayList<ItemBlock> itemBlocks = new ArrayList<ItemBlock>();
+	
 	public static Item wrench;
 	
 	public static Item roller;
@@ -38,42 +48,51 @@ public class SimplyConveyorsItems
 	
 	public static Item iron_spike_module, gold_spike_module, diamond_spike_module;
 
-	public static void load()
-	{
-		wrench = new ItemBasic("conveyor_wrench", 1);
+	@SubscribeEvent
+	public void registerItems(RegistryEvent.Register<Item> event) {
+		registry = event.getRegistry();
+		
+		wrench = register(new ItemBasic("conveyor_wrench", 1));
 
-		conveyorResistanceBoots = new ItemConveyorResistanceBoots(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET, "conveyor_resistance_boots");
+		conveyorResistanceBoots = register(new ItemConveyorResistanceBoots(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET, "conveyor_resistance_boots"));
 
-		roller = new ItemTiered("roller", 64);
+		roller = register(new ItemTiered("roller", 64));
 		
-		entityFilter = new ItemEntityFilter("entity_filter");
+		entityFilter = register(new ItemEntityFilter("entity_filter"));
 		
-		dropper_module = new ItemDropperModule("dropper_module");
-		holding_module = new ItemHoldingModule("holding_module");
+		dropper_module = register(new ItemDropperModule("dropper_module"));
+		holding_module = register(new ItemHoldingModule("holding_module"));
 		
-		track = new ItemBasic("track", 64);
+		track = register(new ItemBasic("track", 64));
 		
-		sponge_track = new ItemSpongeTrack("sponge_track");
-		webbed_track = new ItemWebbedTrack("webbed_track");
+		sponge_track = register(new ItemSpongeTrack("sponge_track"));
+		webbed_track = register(new ItemWebbedTrack("webbed_track"));
 		
-//		bus_book = new ItemBusStopBook("bus_book");
+//		bus_book = register(new ItemBusStopBook("bus_book");
 		
-//		bus_ticket = new ItemBusTicket("bus_ticket");
+//		bus_ticket = register(new ItemBusTicket("bus_ticket");
 		
-		black_leather = new ItemBasic("black_leather", 64);
+		black_leather = register(new ItemBasic("black_leather", 64));
 		
-		iron_spike_module = new ItemSpikeModule("iron_spike_module", 6, false, false);
-		gold_spike_module = new ItemSpikeModule("gold_spike_module", 6, true, false);
-		diamond_spike_module = new ItemSpikeModule("diamond_spike_module", 7, false, true);
+		iron_spike_module = register(new ItemSpikeModule("iron_spike_module", 6, false, false));
+		gold_spike_module = register(new ItemSpikeModule("gold_spike_module", 6, true, false));
+		diamond_spike_module = register(new ItemSpikeModule("diamond_spike_module", 7, false, true));
 		
-		transporter_module = new ItemTransporterModule("transporter_module");
+		transporter_module = register(new ItemTransporterModule("transporter_module"));
 		
-		worker_gloves = new ItemWorkerGloves("worker_gloves");
+		worker_gloves = register(new ItemWorkerGloves("worker_gloves"));
+		
+		for (ItemBlock ib : itemBlocks) {
+			registry.register(ib);
+			if (ib.getBlock() instanceof BlockBasic) {
+	    		((BlockBasic)ib.getBlock()).registerItemModel(ib);
+	    	}
+		}
 	}
 
 	public static <T extends Item> T register(T i)
 	{
-		GameRegistry.register(i);
+		registry.register(i);
 		if (i instanceof ItemBasic) {
 			((ItemBasic)i).registerItemModel(i);
 		} else if (i instanceof ItemConveyorResistanceBoots) {

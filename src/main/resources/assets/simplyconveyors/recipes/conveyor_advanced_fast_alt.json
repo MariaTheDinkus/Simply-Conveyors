@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_advanced_fast"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:conveyor_advanced_inverse_fast"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "conveyor_advanced_alt"
+}

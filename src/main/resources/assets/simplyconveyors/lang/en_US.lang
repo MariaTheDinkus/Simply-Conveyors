@@ -117,3 +117,27 @@ tile.road_full.blue.name=Blue Full Road
 tile.road_full.brown.name=Brown Full Road
 tile.road_full.green.name=Green Full Road
 tile.road_full.red.name=Red Full Road
+
+advancements.simplyconveyors.root.title=Simply Conveyors
+advancements.simplyconveyors.root.description=Journey into the world of conveyors! (Craft Black Leather)
+
+advancements.simplyconveyors.gearing_up.title=Gearing Up
+advancements.simplyconveyors.gearing_up.description=Hmm... might need one of these for a few things.
+
+advancements.simplyconveyors.your_first_conveyor.title=Your First Conveyor
+advancements.simplyconveyors.your_first_conveyor.description=Looks like a bit of leather and some rollers can transport stuff after all.
+
+advancements.simplyconveyors.all_that_glitters_is_gold.title=All That Glitters is Gold
+advancements.simplyconveyors.all_that_glitters_is_gold.description=Hey that gold might help with placing items on the conveyor! (It's actually the droppers...)
+
+advancements.simplyconveyors.cyan_proven.title=Cyan-tifically Proven
+advancements.simplyconveyors.cyan_proven.description=Proven to be 99 percent more Blue than Red. Also does fancy stuff.
+
+advancements.simplyconveyors.reach_for_the_sky.title=Reach For the Sky...
+advancements.simplyconveyors.reach_for_the_sky.description=Worker Gloves! Cowboy Approved!
+
+advancements.simplyconveyors.gravity_losers.title=Gravity is For Losers!
+advancements.simplyconveyors.gravity_losers.description=Why follow the rules of physics?!
+
+advancements.simplyconveyors.stop_in_the_name.title=Stop in the Name of the Law!
+advancements.simplyconveyors.stop_in_the_name.description=The law of friction, that is.

@@ -68,8 +68,9 @@ public class BlockConveyor extends BlockBasic implements IWrenchable
 	}
 	
 	@Override
-	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-	{
+	public IBlockState getStateForPlacement(World world, BlockPos pos,
+			EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+			EntityLivingBase placer, EnumHand hand) {
 		if (!placer.isSneaking()) {
 			return getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
 		} else {

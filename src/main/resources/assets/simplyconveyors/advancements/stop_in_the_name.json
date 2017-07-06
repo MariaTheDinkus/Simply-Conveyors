@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_resistance_boots"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.stop_in_the_name.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.stop_in_the_name.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"parent": "simplyconveyors:gearing_up",
+	"criteria": {
+		"conveyor_resistance_boots": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "simplyconveyors:conveyor_resistance_boots"
+					}
+				]
+			}
+		}
+	}
+}

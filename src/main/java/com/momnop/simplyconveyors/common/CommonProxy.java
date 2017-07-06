@@ -36,7 +36,7 @@ public class CommonProxy
 	
 	public EntityPlayer getPlayerEntity(MessageContext ctx)
 	{
-		return ctx.getServerHandler().playerEntity;
+		return ctx.getServerHandler().player;
 	}
 	
 	public void setExtraReach(EntityLivingBase entity, float reach) {

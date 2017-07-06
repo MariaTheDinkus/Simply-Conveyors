@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.common.inventory;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -37,6 +36,12 @@ public class ContainerModularConveyor extends Container
         addPlayerSlots(playerInventory);
     }
     
+    @Override
+    protected Slot addSlotToContainer(Slot slotIn) {
+    	// TODO Auto-generated method stub
+    	return super.addSlotToContainer(slotIn);
+    }
+    
     public void addPlayerSlots(InventoryPlayer playerInventory)
     {
         for (int i = 0; i < 3; ++i)
@@ -55,7 +60,7 @@ public class ContainerModularConveyor extends Container
     
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-    	return ItemStackTools.getEmptyStack();
+    	return ItemStack.EMPTY;
     }
     
     @Override

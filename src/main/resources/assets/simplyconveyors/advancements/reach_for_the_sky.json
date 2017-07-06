@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:worker_gloves"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.reach_for_the_sky.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.reach_for_the_sky.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"parent": "simplyconveyors:gearing_up",
+	"criteria": {
+		"worker_gloves": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "simplyconveyors:worker_gloves"
+					}
+				]
+			}
+		}
+	}
+}

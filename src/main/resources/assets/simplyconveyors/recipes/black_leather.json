@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "simplyconveyors:black_leather",
+    "count": 8
+  },
+  "pattern": [
+    "LLL",
+    "LBL",
+    "LLL"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:dye",
+      "data": 0
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

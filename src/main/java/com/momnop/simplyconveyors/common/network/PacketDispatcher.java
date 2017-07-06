@@ -18,8 +18,6 @@ public class PacketDispatcher
 
 	public static final void registerPackets()
 	{
-		registerMessage(MessageBusTicketData.Handler.class, MessageBusTicketData.class, Side.CLIENT);
-		registerMessage(MessageBusStopData.Handler.class, MessageBusStopData.class, Side.CLIENT);
 		registerMessage(MessageModularConveyor.Handler.class, MessageModularConveyor.class, Side.CLIENT);
 	}
 

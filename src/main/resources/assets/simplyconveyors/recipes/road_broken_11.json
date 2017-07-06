@@ -1,0 +1,82 @@
+{
+  "result": {
+    "item": "simplyconveyors:road_broken",
+    "data": 11,
+    "count": 8
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "road_broken",
+  "key": {
+    "B": [ 
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 0
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 1
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 2
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 3
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 4
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 5
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 6
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 7
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 8
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 9
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 10
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 11
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 12
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 13
+		},
+		{
+			"item": "simplyconveyors:road_broken",
+			"data": 14
+		}
+	],
+    "D": {
+      "item": "minecraft:dye",
+      "data": 4
+    }
+  }
+}

@@ -2,7 +2,6 @@ package com.momnop.simplyconveyors.common.blocks.base;
 
 import java.util.Random;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -79,7 +78,7 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+			if(player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
 					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;

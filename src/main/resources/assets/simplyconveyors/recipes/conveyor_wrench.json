@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_wrench"
+  },
+  "pattern": [
+    "I I",
+    " i ",
+    " i "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "item": "simplyconveyors:roller",
+      "data": 0
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  }
+}

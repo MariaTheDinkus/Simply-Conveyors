@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_vertical_fast"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:conveyor_inverse_fast"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "conveyor_vertical"
+}

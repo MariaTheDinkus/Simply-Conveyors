@@ -1,9 +1,9 @@
 package com.momnop.simplyconveyors.client.render.tiles;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -11,22 +11,20 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import com.momnop.simplyconveyors.api.enums.EnumModifierType;
 import com.momnop.simplyconveyors.api.interfaces.IModifier;
 import com.momnop.simplyconveyors.client.model.OverlayModel;
 import com.momnop.simplyconveyors.common.blocks.base.BlockConveyor;
 import com.momnop.simplyconveyors.common.blocks.base.BlockPoweredConveyor;
 import com.momnop.simplyconveyors.common.blocks.modular.BlockInverseModularConveyor;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
-import com.momnop.simplyconveyors.common.info.ModInfo;
 
 public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileModularConveyor>
 {
 	public static Minecraft mc = Minecraft.getMinecraft();
 	public static OverlayModel model = new OverlayModel();
-
+	
 	@Override
-	public void renderTileEntityAt(TileModularConveyor te, double x, double y, double z, float partialTicks, int destroyStage)
+	public void render(TileModularConveyor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		BlockPos pos = te.getPos();
 		
@@ -52,7 +50,7 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 			}
 			
 			for (int i = 0; i <= 2; i++) {
-				if (te.getStackInSlot(i) != ItemStackTools.getEmptyStack() && te.getStackInSlot(i).getItem() instanceof IModifier) {
+				if (te.getStackInSlot(i) != ItemStack.EMPTY && te.getStackInSlot(i).getItem() instanceof IModifier) {
 					OverlayModel model = new OverlayModel();
 					
 					IModifier module = (IModifier) te.getStackInSlot(i).getItem();
@@ -94,7 +92,7 @@ public class TileModularConveyorRenderer extends TileEntitySpecialRenderer<TileM
 				}
 			}
 			
-			if (te.getStackInSlot(3) != ItemStackTools.getEmptyStack() && te.getStackInSlot(3).getItem() instanceof IModifier) {
+			if (te.getStackInSlot(3) != ItemStack.EMPTY && te.getStackInSlot(3).getItem() instanceof IModifier) {
 				IModifier track = (IModifier) te.getStackInSlot(3).getItem();
 				
 				OverlayModel model = new OverlayModel();

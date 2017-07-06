@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "simplyconveyors:roller",
+    "data": 1,
+    "count": 6
+  },
+  "pattern": [
+    "r  ",
+    " r ",
+    "  r"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "roller",
+  "key": {
+    "r": {
+      "item": "minecraft:gold_ingot"
+    }
+  }
+}

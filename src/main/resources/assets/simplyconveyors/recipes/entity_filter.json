@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "simplyconveyors:entity_filter"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

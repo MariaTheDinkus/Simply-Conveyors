@@ -1,0 +1,43 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_modular_slow"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.cyan_proven.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.cyan_proven.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"parent": "simplyconveyors:all_that_glitters_is_gold",
+	"criteria": {
+		"conveyor_modular_slow": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_modular_slow"
+			}
+		},
+		"conveyor_modular_intermediate": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_modular_intermediate"
+			}
+		},
+		"conveyor_modular_fast": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_modular_fast"
+			}
+		}
+	},
+	"requirements": [
+        [
+			"conveyor_modular_slow",
+			"conveyor_modular_intermediate",
+			"conveyor_modular_fast"
+		]
+	]
+}

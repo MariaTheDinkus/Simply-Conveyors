@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -27,6 +26,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -48,7 +48,6 @@ import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.common.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.common.helpers.BusStopManager;
 import com.momnop.simplyconveyors.common.info.ModInfo;
-import com.momnop.simplyconveyors.common.items.ItemBusStopBook;
 import com.momnop.simplyconveyors.common.items.ItemEntityFilter;
 import com.momnop.simplyconveyors.common.items.ItemWorkerGloves;
 import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
@@ -83,7 +82,7 @@ public class SimplyConveyorsEventHandler
 		{
 			TileModularConveyor modular = (TileModularConveyor) event.getEntityLiving().getEntityWorld().getTileEntity(event.getEntityLiving().getPosition());
 
-			if(modular.getStackInSlot(3) != ItemStackTools.getEmptyStack() && modular.getStackInSlot(3).getItem() instanceof ItemSpongeTrack)
+			if(modular.getStackInSlot(3) != ItemStack.EMPTY && modular.getStackInSlot(3).getItem() instanceof ItemSpongeTrack)
 			{
 				event.setCanceled(true);
 			}
@@ -111,7 +110,7 @@ public class SimplyConveyorsEventHandler
 	
 	@SubscribeEvent
 	public void onTooltipEvent(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof ItemBlock) {
+		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock) {
 			Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 			
 			if (block instanceof BlockFlatAdvancedConveyor || block instanceof BlockInverseAdvancedConveyor) {
@@ -192,66 +191,6 @@ public class SimplyConveyorsEventHandler
 			GL11.glPopMatrix();
 		}
 
-		if(mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemBusStopBook || mc.player.getHeldItemOffhand() != null
-				&& mc.player.getHeldItemOffhand().getItem() instanceof ItemBusStopBook)
-		{
-			if(event.getType() != ElementType.ALL)
-			{
-				return;
-			}
-
-			if(!BusStopManager.busStops.isEmpty())
-			{
-				HashMap<BlockPos, String> list = new HashMap<BlockPos, String>();
-				ArrayList<Double> list1 = new ArrayList<Double>();
-				ArrayList<BlockPos> list2 = new ArrayList<BlockPos>();
-				for(int i = 0; i < BusStopManager.busStops.size(); i++)
-				{
-					BlockPos pos = BusStopManager.busStops.get(i);
-					String name = BusStopManager.busStopsNames.get(pos);
-
-					list.put(pos, name);
-					list1.add(Math.sqrt(Math.pow(pos.getX() + 0.5 - mc.player.posX, 2) + Math.pow(pos.getY() + 0.5 - mc.player.posY, 2) + Math.pow(pos.getZ() + 0.5 - mc.player.posZ, 2)));
-					list2.add(pos);
-				}
-
-				int minIndex = list1.indexOf(Collections.min(list1));
-
-				DecimalFormat df = new DecimalFormat("#.##");
-				df.setRoundingMode(RoundingMode.CEILING);
-
-				BlockPos pos = list2.get(minIndex);
-
-				String distance = df.format(list1.get(minIndex));
-
-				GL11.glPushMatrix();
-
-				RenderHelper tessellator = RenderHelper.getInstance();
-				FontRenderer fr = mc.fontRendererObj;
-
-				ScaledResolution resolution = new ScaledResolution(mc);
-
-				int offsetY = 0;
-				int offsetY2 = 0;
-
-				if(!mc.player.capabilities.isCreativeMode)
-				{
-					offsetY = 15;
-					offsetY2 = 15;
-				}
-
-				if (list1.get(minIndex) <= 750) {
-					fr.drawStringWithShadow(list.get(pos) + ", " + distance + " blocks away.",
-							(resolution.getScaledWidth() / 2) - (fr.getStringWidth(list.get(pos) + ", " + distance + " blocks away.") / 2), resolution.getScaledHeight() - 55 - offsetY, 0xFFFFFF);
-					fr.drawStringWithShadow("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ(),
-							(resolution.getScaledWidth() / 2) - (fr.getStringWidth("Located at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()) / 2), resolution.getScaledHeight() - 34 - offsetY2,
-							0xFFFFFF);
-				}
-
-				GL11.glPopMatrix();
-			}
-		}
-
 		if(mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemEntityFilter)
 		{
 			if(event.getType() != ElementType.ALL)
@@ -271,7 +210,7 @@ public class SimplyConveyorsEventHandler
 				offsetY = 14;
 			}
 
-			FontRenderer fr = mc.fontRendererObj;
+			FontRenderer fr = mc.fontRenderer;
 			try
 			{
 				if (mc.player.getHeldItemMainhand().hasTagCompound()) {
@@ -311,7 +250,7 @@ public class SimplyConveyorsEventHandler
 				offsetY = 15;
 			}
 
-			FontRenderer fr = mc.fontRendererObj;
+			FontRenderer fr = mc.fontRenderer;
 			try
 			{
 				if (!mc.player.getHeldItemOffhand().getTagCompound().getString("filter").equals("net.minecraft.entity.Entity")) {
@@ -333,7 +272,7 @@ public class SimplyConveyorsEventHandler
 	
 	@SubscribeEvent
 	public void tooltipEvent(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() instanceof IModifier) {
+		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof IModifier) {
 			IModifier modifier = (IModifier) event.getItemStack().getItem();
 			
 			event.getToolTip().add(modifier.getDescription());
@@ -347,7 +286,7 @@ public class SimplyConveyorsEventHandler
 	public void playerTickEvent(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 		
-		if (player.getHeldItemOffhand() != ItemStackTools.getEmptyStack() && player.getHeldItemOffhand().getItem() instanceof ItemWorkerGloves) {
+		if (player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem() instanceof ItemWorkerGloves) {
 			if (player.getHeldItemMainhand() == null || player.getHeldItemMainhand() != null && !(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) {
 				SimplyConveyors.proxy.setExtraReach(player, 2F);
 			}

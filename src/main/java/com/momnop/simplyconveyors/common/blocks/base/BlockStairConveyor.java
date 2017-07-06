@@ -3,7 +3,6 @@ package com.momnop.simplyconveyors.common.blocks.base;
 import java.util.List;
 import java.util.Random;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -48,20 +47,22 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 	}
 
 	@Override
-	public void clAddCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entityIn)
-	{
+	public void addCollisionBoxToList(IBlockState state, World worldIn,
+			BlockPos pos, AxisAlignedBB entityBox,
+			List<AxisAlignedBB> collidingBoxes, Entity entityIn,
+			boolean p_185477_7_) {
 		AxisAlignedBB bottom = new AxisAlignedBB((0.1F / 16F), 0F, 0F, 1F, 0.5F, 1F);
 		AxisAlignedBB top = new AxisAlignedBB(0.5F, 0F, 0F, 1F, (15.9F / 16F), 1F);
 		
 		top = RotationUtils.getRotatedAABB(top, state.getValue(FACING).rotateYCCW());
 		
-		addCollisionBox(bottom, pos, list, mask);
-		addCollisionBox(top, pos, list, mask);
+		addCollisionBox(bottom, pos, collidingBoxes, entityBox);
+		addCollisionBox(top, pos, collidingBoxes, entityBox);
 	}
 
 	public void addCollisionBox(AxisAlignedBB box, BlockPos pos,
 			List collidingBoxes, AxisAlignedBB entityBox) {
-		if (box != null && entityBox.intersectsWith(box.offset(pos))) {
+		if (box != null && entityBox.intersects(box.offset(pos))) {
 			boolean add = true;
 			collidingBoxes.add(box.offset(pos));
 		}
@@ -74,7 +75,7 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(!player.onGround || player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+			if(!player.onGround || player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
 					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;

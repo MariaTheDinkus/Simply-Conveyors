@@ -1,11 +1,11 @@
 package com.momnop.simplyconveyors.common.blocks.roads;
 
-import mcjty.lib.compat.CompatItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockVariants extends CompatItemBlock
+public class ItemBlockVariants extends ItemBlock
 {
 	public ItemBlockVariants(Block block)
 	{

@@ -2,7 +2,6 @@ package com.momnop.simplyconveyors.common.blocks.base;
 
 import java.util.Random;
 
-import mcjty.lib.compat.CompatBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
@@ -16,16 +15,18 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.common.info.ModInfo;
 
-public class BlockUpgradeCrate extends CompatBlock
+public class BlockUpgradeCrate extends Block
 {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -45,7 +46,6 @@ public class BlockUpgradeCrate extends CompatBlock
 		this.setSoundType(SoundType.WOOD);
 		this.item = item;
 		this.crate = new ItemBlockCrate(this);
-		SimplyConveyorsBlocks.register(this, crate);
 	}
 
 	public BlockUpgradeCrate(String unlocalizedName, Block block)
@@ -58,7 +58,6 @@ public class BlockUpgradeCrate extends CompatBlock
 		this.setSoundType(SoundType.WOOD);
 		this.block = block;
 		this.crate = new ItemBlockCrate(this);
-		SimplyConveyorsBlocks.register(this, crate);
 	}
 
 	public BlockUpgradeCrate(String unlocalizedName, Item item, boolean isSpecial)
@@ -72,7 +71,10 @@ public class BlockUpgradeCrate extends CompatBlock
 		this.item = item;
 		this.isSpecial = isSpecial;
 		this.crate = new ItemBlockCrate(this);
-		SimplyConveyorsBlocks.register(this, crate);
+	}
+	
+	public void registerItemModel(ItemBlock ib) {
+		SimplyConveyors.proxy.registerItemRenderer(ib, 0, this.getUnlocalizedName().substring(5));
 	}
 
 	public Item getItem()
@@ -143,7 +145,7 @@ public class BlockUpgradeCrate extends CompatBlock
 	}
 
 	@Override
-	protected IBlockState clGetStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		if(!placer.isSneaking())
 		{
@@ -156,7 +158,7 @@ public class BlockUpgradeCrate extends CompatBlock
 	}
 	
 	@Override
-	protected boolean clOnBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if(!playerIn.isSneaking())
 		{

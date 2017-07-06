@@ -97,12 +97,12 @@ public class GuiBusBook extends GuiScreen
 			}
 			if(mc.gameSettings.guiScale != 0)
 			{
-				fontRendererObj.drawStringWithShadow(name, ((((mc.gameSettings.guiScale * 0.5F) * width) - guiWidth) / 2) - 300 + (200 * j),
+				fontRenderer.drawStringWithShadow(name, ((((mc.gameSettings.guiScale * 0.5F) * width) - guiWidth) / 2) - 300 + (200 * j),
 						((((mc.gameSettings.guiScale * 0.5F) * height) / 2) - (15 / 2)) - 120 + (i * 13), 0xFFFFFF);
 			}
 			else
 			{
-				fontRendererObj.drawStringWithShadow(name, ((((4 * 0.5F) * width) - guiWidth) / 2) - 300 + (200 * j), ((((4 * 0.5F) * height) / 2) - (15 / 2)) - 120 + (i * 13), 0xFFFFFF);
+				fontRenderer.drawStringWithShadow(name, ((((4 * 0.5F) * width) - guiWidth) / 2) - 300 + (200 * j), ((((4 * 0.5F) * height) / 2) - (15 / 2)) - 120 + (i * 13), 0xFFFFFF);
 			}
 		}
 

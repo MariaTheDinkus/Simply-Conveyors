@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_stair_fast"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:conveyor_vertical_fast"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "conveyor_stair"
+}

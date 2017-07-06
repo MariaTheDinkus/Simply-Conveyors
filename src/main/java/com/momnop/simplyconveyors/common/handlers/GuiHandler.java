@@ -10,8 +10,6 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 import com.momnop.simplyconveyors.client.gui.GuiBusBook;
 import com.momnop.simplyconveyors.client.gui.GuiModularConveyor;
-import com.momnop.simplyconveyors.client.gui.GuiSetNameBusStop;
-import com.momnop.simplyconveyors.client.gui.GuiSetNameTicket;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.common.inventory.ContainerModularConveyor;
 
@@ -25,10 +23,6 @@ public class GuiHandler implements IGuiHandler
         guiScreens.put(0, new GuiModularConveyor(player.inventory, (TileModularConveyor) tileEntity));
         
         guiScreens.put(1, new GuiBusBook());
-        
-        guiScreens.put(2, new GuiSetNameBusStop(pos, world));
-        
-        guiScreens.put(3, new GuiSetNameTicket(player.getHeldItemMainhand()));
     }
     
     private static void initContainers(EntityPlayer player, World world, BlockPos pos, TileEntity tileEntity)

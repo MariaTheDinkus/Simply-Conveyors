@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "simplyconveyors:track",
+    "count": 6
+  },
+  "pattern": [
+    "LLL"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "L": {
+      "item": "simplyconveyors:black_leather"
+    }
+  }
+}

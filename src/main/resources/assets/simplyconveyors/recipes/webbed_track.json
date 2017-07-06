@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "simplyconveyors:webbed_track"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:track"
+    },
+    {
+      "item": "minecraft:web"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

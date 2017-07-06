@@ -1,0 +1,43 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_advanced_slow"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.all_that_glitters_is_gold.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.all_that_glitters_is_gold.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"parent": "simplyconveyors:your_first_conveyor",
+	"criteria": {
+		"conveyor_advanced_slow": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_advanced_slow"
+			}
+		},
+		"conveyor_advanced_intermediate": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_advanced_intermediate"
+			}
+		},
+		"conveyor_advanced_fast": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_advanced_fast"
+			}
+		}
+	},
+	"requirements": [
+        [
+			"conveyor_advanced_slow",
+			"conveyor_advanced_intermediate",
+			"conveyor_advanced_fast"
+		]
+	]
+}

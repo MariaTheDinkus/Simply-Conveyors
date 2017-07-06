@@ -2,7 +2,7 @@ package com.momnop.simplyconveyors.common.items;
 
 import java.util.List;
 
-import mcjty.lib.compat.CompatItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,9 +14,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
-
-import com.momnop.simplyconveyors.SimplyConveyors;
-import com.momnop.simplyconveyors.common.info.ModInfo;
 
 public class ItemEntityFilter extends ItemBasic
 {
@@ -45,7 +42,7 @@ public class ItemEntityFilter extends ItemBasic
 	}
 
 	@Override
-	public void clAddInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		tooltip.add("Right click on a mob to set the filter!");
 		tooltip.add("Works with the Grabber Conveyor and Detector Conveyors.");
@@ -81,7 +78,7 @@ public class ItemEntityFilter extends ItemBasic
 	}
 	
 	@Override
-	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
 		if(playerIn.isSneaking())
 		{

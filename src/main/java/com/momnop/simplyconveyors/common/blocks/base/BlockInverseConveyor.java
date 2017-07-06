@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.common.blocks.base;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,6 +14,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -81,7 +81,7 @@ public class BlockInverseConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+			if(player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
 					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;

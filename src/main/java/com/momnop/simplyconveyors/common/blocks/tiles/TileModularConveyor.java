@@ -2,8 +2,6 @@ package com.momnop.simplyconveyors.common.blocks.tiles;
 
 import java.util.List;
 
-import mcjty.lib.tools.ItemStackList;
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -17,6 +15,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,7 +35,7 @@ import com.momnop.simplyconveyors.common.blocks.modular.BlockInverseModularConve
 public class TileModularConveyor extends TileEntity implements ITickable, IInventory
 {
 
-	public ItemStackList inventory = ItemStackList.create(this.getSizeInventory());
+	public NonNullList<ItemStack> inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 
 	public TileModularConveyor()
 	{
@@ -55,7 +54,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 		
 		for(int i = 0; i < 4; i++)
 		{
-			if(getStackInSlot(i) != ItemStackTools.getEmptyStack() && getStackInSlot(i).getItem() instanceof IModifier)
+			if(getStackInSlot(i) != ItemStack.EMPTY && getStackInSlot(i).getItem() instanceof IModifier)
 			{
 				IModifier upgrade = (IModifier) getStackInSlot(i).getItem();
 				if(this.getWorld().getBlockState(this.getPos()).getBlock() == this.blockType)
@@ -116,14 +115,14 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	@Override
 	public ItemStack decrStackSize(int slot, int count)
 	{
-		if(this.getStackInSlot(slot) != ItemStackTools.getEmptyStack())
+		if(this.getStackInSlot(slot) != ItemStack.EMPTY)
 		{
 			ItemStack itemstack;
 
-			if(ItemStackTools.getStackSize(this.getStackInSlot(slot)) <= count)
+			if(this.getStackInSlot(slot).getCount() <= count)
 			{
 				itemstack = this.getStackInSlot(slot);
-				this.setInventorySlotContents(slot, ItemStackTools.getEmptyStack());
+				this.setInventorySlotContents(slot, ItemStack.EMPTY);
 				this.markDirty();
 				return itemstack;
 			}
@@ -131,9 +130,9 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 			{
 				itemstack = this.getStackInSlot(slot).splitStack(count);
 
-				if(ItemStackTools.getStackSize(this.getStackInSlot(slot)) <= 0)
+				if(this.getStackInSlot(slot).getCount() <= 0)
 				{
-					this.setInventorySlotContents(slot, ItemStackTools.getEmptyStack());
+					this.setInventorySlotContents(slot, ItemStack.EMPTY);
 				}
 				else
 				{
@@ -146,7 +145,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 		}
 		else
 		{
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -154,7 +153,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	public ItemStack removeStackFromSlot(int index)
 	{
 		ItemStack stack = this.getStackInSlot(index);
-		this.setInventorySlotContents(index, ItemStackTools.getEmptyStack());
+		this.setInventorySlotContents(index, ItemStack.EMPTY);
 		return stack;
 	}
 
@@ -166,14 +165,14 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 			return;
 		}
 
-		if(stack != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(stack) > this.getInventoryStackLimit())
+		if(stack != ItemStack.EMPTY && stack.getCount() > this.getInventoryStackLimit())
 		{
-			ItemStackTools.setStackSize(stack, this.getInventoryStackLimit());
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
-		if(stack != ItemStackTools.getEmptyStack() && ItemStackTools.getStackSize(stack) == 0)
+		if(stack != ItemStack.EMPTY && stack.getCount() == 0)
 		{
-			stack = ItemStackTools.getEmptyStack();
+			stack = ItemStack.EMPTY;
 		}
 
 		this.inventory.set(index, stack);
@@ -233,7 +232,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	{
 		for(int i = 0; i < this.getSizeInventory(); ++i)
 		{
-			this.setInventorySlotContents(i, ItemStackTools.getEmptyStack());
+			this.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 	}
 
@@ -242,7 +241,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 	{
 		super.readFromNBT(compound);
 
-		this.inventory = ItemStackList.create(this.getSizeInventory());
+		this.inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		
 		NBTTagList items = compound.getTagList("ItemInventory", Constants.NBT.TAG_COMPOUND);
 
@@ -252,7 +251,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 			int slot = item.getInteger("Slot");
 
 			if (slot >= 0 && slot < getSizeInventory()) {
-				inventory.set(slot, ItemStackTools.loadFromNBT(item));
+				inventory.set(slot, new ItemStack(item));
 			}
 		}
 	}
@@ -266,7 +265,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 
 		for (int i = 0; i < getSizeInventory(); ++i)
 		{
-			if (getStackInSlot(i) != ItemStackTools.getEmptyStack())
+			if (getStackInSlot(i) != ItemStack.EMPTY)
 			{
 				NBTTagCompound item = new NBTTagCompound();
 				item.setInteger("Slot", i);
@@ -365,13 +364,13 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 			{
 				for(EntityItem item : list)
 				{
-					if(item.getEntityItem() != ItemStackTools.getEmptyStack())
+					if(item.getItem() != ItemStack.EMPTY)
 					{
-						return item.getEntityItem();
+						return item.getItem();
 					}
 				}
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override
@@ -385,7 +384,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 				entity.motionZ = 0;
 				conveyor.getWorld().spawnEntity(entity);
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override
@@ -399,12 +398,12 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 			{
 				for(EntityItem item : list)
 				{
-					if(item.getEntityItem() != ItemStackTools.getEmptyStack())
+					if(item.getItem() != ItemStack.EMPTY)
 					{
-						ItemStack stack = item.getEntityItem().copy();
-						ItemStackTools.setStackSize(stack, amount);
-						if (!simulate && ItemStackTools.getStackSize(item.getEntityItem()) != 1) {
-							ItemStackTools.setStackSize(item.getEntityItem(), ItemStackTools.getStackSize(item.getEntityItem()) - amount);
+						ItemStack stack = item.getItem().copy();
+						stack.setCount(amount);
+						if (!simulate && item.getItem().getCount() != 1) {
+							item.getItem().setCount(item.getItem().getCount() - amount);
 						} else if (!simulate) {
 							item.setDead();
 						}
@@ -412,7 +411,7 @@ public class TileModularConveyor extends TileEntity implements ITickable, IInven
 					}
 				}
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override

@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.common.blocks.modular;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -36,7 +35,7 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 	}
 
 	@Override
-	public boolean clOnBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		if (heldItem != null && !playerIn.isSneaking()) {
@@ -44,10 +43,10 @@ public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITile
 			if (heldItem.getItem() instanceof IModifier) {
 				IModifier modifier = (IModifier) heldItem.getItem();
 				for (int i = 0; i < 4; i++) {
-					if (conveyor.getStackInSlot(i) == ItemStackTools.getEmptyStack()) {
+					if (conveyor.getStackInSlot(i) == ItemStack.EMPTY) {
 						conveyor.setInventorySlotContents(i, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
 						
-						ItemStackTools.setStackSize(heldItem, ItemStackTools.getStackSize(heldItem) - 1);
+						heldItem.shrink(1);
 						break;
 					}
 				}

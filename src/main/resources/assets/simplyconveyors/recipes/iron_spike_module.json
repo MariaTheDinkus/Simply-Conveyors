@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "simplyconveyors:iron_spike_module"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:black_leather"
+    },
+    {
+      "item": "minecraft:iron_sword"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

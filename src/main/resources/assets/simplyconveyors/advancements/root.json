@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:track"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.root.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.root.description"
+		},
+		"background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+		"show_toast": true,
+		"announce_to_chat": false
+	},
+	"criteria": {
+		"track": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "simplyconveyors:track"
+					}
+				]
+			}
+		}
+	}
+}

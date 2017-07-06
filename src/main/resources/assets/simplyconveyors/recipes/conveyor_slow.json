@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_slow",
+    "count": 8
+  },
+  "pattern": [
+    "LLL",
+    "RRR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "conveyor_normal",
+  "key": {
+    "R": {
+      "item": "simplyconveyors:roller",
+      "data": 0
+    },
+    "L": {
+      "item": "simplyconveyors:track"
+    }
+  }
+}

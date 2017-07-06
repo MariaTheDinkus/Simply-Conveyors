@@ -1,7 +1,7 @@
 package com.momnop.simplyconveyors.client;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -13,11 +13,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
@@ -25,10 +28,12 @@ import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.client.render.tiles.TileModularConveyorRenderer;
 import com.momnop.simplyconveyors.common.CommonProxy;
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.common.blocks.base.BlockBasic;
 import com.momnop.simplyconveyors.common.blocks.roads.BlockConnectingColored;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
 import com.momnop.simplyconveyors.common.helpers.CodeHelper;
 import com.momnop.simplyconveyors.common.info.ModInfo;
+import com.momnop.simplyconveyors.common.items.ItemBasic;
 import com.momnop.simplyconveyors.common.items.ItemEntityFilter;
 import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
 
@@ -52,10 +57,10 @@ public class ClientProxy extends CommonProxy {
 					public int colorMultiplier(IBlockState iBlockState,
 							IBlockAccess iBlockAccess, BlockPos blockPos, int i) {
 						if (iBlockState != null) {
-							return EnumDyeColor.byMetadata(
+							return MapColor.getBlockColor(EnumDyeColor.byMetadata(
 									iBlockState.getValue(
 											BlockConnectingColored.COLOR)
-											.getMetadata()).getMapColor().colorValue;
+											.getMetadata())).colorValue;
 						}
 						return -1;
 					}
@@ -66,9 +71,8 @@ public class ClientProxy extends CommonProxy {
 					@Override
 					public int getColorFromItemstack(ItemStack stack,
 							int tintIndex) {
-						if (stack != ItemStackTools.getEmptyStack()) {
-							return EnumDyeColor.byMetadata(stack.getMetadata())
-									.getMapColor().colorValue;
+						if (stack != ItemStack.EMPTY) {
+							return MapColor.getBlockColor(EnumDyeColor.byMetadata(stack.getMetadata())).colorValue;
 						}
 						return -1;
 					}
@@ -95,7 +99,7 @@ public class ClientProxy extends CommonProxy {
 					@Override
 					public int getColorFromItemstack(ItemStack stack,
 							int tintIndex) {
-						if (stack != ItemStackTools.getEmptyStack()) {
+						if (stack != ItemStack.EMPTY) {
 							return Minecraft.getMinecraft().world.getBiome(
 									Minecraft.getMinecraft().player
 											.getPosition())
@@ -115,7 +119,7 @@ public class ClientProxy extends CommonProxy {
 					@Override
 					public int getColorFromItemstack(ItemStack stack,
 							int tintIndex) {
-						if (stack != ItemStackTools.getEmptyStack()) {
+						if (stack != ItemStack.EMPTY) {
 							return CodeHelper.getTierColor(stack.getMetadata());
 						}
 						return -1;
@@ -131,7 +135,7 @@ public class ClientProxy extends CommonProxy {
 					public int getColorFromItemstack(ItemStack stack,
 							int tintIndex) {
 						if (stack.hasTagCompound()
-								&& stack != ItemStackTools.getEmptyStack()
+								&& stack != ItemStack.EMPTY
 								&& stack.getItem() instanceof ItemEntityFilter) {
 							// NBTTagCompound compound = stack.getTagCompound();
 							// String filter = compound.getString("filter");

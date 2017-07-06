@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_advanced_slow",
+    "count": 6
+  },
+  "pattern": [
+    "CCC",
+    "GDG",
+    "CCC"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "conveyor_advanced",
+  "key": {
+    "C": {
+      "item": "simplyconveyors:conveyor_slow"
+    },
+    "D": {
+      "item": "minecraft:dropper"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  }
+}

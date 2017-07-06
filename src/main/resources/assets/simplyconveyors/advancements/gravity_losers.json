@@ -1,0 +1,43 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_inverse_slow"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.gravity_losers.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.gravity_losers.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"parent": "simplyconveyors:your_first_conveyor",
+	"criteria": {
+		"conveyor_inverse_slow": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_inverse_slow"
+			}
+		},
+		"conveyor_inverse_intermediate": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_inverse_intermediate"
+			}
+		},
+		"conveyor_inverse_fast": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "simplyconveyors:conveyor_inverse_fast"
+			}
+		}
+	},
+	"requirements": [
+        [
+			"conveyor_inverse_slow",
+			"conveyor_inverse_intermediate",
+			"conveyor_inverse_fast"
+		]
+	]
+}

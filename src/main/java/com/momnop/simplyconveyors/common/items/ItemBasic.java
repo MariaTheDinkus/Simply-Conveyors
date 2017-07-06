@@ -1,12 +1,11 @@
 package com.momnop.simplyconveyors.common.items;
 
-import mcjty.lib.compat.CompatItem;
 import net.minecraft.item.Item;
 
 import com.momnop.simplyconveyors.SimplyConveyors;
 import com.momnop.simplyconveyors.common.info.ModInfo;
 
-public class ItemBasic extends CompatItem
+public class ItemBasic extends Item
 {
 	public ItemBasic(String unlocalizedName, int maxStackSize)
 	{
@@ -15,7 +14,6 @@ public class ItemBasic extends CompatItem
 		setCreativeTab(SimplyConveyors.tabGeneral);
 		setUnlocalizedName(this.getRegistryName().toString().replace(ModInfo.MOD_ID + ":", ""));
 		setMaxStackSize(maxStackSize);
-		SimplyConveyorsItems.register(this);
 	}
 	
 	public void registerItemModel(Item i) {

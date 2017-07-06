@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "simplyconveyors:diamond_spike_module"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:black_leather"
+    },
+    {
+      "item": "minecraft:diamond_block"
+    },
+    {
+      "item": "minecraft:lapis_block"
+    },
+    {
+      "item": "minecraft:diamond_sword"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

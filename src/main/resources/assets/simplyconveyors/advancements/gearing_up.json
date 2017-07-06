@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"item": "simplyconveyors:conveyor_wrench"
+		},
+		"title": {
+			"translate": "advancements.simplyconveyors.gearing_up.title"
+		},
+		"description": {
+			"translate": "advancements.simplyconveyors.gearing_up.description"
+		},
+		"show_toast": true,
+		"announce_to_chat": false
+	},
+	"parent": "simplyconveyors:root",
+	"criteria": {
+		"conveyor_wrench": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "simplyconveyors:conveyor_wrench"
+					}
+				]
+			}
+		}
+	}
+}

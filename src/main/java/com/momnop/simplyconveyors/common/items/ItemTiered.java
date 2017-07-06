@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,13 +41,14 @@ public class ItemTiered extends ItemBasic
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
     @Override
-    public void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list)
     {
-        for (int i = 0; i < 3; i++) {
-        	list.add(new ItemStack(itemIn, 1, i));
-        }
+		if (tab == SimplyConveyors.tabGeneral) {
+			for (int i = 0; i < 3; i++) {
+				list.add(new ItemStack(this, 1, i));
+			}
+		}
     }
 	
 	@Override

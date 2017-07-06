@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "simplyconveyors:transporter_module"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:black_leather"
+    },
+    {
+      "item": "minecraft:hopper"
+    },
+    {
+      "item": "minecraft:hopper"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

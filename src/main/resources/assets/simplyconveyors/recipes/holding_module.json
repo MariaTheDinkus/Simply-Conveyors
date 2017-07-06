@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "simplyconveyors:holding_module"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:black_leather"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

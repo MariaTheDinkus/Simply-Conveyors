@@ -41,9 +41,10 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 	}
 	
 	@Override
-	public void clAddCollisionBoxToList(IBlockState state, World worldIn,
+	public void addCollisionBoxToList(IBlockState state, World worldIn,
 			BlockPos pos, AxisAlignedBB entityBox,
-			List<AxisAlignedBB> collidingBoxes, Entity entityIn) {
+			List<AxisAlignedBB> collidingBoxes, Entity entityIn,
+			boolean p_185477_7_) {
 		EnumFacing facing = state.getValue(FACING).getOpposite();
 		
 		ArrayList<AxisAlignedBB> list = new ArrayList<AxisAlignedBB>();
@@ -54,7 +55,7 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		}
 		
 		for (AxisAlignedBB axisBB : list) {
-			if (entityBox.intersectsWith(axisBB.offset(pos))) {
+			if (entityBox.intersects(axisBB.offset(pos))) {
 				collidingBoxes.add(axisBB.offset(pos));
 			}
 		}

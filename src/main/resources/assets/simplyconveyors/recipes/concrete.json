@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "simplyconveyors:concrete",
+    "count": 8
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "D": {
+      "item": "minecraft:dirt",
+      "data": 0
+    }
+  }
+}

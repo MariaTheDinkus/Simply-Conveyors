@@ -1,0 +1,82 @@
+{
+  "result": {
+    "item": "simplyconveyors:road_full",
+    "data": 13,
+    "count": 8
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "road_full",
+  "key": {
+    "B": [ 
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 0
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 1
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 2
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 3
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 4
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 5
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 6
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 7
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 8
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 9
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 10
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 11
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 12
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 13
+		},
+		{
+			"item": "simplyconveyors:road_full",
+			"data": 14
+		}
+	],
+    "D": {
+      "item": "minecraft:dye",
+      "data": 2
+    }
+  }
+}

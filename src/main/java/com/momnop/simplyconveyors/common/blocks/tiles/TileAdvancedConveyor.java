@@ -2,7 +2,6 @@ package com.momnop.simplyconveyors.common.blocks.tiles;
 
 import java.util.List;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -65,13 +64,13 @@ public class TileAdvancedConveyor extends TileEntity
 			{
 				for(EntityItem item : list)
 				{
-					if(item.getEntityItem() != ItemStackTools.getEmptyStack())
+					if(item.getItem() != ItemStack.EMPTY)
 					{
-						return item.getEntityItem();
+						return item.getItem();
 					}
 				}
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override
@@ -85,7 +84,7 @@ public class TileAdvancedConveyor extends TileEntity
 				entity.motionZ = 0;
 				conveyor.getWorld().spawnEntity(entity);
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override
@@ -99,12 +98,12 @@ public class TileAdvancedConveyor extends TileEntity
 			{
 				for(EntityItem item : list)
 				{
-					if(item.getEntityItem() != ItemStackTools.getEmptyStack())
+					if(item.getItem() != ItemStack.EMPTY)
 					{
-						ItemStack stack = item.getEntityItem().copy();
-						ItemStackTools.setStackSize(stack, amount);
-						if (!simulate && ItemStackTools.getStackSize(item.getEntityItem()) != 1) {
-							ItemStackTools.setStackSize(item.getEntityItem(), ItemStackTools.getStackSize(item.getEntityItem()) - amount);
+						ItemStack stack = item.getItem().copy();
+						stack.setCount(amount);
+						if (!simulate && item.getItem().getCount() != 1) {
+							item.getItem().setCount(item.getItem().getCount() - amount);
 						} else if (!simulate) {
 							item.setDead();
 						}
@@ -112,7 +111,7 @@ public class TileAdvancedConveyor extends TileEntity
 					}
 				}
 			}
-			return ItemStackTools.getEmptyStack();
+			return ItemStack.EMPTY;
 		}
 
 		@Override

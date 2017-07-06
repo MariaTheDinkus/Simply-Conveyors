@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "simplyconveyors:gold_spike_module"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:black_leather"
+    },
+    {
+      "item": "minecraft:gold_block"
+    },
+    {
+      "item": "minecraft:lapis_block"
+    },
+    {
+      "item": "minecraft:golden_sword"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

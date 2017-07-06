@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_modular_slow"
+  },
+  "pattern": [
+    "RCR",
+    "cDc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "conveyor_modular",
+  "key": {
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "C": {
+      "item": "simplyconveyors:conveyor_advanced_slow"
+    },
+    "c": {
+      "item": "minecraft:chest"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  }
+}

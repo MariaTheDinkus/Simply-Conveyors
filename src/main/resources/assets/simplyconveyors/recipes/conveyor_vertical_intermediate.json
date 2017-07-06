@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "simplyconveyors:conveyor_vertical_intermediate"
+  },
+  "ingredients": [
+    {
+      "item": "simplyconveyors:conveyor_inverse_intermediate"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "conveyor_vertical"
+}
