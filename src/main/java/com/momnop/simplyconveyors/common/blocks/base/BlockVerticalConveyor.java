@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.common.blocks.base;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mcjty.lib.tools.ItemStackTools;
@@ -79,8 +80,9 @@ public class BlockVerticalConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
-					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
+			ArrayList<ItemStack> armor = new ArrayList<ItemStack>();
+			if(armor.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+					&& armor.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;
 			}

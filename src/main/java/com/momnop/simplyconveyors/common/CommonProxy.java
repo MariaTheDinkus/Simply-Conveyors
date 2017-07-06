@@ -39,9 +39,9 @@ public class CommonProxy
 		return ctx.getServerHandler().playerEntity;
 	}
 	
-	public void setExtraReach(EntityLivingBase entity, float reach) {
-		if(entity instanceof EntityPlayerMP) {
-			((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(5F + reach);
-		}
-	}
+//	public void setExtraReach(EntityLivingBase entity, float reach) {
+//		if(entity instanceof EntityPlayerMP) {
+//			((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(5F + reach);
+//		}
+//	}
 }

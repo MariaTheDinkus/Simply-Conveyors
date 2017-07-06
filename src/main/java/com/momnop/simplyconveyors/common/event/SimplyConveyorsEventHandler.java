@@ -342,17 +342,4 @@ public class SimplyConveyorsEventHandler
 			}
 		}
 	}
-	
-	@SubscribeEvent
-	public void playerTickEvent(PlayerTickEvent event) {
-		EntityPlayer player = event.player;
-		
-		if (player.getHeldItemOffhand() != ItemStackTools.getEmptyStack() && player.getHeldItemOffhand().getItem() instanceof ItemWorkerGloves) {
-			if (player.getHeldItemMainhand() == ItemStackTools.getEmptyStack() || player.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && !(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) {
-				SimplyConveyors.proxy.setExtraReach(player, 2F);
-			}
-		} else {
-			SimplyConveyors.proxy.setExtraReach(player, 0F);
-		}
-	}
 }

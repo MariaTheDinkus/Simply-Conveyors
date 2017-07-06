@@ -1,5 +1,6 @@
 package com.momnop.simplyconveyors.common.blocks.base;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,8 +75,9 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(!player.onGround || player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
-					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
+			ArrayList<ItemStack> armor = new ArrayList<ItemStack>();
+			if(!player.onGround || armor.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
+					&& armor.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;
 			}

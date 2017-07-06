@@ -1,5 +1,7 @@
 package com.momnop.simplyconveyors.common.handlers;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -7,6 +9,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
@@ -14,12 +17,33 @@ import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
 
 public class RecipeHandler
 {
+	public static ArrayList<String> dyeNames = new ArrayList<String>();
+	
+	public static void loadList() {
+		dyeNames.add("dyeBlack");
+		dyeNames.add("dyeRed");
+		dyeNames.add("dyeGreen");
+		dyeNames.add("dyeBrown");
+		dyeNames.add("dyeBlue");
+		dyeNames.add("dyePurple");
+		dyeNames.add("dyeCyan");
+		dyeNames.add("dyeLightGray");
+		dyeNames.add("dyeGray");
+		dyeNames.add("dyePink");
+		dyeNames.add("dyeLime");
+		dyeNames.add("dyeYellow");
+		dyeNames.add("dyeLightBlue");
+		dyeNames.add("dyeMagenta");
+		dyeNames.add("dyeOrange");
+		dyeNames.add("dyeWhite");
+	}
+	
 	public static void loadRecipes() {
 		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.wrench), new Object[] { "I I", " i ", " i ", 'I', new ItemStack(SimplyConveyorsItems.roller, 1, 0), 'i', Items.IRON_INGOT });
 		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.roller, 6, 0), new Object[] { "r  ", " r ", "  r", 'r', Items.IRON_INGOT });
 		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.roller, 6, 1), new Object[] { "r  ", " r ", "  r", 'r', Items.GOLD_INGOT });
 		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.roller, 6, 2), new Object[] { "r  ", " r ", "  r", 'r', Items.DIAMOND });
-		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.black_leather, 8), new Object[] { "LLL", "LBL", "LLL", 'L', Items.LEATHER, 'B', new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()) });
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(SimplyConveyorsItems.black_leather, 8), new Object[] { "LLL", "LBL", "LLL", 'L', Items.LEATHER, 'B', "dyeBlack" }));
 		
 		GameRegistry.addShapedRecipe(new ItemStack(SimplyConveyorsItems.track, 6), new Object[] { "LLL", 'L', SimplyConveyorsItems.black_leather });
 		
@@ -66,20 +90,21 @@ public class RecipeHandler
 		
 		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.mossy_concrete, 8), new Object[] { "CCC", "CVC", "CCC", 'C', SimplyConveyorsBlocks.concrete, 'V', Blocks.VINE });
 		
-		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsItems.worker_gloves, 1), new Object[] { "LLL", "LYL", " L ", 'L', Items.LEATHER, 'Y', new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()) });
+//		GameRegistry.addRecipe(new ItemStack(SimplyConveyorsItems.worker_gloves, 1), new Object[] { "LLL", "LYL", " L ", 'L', Items.LEATHER, 'Y', new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()) });
 		
 		for (int i = 0; i < 15; i++) {
-			GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.road_broken, 8, i), new Object[] { "D D", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.asphault), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(SimplyConveyorsBlocks.road_broken, 8, i), new Object[] { "D D", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.asphault), 'D', dyeNames.get(15 - i) }));
 		}
 		
 		for (int i = 0; i < 15; i++) {
-			GameRegistry.addRecipe(new ItemStack(SimplyConveyorsBlocks.road_full, 8, i), new Object[] { "DDD", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.asphault), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(SimplyConveyorsBlocks.road_full, 8, i), new Object[] { "DDD", "AAA", 'A', new ItemStack(SimplyConveyorsBlocks.asphault), 'D', dyeNames.get(15 - i) }));
 		}
 	}
 	
 	public static void addColorRecipes(Block block) {
+		
 		for (int i = 0; i < 15; i++) {
-			GameRegistry.addRecipe(new ItemStack(block, 8, i), new Object[] { "BBB", "BDB", "BBB", 'B', new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE), 'D', new ItemStack(Items.DYE, 1, 15 - i) });
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(block, 8, i), new Object[] { "BBB", "BDB", "BBB", 'B', new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE), 'D', dyeNames.get(15 - i) }));
 		}
 	}
 	

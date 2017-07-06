@@ -1,6 +1,7 @@
 package com.momnop.simplyconveyors.common.network;
 
 import io.netty.buffer.ByteBuf;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -37,12 +38,12 @@ public class MessageBusTicketData implements IMessage
 		{
 			if((player != null) && (message != null) && (ctx != null))
 			{
-				if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemBusTicket)
+				if(player.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && player.getHeldItemMainhand().getItem() instanceof ItemBusTicket)
 				{
 					player.getHeldItemMainhand().setStackDisplayName(message.name);
 				}
 
-				if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof ItemBusTicket)
+				if(player.getHeldItemOffhand() != ItemStackTools.getEmptyStack() && player.getHeldItemOffhand().getItem() instanceof ItemBusTicket)
 				{
 					player.getHeldItemOffhand().setStackDisplayName(message.name);
 				}

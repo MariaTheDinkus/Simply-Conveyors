@@ -70,6 +70,8 @@ public class SimplyConveyors
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		RecipeHandler.loadList();
+		
 		SimplyConveyorsItems.load();
 		SimplyConveyorsBlocks.load();
 

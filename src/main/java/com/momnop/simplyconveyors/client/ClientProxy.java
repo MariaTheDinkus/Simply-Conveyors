@@ -174,28 +174,28 @@ public class ClientProxy extends CommonProxy {
 				.getPlayerEntity(ctx);
 	}
 
-	@Override
-	public void setExtraReach(EntityLivingBase entity, float reach) {
-		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.player;
-		if (entity == player) {
-			if (!(mc.playerController instanceof IExtendedPlayerController)) {
-				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(
-						PlayerControllerMP.class, mc.playerController,
-						ModInfo.NET_CLIENT_HANDLER);
-				CustomPlayerController controller = new CustomPlayerController(
-						mc, net);
-				boolean isFlying = player.capabilities.isFlying;
-				boolean allowFlying = player.capabilities.allowFlying;
-				controller
-						.setGameType(mc.playerController.getCurrentGameType());
-				player.capabilities.isFlying = isFlying;
-				player.capabilities.allowFlying = allowFlying;
-				mc.playerController = controller;
-			}
-
-			((IExtendedPlayerController) mc.playerController)
-					.setReachDistanceExtension(reach);
-		}
-	}
+//	@Override
+//	public void setExtraReach(EntityLivingBase entity, float reach) {
+//		Minecraft mc = Minecraft.getMinecraft();
+//		EntityPlayer player = mc.player;
+//		if (entity == player) {
+//			if (!(mc.playerController instanceof IExtendedPlayerController)) {
+//				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(
+//						PlayerControllerMP.class, mc.playerController,
+//						ModInfo.NET_CLIENT_HANDLER);
+//				CustomPlayerController controller = new CustomPlayerController(
+//						mc, net);
+//				boolean isFlying = player.capabilities.isFlying;
+//				boolean allowFlying = player.capabilities.allowFlying;
+//				controller
+//						.setGameType(mc.playerController.getCurrentGameType());
+//				player.capabilities.isFlying = isFlying;
+//				player.capabilities.allowFlying = allowFlying;
+//				mc.playerController = controller;
+//			}
+//
+//			((IExtendedPlayerController) mc.playerController)
+//					.setReachDistanceExtension(reach);
+//		}
+//	}
 }
