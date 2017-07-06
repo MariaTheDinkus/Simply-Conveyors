@@ -72,7 +72,6 @@ public class SimplyConveyors
 	{
 		SimplyConveyorsItems.load();
 		SimplyConveyorsBlocks.load();
-		RecipeHandler.loadRecipes();
 
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
 	}
@@ -90,6 +89,8 @@ public class SimplyConveyors
 		GameRegistry.registerTileEntity(TileModularConveyor.class, "tile_modular_conveyor");
 
 		MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
+		
+		RecipeHandler.loadRecipes();
 	}
 
 	@EventHandler

@@ -68,7 +68,7 @@ public class SimplyConveyorsEventHandler
 	
 	@SubscribeEvent
 	public void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() == SimplyConveyorsItems.wrench) {
+		if (event.getItemStack() != ItemStackTools.getEmptyStack() && event.getItemStack().getItem() == SimplyConveyorsItems.wrench) {
 			if (event.getWorld().getBlockState(event.getPos()).getBlock() instanceof IWrenchable) {
 				IWrenchable wrenchable = (IWrenchable) event.getWorld().getBlockState(event.getPos()).getBlock();
 				wrenchable.onWrenched(event.getWorld(), event.getWorld().getBlockState(event.getPos()), event.getPos(), event.getEntityPlayer(), event.getHand());
