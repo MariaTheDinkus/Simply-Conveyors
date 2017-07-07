@@ -50,8 +50,8 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		EnumFacing facing = state.getValue(FACING).getOpposite();
 		
 		ArrayList<AxisAlignedBB> list = new ArrayList<AxisAlignedBB>();
-		for (int i = 0; i < 31; i++) {
-			AxisAlignedBB axisBB = new AxisAlignedBB(0, 1 / 32f + ((i - 1) * (1 / 32f)), 1 / 32f + ((i - 1) * (1 / 32f)), 1, (i + 1) * (1 / 32f), (i + 1) * (1 / 32f));
+		for (int i = 0; i < 63; i++) {
+			AxisAlignedBB axisBB = new AxisAlignedBB(0, 1 / 64f + ((i - 1) * (1 / 64f)), 1 / 64f + ((i - 1) * (1 / 64f)), 1, (i + 1) * (1 / 64f), (i + 1) * (1 / 64f));
 			axisBB = RotationUtils.getRotatedAABB(axisBB, facing);
 			list.add(axisBB);
 		}
@@ -81,6 +81,8 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		if (entityIn instanceof EntityItem) {
 			EntityItem item = (EntityItem) entityIn;
 			item.setAgeToCreativeDespawnTime();
+			
+			entityIn.stepHeight = 0.1F;
 		}
 			
 		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {

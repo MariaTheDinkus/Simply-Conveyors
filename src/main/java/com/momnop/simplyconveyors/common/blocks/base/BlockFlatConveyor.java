@@ -2,9 +2,7 @@ package com.momnop.simplyconveyors.common.blocks.base;
 
 import java.util.List;
 
-import mcjty.lib.CompatLayer;
 import mcjty.lib.tools.InventoryTools;
-import mcjty.lib.tools.ItemStackList;
 import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -19,7 +17,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -63,7 +60,7 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 			newState = newState.withProperty(BACK, false);
 		}
 		
-		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockFlatConveyor) {
+		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockFlatConveyor || worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(LEFT, true);
 		} else if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW()).down()).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(LEFT, true);
@@ -71,7 +68,7 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 			newState = newState.withProperty(LEFT, false);
 		}
 		
-		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockFlatConveyor) {
+		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockFlatConveyor || worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(RIGHT, true);
 		} else if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY()).down()).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(RIGHT, true);
@@ -114,6 +111,8 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 				if(block instanceof BlockVerticalConveyor || block instanceof BlockStairConveyor)
 				{
 					entityIn.setPosition(entityIn.posX, entityIn.posY + 0.3F, entityIn.posZ);
+				} else if(block instanceof BlockRampConveyor) {
+					entityIn.setPosition(entityIn.posX, entityIn.posY + 0.05F, entityIn.posZ);
 				}
 			}
 			
