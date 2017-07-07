@@ -1,5 +1,9 @@
 package com.momnop.simplyconveyors.common.blocks.base;
 
+import java.util.Arrays;
+import java.util.List;
+
+import mcjty.lib.CompatLayer;
 import mcjty.lib.tools.ItemStackList;
 import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
@@ -16,6 +20,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
@@ -91,7 +96,16 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			ItemStackList armor = new ItemStackList(player.inventory.armorInventory, ItemStackTools.getEmptyStack());
+			
+			ItemStackList armor = null;
+			
+			Object armorInventory = (Object) player.inventory.armorInventory;
+			if (armorInventory instanceof ItemStack[]) {
+				armor = new ItemStackList((List<ItemStack>) armorInventory, ItemStackTools.getEmptyStack());
+			} else if (armorInventory instanceof NonNullList) {
+				armor = new ItemStackList((NonNullList<ItemStack>) armorInventory, ItemStackTools.getEmptyStack());
+			}
+			
 			if(!player.onGround || armor.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStackTools.getEmptyStack()
 					&& armor.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{

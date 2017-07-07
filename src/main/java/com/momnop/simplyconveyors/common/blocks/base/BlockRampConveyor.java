@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -72,7 +73,16 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			ItemStackList armor = new ItemStackList(player.inventory.armorInventory, ItemStackTools.getEmptyStack());
+			
+			ItemStackList armor = null;
+			
+			Object armorInventory = (Object) player.inventory.armorInventory;
+			if (armorInventory instanceof ItemStack[]) {
+				armor = new ItemStackList((List<ItemStack>) armorInventory, ItemStackTools.getEmptyStack());
+			} else if (armorInventory instanceof NonNullList) {
+				armor = new ItemStackList((NonNullList<ItemStack>) armorInventory, ItemStackTools.getEmptyStack());
+			}
+			
 			if(!player.onGround || armor.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
 					&& armor.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
