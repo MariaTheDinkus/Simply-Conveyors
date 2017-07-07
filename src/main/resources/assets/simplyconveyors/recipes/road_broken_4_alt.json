@@ -8,15 +8,15 @@
     "D D",
     "AAA"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "group": "road_broken_alt",
   "key": {
     "A": {
       "item": "simplyconveyors:asphault"
     },
     "D": {
-      "item": "minecraft:dye",
-      "data": 11
+      "type": "forge:ore_dict",
+      "ore": "dyeYellow"
     }
   }
 }

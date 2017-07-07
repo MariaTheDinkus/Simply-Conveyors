@@ -16,11 +16,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.momnop.simplyconveyors.client.ClientEventHandler;
 import com.momnop.simplyconveyors.common.CommonProxy;
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileAdvancedConveyor;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
-import com.momnop.simplyconveyors.common.event.SimplyConveyorsEventHandler;
+import com.momnop.simplyconveyors.common.event.CommonEventHandler;
 import com.momnop.simplyconveyors.common.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.common.handlers.GuiHandler;
 import com.momnop.simplyconveyors.common.info.ModInfo;
@@ -81,7 +82,11 @@ public class SimplyConveyors
 		GameRegistry.registerTileEntity(TileAdvancedConveyor.class, "tile_advanced_conveyor");
 		GameRegistry.registerTileEntity(TileModularConveyor.class, "tile_modular_conveyor");
 		
-		MinecraftForge.EVENT_BUS.register(new SimplyConveyorsEventHandler());
+		MinecraftForge.EVENT_BUS.register(new CommonEventHandler());
+		
+		if (event.getSide() == Side.CLIENT) {
+			MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+		}
 	}
 
 	@EventHandler

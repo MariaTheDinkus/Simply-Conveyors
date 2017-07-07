@@ -1,4 +1,4 @@
-package com.momnop.simplyconveyors.common.event;
+package com.momnop.simplyconveyors.client;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,61 +53,8 @@ import com.momnop.simplyconveyors.common.items.ItemWorkerGloves;
 import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
 import com.momnop.simplyconveyors.common.items.tracks.ItemSpongeTrack;
 
-public class SimplyConveyorsEventHandler
+public class ClientEventHandler
 {
-	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.EntityInteract event)
-	{
-		if(event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemEntityFilter)
-		{
-			ItemEntityFilter filter = (ItemEntityFilter) event.getItemStack().getItem();
-			event.getItemStack().getTagCompound().setString("filter", event.getTarget().getClass().getName());
-		}
-	}
-	
-	@SubscribeEvent
-	public void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() == SimplyConveyorsItems.wrench) {
-			if (event.getWorld().getBlockState(event.getPos()).getBlock() instanceof IWrenchable) {
-				IWrenchable wrenchable = (IWrenchable) event.getWorld().getBlockState(event.getPos()).getBlock();
-				wrenchable.onWrenched(event.getWorld(), event.getWorld().getBlockState(event.getPos()), event.getPos(), event.getEntityPlayer(), event.getHand());
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void damaged(LivingAttackEvent event)
-	{
-		if(event.getSource() == DamageSource.FALL && event.getEntityLiving().getEntityWorld().getBlockState(event.getEntityLiving().getPosition()).getBlock() instanceof BlockFlatModularConveyor)
-		{
-			TileModularConveyor modular = (TileModularConveyor) event.getEntityLiving().getEntityWorld().getTileEntity(event.getEntityLiving().getPosition());
-
-			if(modular.getStackInSlot(3) != ItemStack.EMPTY && modular.getStackInSlot(3).getItem() instanceof ItemSpongeTrack)
-			{
-				event.setCanceled(true);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onWorldLoaded(PlayerLoggedInEvent event)
-	{
-		BusStopManager.busStops.clear();
-		BusStopManager.busStopsNames.clear();
-		File busData = new File(DimensionManager.getCurrentSaveRootDirectory(), "busstops.dat");
-		if(busData.exists())
-		{
-			try
-			{
-				BusStopManager.writeData(event.player.getEntityWorld());
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	@SubscribeEvent
 	public void onTooltipEvent(ItemTooltipEvent event) {
 		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof ItemBlock) {
@@ -129,9 +76,18 @@ public class SimplyConveyorsEventHandler
 					event.getToolTip().add(TextFormatting.DARK_GRAY + "Press shift for more information...");
 				}
 			}
+			
+			if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof IModifier) {
+				IModifier modifier = (IModifier) event.getItemStack().getItem();
+				
+				event.getToolTip().add(modifier.getDescription());
+				if (modifier.isConductive()) {
+					event.getToolTip().add("This modifier reacts to redstone. Try powering it.");
+				}
+			}
 		}
 	}
-
+	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderGameOverlay(RenderGameOverlayEvent.Post event)
@@ -267,31 +223,6 @@ public class SimplyConveyorsEventHandler
 			{
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void tooltipEvent(ItemTooltipEvent event) {
-		if (event.getItemStack() != ItemStack.EMPTY && event.getItemStack().getItem() instanceof IModifier) {
-			IModifier modifier = (IModifier) event.getItemStack().getItem();
-			
-			event.getToolTip().add(modifier.getDescription());
-			if (modifier.isConductive()) {
-				event.getToolTip().add("This modifier reacts to redstone. Try powering it.");
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void playerTickEvent(PlayerTickEvent event) {
-		EntityPlayer player = event.player;
-		
-		if (player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem() instanceof ItemWorkerGloves) {
-			if (player.getHeldItemMainhand() == ItemStack.EMPTY || player.getHeldItemMainhand() != ItemStack.EMPTY && !(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) {
-				SimplyConveyors.proxy.setExtraReach(player, 2F);
-			}
-		} else {
-			SimplyConveyors.proxy.setExtraReach(player, 0F);
 		}
 	}
 }

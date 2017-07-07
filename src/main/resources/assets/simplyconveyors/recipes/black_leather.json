@@ -8,11 +8,11 @@
     "LBL",
     "LLL"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "key": {
     "B": {
-      "item": "minecraft:dye",
-      "data": 0
+      "type": "forge:ore_dict",
+      "ore": "dyeBlack"
     },
     "L": {
       "item": "minecraft:leather"

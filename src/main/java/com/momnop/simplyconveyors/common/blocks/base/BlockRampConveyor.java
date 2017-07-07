@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -25,8 +26,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import com.momnop.simplyconveyors.common.blocks.SimplyConveyorsBlocks;
+import com.momnop.simplyconveyors.common.handlers.ConfigHandler;
 import com.momnop.simplyconveyors.common.helpers.ConveyorHelper;
 import com.momnop.simplyconveyors.common.helpers.RotationUtils;
+import com.momnop.simplyconveyors.common.items.ItemConveyorResistanceBoots;
 
 public class BlockRampConveyor extends BlockPoweredConveyor {
 
@@ -68,10 +71,10 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			ArrayList<ItemStack> armor = new ArrayList<ItemStack>();
-			
-			for (ItemStack stack : player.getArmorInventoryList()) {
-				armor.add(stack);
+			if(!player.onGround || player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
+					&& player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
+			{
+				return;
 			}
 		}
 		
@@ -80,9 +83,8 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 			item.setAgeToCreativeDespawnTime();
 		}
 			
-		if (entityIn.onGround && !entityIn.isSneaking()) {
+		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
 			if (this.up) {
-				System.out.println(this.getUnlocalizedName());
 				ConveyorHelper.pushEntity(entityIn, pos, 0.125F, facing, true);
 			} else {
 				ConveyorHelper.pushEntity(entityIn, pos, 0.125F, facing.getOpposite(), true);

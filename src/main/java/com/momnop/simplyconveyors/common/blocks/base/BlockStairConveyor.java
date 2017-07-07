@@ -75,8 +75,8 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			if(!player.onGround || player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
-					&& player.inventory.player.inventory.armorItemInSlot(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
+			if(!player.onGround || player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
+					&& player.inventory.player.inventory.armorInventory.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
 				return;
 			}

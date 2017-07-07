@@ -44,7 +44,7 @@ public class SimplyConveyorsItems
 	public static Item bus_book;
 	public static Item bus_ticket;
 	
-	public static Item worker_gloves;
+//	public static Item worker_gloves;
 	
 	public static Item iron_spike_module, gold_spike_module, diamond_spike_module;
 
@@ -80,7 +80,7 @@ public class SimplyConveyorsItems
 		
 		transporter_module = register(new ItemTransporterModule("transporter_module"));
 		
-		worker_gloves = register(new ItemWorkerGloves("worker_gloves"));
+		//worker_gloves = register(new ItemWorkerGloves("worker_gloves"));
 		
 		for (ItemBlock ib : itemBlocks) {
 			registry.register(ib);
