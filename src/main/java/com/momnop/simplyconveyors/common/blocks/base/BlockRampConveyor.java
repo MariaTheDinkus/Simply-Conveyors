@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import mcjty.lib.tools.ItemStackList;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -70,7 +72,7 @@ public class BlockRampConveyor extends BlockPoweredConveyor {
 		
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
-			ArrayList<ItemStack> armor = new ArrayList<ItemStack>();
+			ItemStackList armor = new ItemStackList(player.inventory.armorInventory, ItemStackTools.getEmptyStack());
 			if(!player.onGround || armor.get(EntityEquipmentSlot.FEET.getIndex()) != ItemStack.EMPTY
 					&& armor.get(EntityEquipmentSlot.FEET.getIndex()).getItem() instanceof ItemConveyorResistanceBoots || player.capabilities.isFlying)
 			{
