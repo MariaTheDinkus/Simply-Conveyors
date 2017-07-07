@@ -57,7 +57,7 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 			newState = newState.withProperty(BACK, false);
 		}
 		
-		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockFlatConveyor) {
+		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockFlatConveyor || worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW())).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(LEFT, true);
 		} else if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateYCCW()).down()).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(LEFT, true);
@@ -65,7 +65,7 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 			newState = newState.withProperty(LEFT, false);
 		}
 		
-		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockFlatConveyor) {
+		if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockFlatConveyor || worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY())).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(RIGHT, true);
 		} else if (worldIn.getBlockState(pos.offset(state.getValue(FACING).rotateY()).down()).getBlock() instanceof BlockRampConveyor) {
 			newState = newState.withProperty(RIGHT, true);
@@ -104,7 +104,7 @@ public class BlockFlatConveyor extends BlockPoweredConveyor
 		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
 			if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) {
 				Block block = worldIn.getBlockState(pos.add(state.getValue(FACING).getDirectionVec())).getBlock();
-				if(block instanceof BlockVerticalConveyor || block instanceof BlockStairConveyor)
+				if(block instanceof BlockVerticalConveyor || block instanceof BlockStairConveyor || block instanceof BlockRampConveyor)
 				{
 					entityIn.setPosition(entityIn.posX, entityIn.posY + 0.3F, entityIn.posZ);
 				}

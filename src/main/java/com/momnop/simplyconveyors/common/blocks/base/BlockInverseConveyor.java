@@ -96,13 +96,6 @@ public class BlockInverseConveyor extends BlockPoweredConveyor
 		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
 			Block block = worldIn.getBlockState(pos.add(state.getValue(FACING).getDirectionVec())).getBlock();
 			
-			if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) {
-				if(block instanceof BlockVerticalConveyor || block instanceof BlockStairConveyor)
-				{
-					entityIn.setPositionAndUpdate(entityIn.posX, entityIn.posY + 0.3F, entityIn.posZ);
-				}
-			}
-			
 			ConveyorHelper.pushEntityVertical(entityIn, pos, 0.3F, facing, false, true);
 			ConveyorHelper.pushEntity(entityIn, pos, getSpeed(), facing, false);
 		}

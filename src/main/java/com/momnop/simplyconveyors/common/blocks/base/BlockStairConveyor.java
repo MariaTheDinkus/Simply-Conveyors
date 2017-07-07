@@ -85,9 +85,6 @@ public class BlockStairConveyor extends BlockPoweredConveyor
 		if (entityIn instanceof EntityItem) {
 			EntityItem item = (EntityItem) entityIn;
 			item.setAgeToCreativeDespawnTime();
-			if (!entityIn.onGround) {
-				entityIn.motionY = 0.1;
-			}
 		}
 		
 		if (!state.getValue(POWERED) && ConfigHandler.stopWhileSneaking && !entityIn.isSneaking() || !state.getValue(POWERED) && !ConfigHandler.stopWhileSneaking) {
