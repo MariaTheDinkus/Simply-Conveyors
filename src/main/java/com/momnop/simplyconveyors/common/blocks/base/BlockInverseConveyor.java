@@ -71,6 +71,12 @@ public class BlockInverseConveyor extends BlockPoweredConveyor
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
+		return new AxisAlignedBB(0, (15F / 16F), 0, 1, 1, 1);
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
 		return new AxisAlignedBB(0, (15.85F / 16F), 0, 1, 1, 1);
 	}
 	
