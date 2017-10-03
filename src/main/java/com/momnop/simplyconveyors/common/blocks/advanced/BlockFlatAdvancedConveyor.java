@@ -1,6 +1,5 @@
 package com.momnop.simplyconveyors.common.blocks.advanced;
 
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,7 +13,7 @@ import net.minecraft.world.World;
 import com.momnop.simplyconveyors.common.blocks.base.BlockFlatConveyor;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileAdvancedConveyor;
 
-public class BlockFlatAdvancedConveyor extends BlockFlatConveyor implements ITileEntityProvider
+public class BlockFlatAdvancedConveyor extends BlockFlatConveyor
 {
 	public BlockFlatAdvancedConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
@@ -22,8 +21,12 @@ public class BlockFlatAdvancedConveyor extends BlockFlatConveyor implements ITil
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
-	{
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileAdvancedConveyor();
 	}
 	

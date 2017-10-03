@@ -20,17 +20,21 @@ import com.momnop.simplyconveyors.api.interfaces.IModifier;
 import com.momnop.simplyconveyors.common.blocks.base.BlockFlatConveyor;
 import com.momnop.simplyconveyors.common.blocks.tiles.TileModularConveyor;
 
-public class BlockFlatModularConveyor extends BlockFlatConveyor implements ITileEntityProvider
+public class BlockFlatModularConveyor extends BlockFlatConveyor
 {
 
 	public BlockFlatModularConveyor(String unlocalizedName, double speed, Material material, float hardness, SoundType type, CreativeTabs tab)
 	{
 		super(unlocalizedName, speed, material, hardness, type, tab);
 	}
-
+	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
-	{
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileModularConveyor();
 	}
 

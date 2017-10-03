@@ -28,7 +28,7 @@ import com.momnop.simplyconveyors.common.info.ModInfo;
 import com.momnop.simplyconveyors.common.items.SimplyConveyorsItems;
 import com.momnop.simplyconveyors.common.network.PacketDispatcher;
 
-@Mod(name = ModInfo.NAME, modid = ModInfo.MOD_ID, version = ModInfo.VERSION, acceptedMinecraftVersions = "[1.12]")
+@Mod(name = ModInfo.NAME, modid = ModInfo.MOD_ID, version = ModInfo.VERSION, acceptedMinecraftVersions = "[1.12,1.12.1,1.12.2]")
 public class SimplyConveyors
 {
 	@Instance(value = ModInfo.MOD_ID)
